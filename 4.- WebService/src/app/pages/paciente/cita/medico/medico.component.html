@@ -1,0 +1,24 @@
+
+<div class="container">
+    <div class="list-group py-2" *ngFor="let medico of medicos">
+      <a class="list-group-item">
+        <div class="d-flex w-100 justify-content-between">
+          <div class="col-md-3 d-flex justify-content-center user-img text-center pt-1">
+            <img class="img-fluid d-none d-sm-block" src="{{medico.foto}}" />
+          </div>
+          <div class="col-md-9">
+            <h2 class="mb-1 text-calmelcase">{{ medico.apelativo }} {{medico.medico}}</h2>
+            <h4 class="mb-1">Especialidad : {{ medico.especialista }}</h4>
+            <div class="user-detail">
+              <p class="m-0"><i class="fas fa-calendar-day" aria-hidden="true"></i> {{medico.dia}}</p>
+              <p class="m-0"><i class="far fa-clock" aria-hidden="true"></i> {{medico.hora}}</p>
+          </div>
+            <button (click)="getIdCalendario(medico.id,medico.hora)" type="button" class="btn btl-lg btn-success">
+              <i class="far fa-check-circle"></i> Reservar
+            </button>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  

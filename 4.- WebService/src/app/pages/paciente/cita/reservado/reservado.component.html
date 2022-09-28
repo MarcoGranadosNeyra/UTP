@@ -1,0 +1,48 @@
+    
+    
+    <div class="container py-2" >
+
+        <div class="container">
+          <div class="row d-flex h-100">
+            <div class="col-sm-6 text-center justify-content-center align-self-center">
+              <h1>
+                Felicidades Usted ha reservado un cita con el Medico. 
+              </h1>
+              <h1>
+                  {{cita.medico}}
+                </h1>
+
+                <section id="newsletter" class="py-2">
+                  <div class="container">
+                      <div class="row">
+                          <div class="col-md-12 d-flex  justify-content-center">
+                              <img class="img-fluid d-none d-sm-block imgEspecialidad" src="{{cita.foto_especialidad}}" >
+                          </div>
+                      </div>
+                  </div>
+              </section>
+
+                  <h1>Especialidad :  {{cita.especialidad}}</h1>
+                  <h1>Examen       :  {{cita.examen}}</h1>
+                  <h1>Fecha        :  {{cita.fecha}}</h1>
+                  <h1>Hora         :  {{cita.hora}}</h1>
+                
+              <p>recuerde llegar 15 minutos antes de la cita reservada</p>
+
+
+
+              <a  (click)="inicio()" class="btn btn-outline-secondary btn-lg">
+                  <i class="fas fa-house-user" ></i> Inicio
+              </a>
+
+            </div>
+            <div class="col-sm-6">
+              <img class="img-fluid d-none d-sm-block imgDr" src="{{cita.foto_medico}}" >
+            </div>
+          </div>
+        </div>
+      
+
+
+
+</div><!--container-->

@@ -1,0 +1,49 @@
+<mat-card-header>
+    <p>
+      <mat-toolbar color="primary">
+        <span>Modificar Categoria</span>
+        <span class="example-spacer"></span>
+      </mat-toolbar>
+    </p>
+  </mat-card-header>
+  <div mat-dialog-content>
+    <form [formGroup]="formCategoria">
+      <div class="form-group">
+        <div class="row">
+          <mat-form-field [hidden]="true" class="fullWidth" appearance="outline">
+            <mat-label>id</mat-label>
+            <input matInput formControlName="id">
+          </mat-form-field>
+
+          <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>Categoria</mat-label>
+            <input matInput formControlName="categoria">
+          </mat-form-field>
+
+          <div class="form-row">
+            <div class="row">
+              <div class="form-group col-md-12">
+                <label class="col-sm-6 col-form-label"><strong>Imagen :</strong></label>
+                <input class="form-control " type="file" (change)="changeImage($event)" id="imagenx" name="imagenx" required>
+              </div>
+            </div>
+          </div>
+
+          <mat-form-field [hidden]="true" class="fullWidth" appearance="outline">
+            <mat-label>Imagen</mat-label>
+            <input matInput formControlName="imagen">
+          </mat-form-field>
+
+        
+          <section class="py-2">
+          </section>
+        </div>
+  </div>
+  <form class="row g-3">
+    <div class="col-auto">
+      <button mat-raised-button color="primary" [disabled]="!formCategoria.valid" [mat-dialog-close]="1" (click)="actualizarCategoria()"><mat-icon>save</mat-icon> Aceptar</button>
+    </div>
+    <div class="col-auto">
+      <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1"><mat-icon>exit_to_app</mat-icon> Cancelar</button>
+    </div>
+  </form>

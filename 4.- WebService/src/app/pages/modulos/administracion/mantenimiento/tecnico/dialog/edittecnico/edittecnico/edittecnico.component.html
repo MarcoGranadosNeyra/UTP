@@ -1,0 +1,57 @@
+<mat-card-header>
+    <p>
+      <mat-toolbar color="primary">
+        <span>Modificar Tecnico</span>
+        <span class="example-spacer"></span>
+      </mat-toolbar>
+    </p>
+  </mat-card-header>
+  <div mat-dialog-content>
+    <form [formGroup]="formTecnico">
+      <div class="form-group">
+        <div class="row">
+          <mat-form-field [hidden]="true" class="fullWidth" appearance="outline">
+            <mat-label>id</mat-label>
+            <input matInput formControlName="id">
+          </mat-form-field>
+
+          <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>Persona</mat-label>
+            <mat-select formControlName="id_persona">
+              <mat-option *ngFor="let persona of personas" [value]="persona.id" >
+                {{persona.nombres}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>Especialidad</mat-label>
+            <mat-select formControlName="id_especialidad">
+              <mat-option *ngFor="let especialidad of especialidades" [value]="especialidad.id"  >
+                {{especialidad.especialidad}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>Descripcion</mat-label>
+            <input matInput formControlName="especialidad">
+          </mat-form-field>
+
+        
+          <section class="example-section">
+            <mat-checkbox class="example-margin" color="primary" formControlName="estado">Activo
+            </mat-checkbox>
+          </section>
+          <section class="py-2">
+          </section>
+        </div>
+  </div>
+  <form class="row g-3">
+    <div class="col-auto">
+      <button mat-raised-button color="primary" [disabled]="!formTecnico.valid" [mat-dialog-close]="1" (click)="actualizarTecnico()"><mat-icon>save</mat-icon> Aceptar</button>
+    </div>
+    <div class="col-auto">
+      <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1"><mat-icon>exit_to_app</mat-icon> Cancelar</button>
+    </div>
+  </form>

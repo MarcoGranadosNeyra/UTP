@@ -1,0 +1,56 @@
+<mat-card-header>
+    <p>
+      <mat-toolbar color="primary">
+        <span>Agregar Usuario</span>
+        <span class="example-spacer"></span>
+      </mat-toolbar>
+    </p>
+  </mat-card-header>
+  <div mat-dialog-content>
+    <form [formGroup]="formUsuario">
+      <div class="form-group">
+        <div class="row">
+
+          <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>Persona</mat-label>
+            <mat-select formControlName="id_persona">
+              <mat-option *ngFor="let persona of personas" [value]="persona.id"  >
+                {{persona.nombres}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>Rol</mat-label>
+            <mat-select formControlName="id_rol">
+              <mat-option *ngFor="let rol of roles" [value]="rol.id" >
+                {{rol.rol}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field  [hidden]="true" class="fullWidth" appearance="outline">
+            <mat-label>id_tipo_usuario</mat-label>
+            <input matInput formControlName="id_tipo_usuario">
+          </mat-form-field>
+
+          <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>Usuario</mat-label>
+            <input matInput formControlName="usuario">
+          </mat-form-field>
+
+          <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password">
+          </mat-form-field>
+
+        </div>
+  </div>
+  <form class="row g-3">
+    <div class="col-auto">
+      <button mat-raised-button color="primary" [disabled]="!formUsuario.valid" [mat-dialog-close]="1" (click)="agregarUsuario()"><mat-icon>save</mat-icon> Aceptar</button>
+    </div>
+    <div class="col-auto">
+      <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1"><mat-icon>exit_to_app</mat-icon> Cancelar</button>
+    </div>
+  </form>

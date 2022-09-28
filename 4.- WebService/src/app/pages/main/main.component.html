@@ -1,0 +1,84 @@
+<mat-toolbar class="mat-elevation-z8">
+    <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+        <mat-icon *ngIf="!sidenav.opened">
+            menu
+        </mat-icon>
+        <mat-icon *ngIf="sidenav.opened">
+            close
+        </mat-icon>
+    </button>
+    Aplicacion Innova UTP
+
+
+    <span class="example-spacer"></span>
+    <button (click)="cerrarSession()" routerLinkActive="active" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+        <mat-icon>logout</mat-icon> 
+        <span> Salir</span>
+      </button>
+
+
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+
+        <img class="avatar mat-elevation-z8" src="{{persona.foto}}" />
+
+        <h4 class="name">{{persona.nombre}} {{persona.apaterno}}</h4>
+        <p class="designation">{{rol.rol}}</p>
+
+        <mat-divider></mat-divider>
+
+        <button mat-button class="menu-button">
+            <mat-icon>home</mat-icon>
+            <span [routerLink]="['../main']"> Inicio</span>
+        </button>
+
+        <button mat-button class="menu-button">
+            <mat-icon>person</mat-icon>
+            <span [routerLink]="['perfil/',persona.id]"> Mi Perfil</span>
+        </button>
+        <button mat-button class="menu-button">
+            <mat-icon>info</mat-icon>
+            <span> Info</span>
+        </button>
+
+        <button mat-button class="menu-button">
+            <mat-icon>help</mat-icon>
+            <span> Ayuda</span>
+        </button>
+
+        <mat-divider></mat-divider>
+
+        <button mat-button class="menu-button">
+            <mat-icon>settings</mat-icon>
+            <span> Modulos</span>
+        </button>
+
+
+        <div *ngFor="let modulo of modulos">
+            <button mat-button class="menu-button"  >
+                <mat-icon>list</mat-icon>
+                <span  routerLink="{{modulo.url}}">  {{modulo.modulo}} </span>
+                
+            </button>
+
+        
+        </div>
+
+
+
+        <mat-divider></mat-divider>
+      
+    </mat-sidenav>
+    
+
+    <mat-sidenav-content>
+        <div class="content mat-elevation-z8">
+
+            <router-outlet></router-outlet>
+
+        </div>
+    </mat-sidenav-content>
+
+</mat-sidenav-container>

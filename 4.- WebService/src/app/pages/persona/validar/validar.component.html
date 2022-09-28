@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <form class="contact-form row" [formGroup]="formValidate" (ngSubmit)="validatePersona()">
+          
+
+          <div class="form-row py-3">
+            <div class="row">
+              <h1><label><strong>DATOS PERSONALES :</strong></label></h1>
+              <div class="form-group col-md-6">
+                <label class="col-sm-6 col-form-label"><strong>Tipo de Documento :</strong></label>
+                <select class="form-select form-select-lg mb-3"  [(ngModel)]='documentoSelected' formControlName="id_documento" >
+                  <option *ngFor="let documento of documento" value={{documento.id}} >
+                    {{documento.documento}}</option>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label class="col-sm-6 col-form-label"><strong>Nro de  Documento :</strong></label>
+                <input type="text" class="form-control form-control-lg" formControlName="nro_documento" minlength="8">
+              </div>
+            </div>
+          </div>
+
+          <div class="d-grid gap-2 py-3">
+            <button class="btn btn-success btn-lg btn-block" [disabled]="!formValidate.valid">Validar</button>
+            <button class="btn btn-danger btn-lg btn-block" [routerLink]="['/login']">Cancelar</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>

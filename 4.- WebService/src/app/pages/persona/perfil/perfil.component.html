@@ -1,0 +1,148 @@
+
+
+    <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="container text-center">
+            <form class="contact-form row" [formGroup]="formPersona" (ngSubmit)="actualizarPersona()">
+              
+              <input type="hidden" class="form-control form-control-lg" formControlName="id"  >
+
+              <div class="form-row">
+                <div class="row">
+                  <div class="form-group col-md-4">
+                    <label class="col-sm-6 col-form-label"><strong>Departamento :</strong></label>
+                    <select class="form-select form-select-lg mb-3" 
+                      (change)="getIdDepartamento($event)" formControlName="id_departamento">
+                      <option *ngFor="let departamento of departamento" value={{departamento.id}}  >
+                        {{departamento.departamento}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label class="col-sm-6 col-form-label"><strong>Provincia :</strong></label>
+                    <select class="form-select form-select-lg mb-3" 
+                    (change)="getIdProvincia($event)" formControlName="id_provincia" >
+                    <option >Seleccione</option>
+                    <option *ngFor="let provincia of provincia" value={{provincia.id}}>
+                      {{provincia.provincia}}</option>
+                  </select>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label class="col-sm-6 col-form-label"><strong>Distrito :</strong></label>
+                    <select class="form-select form-select-lg mb-3"  formControlName="id_distrito">
+                      <option >Seleccione</option>
+                    <option *ngFor="let distrito of distrito" value={{distrito.id}}>
+                      {{distrito.distrito}}</option>
+                  </select>
+                  </div>
+                </div>
+              </div>
+    
+    
+    
+              <div class="form-row">
+                <div class="row">
+                  <div class="form-group col-md-4">
+                    <label class="col-sm-6 col-form-label"><strong>Tipo de Documento :</strong></label>
+                    <select class="form-select form-select-lg mb-3"  formControlName="id_documento" >
+                      <option *ngFor="let documento of documento" value={{documento.id}} >
+                        {{documento.documento}}</option>
+                    </select>
+    
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label class="col-sm-6 col-form-label"><strong>Nro de Documento :</strong></label>
+                    <input type="text" class="form-control form-control-lg" formControlName="nro_documento"  >
+                    
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label class="col-sm-6 col-form-label"><strong>Sexo :</strong></label>
+                    <select class="form-select form-select-lg mb-3"  formControlName="id_sexo" >
+                      <option *ngFor="let sexo of sexo" value={{sexo.id}}>
+                        {{sexo.sexo}}</option>
+                    </select>
+
+                  </div>
+                </div>
+              </div>
+    
+              <div class="form-row">
+                <div class="row">
+                  <div class="form-group col-md-4">
+                    <label class="col-sm-6 col-form-label"><strong>Nombres :</strong></label>
+                    <input type="text"  formControlName="nombre" class="form-control form-control-lg" >
+                   
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label class="col-sm-6 col-form-label"><strong>Apellido Paterno :</strong></label>
+                    <input type="text" formControlName="apaterno" class="form-control form-control-lg" >
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label class="col-sm-6 col-form-label"><strong>Apellido Materno :</strong></label>
+                    <input type="text" class="form-control form-control-lg" formControlName="amaterno">
+                  </div>
+                </div>
+              </div>
+    
+              <div class="form-row">
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label class="col-sm-6 col-form-label"><strong>Telefono :</strong></label>
+                    <input type="text" formControlName="telefono" class="form-control form-control-lg"  > 
+                  </div>
+    
+                  <div class="form-group col-md-6">
+                    <label class="col-sm-6 col-form-label"><strong>Fecha de Nacimiento :</strong></label>
+                    <input type="date" formControlName="fecha_naci" class="form-control form-control-lg">
+                  </div>
+                </div>
+              </div>
+    
+              <div class="form-row">
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label class="col-sm-6 col-form-label"><strong>Direccion :</strong></label>
+                    <input type="text"  formControlName="direccion" class="form-control form-control-lg"  >
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label class="col-sm-6 col-form-label"><strong>Correo :</strong></label>
+                    <input type="text"  formControlName="correo" class="form-control form-control-lg" >
+                  </div>
+                </div>
+              </div>
+    
+              <div class="form-row">
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <input type="hidden"   class="form-control form-control-lg" formControlName="firma" >
+                  </div>
+                  <div class="form-group col-md-12">
+                    <input type="hidden"  class="form-control form-control-lg" formControlName="huella">
+                  </div>
+                  <div class="form-group col-md-12">
+                    <input type="hidden"    class="form-control form-control-lg" formControlName="foto">
+                  </div>
+                </div>
+              </div>
+    
+
+              <div class="form-row">
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <label class="col-sm-6 col-form-label"><strong>Foto :</strong></label>
+                    <input class="form-control form-control-lg" type="file" (change)="changeImage($event)" id="imagenx" name="imagenx" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-grid gap-2 py-5">
+                <button class="btn btn-success btn-lg btn-block" [disabled]="!formPersona.valid">Actualizar</button>
+                <button class="btn btn-danger btn-lg btn-block" (click)="cancelar()">Cancelar</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    

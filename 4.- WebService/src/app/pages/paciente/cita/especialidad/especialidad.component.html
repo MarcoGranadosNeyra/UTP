@@ -1,0 +1,15 @@
+<section class="py-3">
+    <div class="container">
+      <div class="row">
+     
+        <div *ngFor="let especialidad of especialidades" class="col-md-3 py-2">
+          <div class="card text-center border-primary">
+            <div class="card-body pointerCursor" (click)="getEspecialidad(especialidad.id)" >
+               {{especialidad.especialidad}} <a type="button"  class="btn btn-link"><i class="fas fa-lg fa-chevron-circle-right fa-2x"></i></a>
+            </div>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+  </section>

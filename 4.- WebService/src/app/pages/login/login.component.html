@@ -1,0 +1,67 @@
+
+  <mat-toolbar >
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+  
+    <span class="example-spacer"></span>
+    <a (click)="registrarme()" type="button" class="nav-link text-light pl-4"><i class="fas fa-user-plus"></i> Registrame</a>
+    
+    
+  </mat-toolbar>
+
+        <section id="newsletter" class="py-2">
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-12 d-flex  justify-content-center">
+                    <div class="cat">
+                      <img class="img-fluid d-none d-sm-block" src="https://webprojects2.utp.edu.pe/publicacionweb/Imagenes/logo_reporte.png" alt=""/>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+      
+      <div class="container">
+      
+      <div class="row py-2">
+          <div class="col-md-4 mx-auto">
+              <div class="card">
+                  <div class="card-header text-center">
+                      <h1>Iniciar sesión</h1>
+                  </div>
+                  <div class="card-body">
+                      <form [formGroup]="formLogin" (submit)="validarUsuario()">
+
+                        <div class="form-row">
+                          <div class="row">
+                            <div class="form-group col-md-12">
+                              <label class="col-sm-12 col-form-label"><strong>Usuario :</strong></label>
+                              <input type="text" formControlName="usuario"  class="form-control form-control-lg" placeholder="usuario" required autofocus>
+                            </div>
+                            <div class="form-group col-md-12">
+                              <label class="col-sm-12 col-form-label"><strong>Password :</strong></label>
+                              <input type="password" formControlName="password" class="form-control form-control-lg" placeholder="Password" required>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="d-grid gap-2 py-5">
+                           <button class="btn btn-success btn-lg btn-block" [disabled]="!formLogin.valid">
+                              <i class="fa fa-sign-in fa-lg fa-fw"></i> Iniciar Sesión
+                            </button>
+                          </div>
+                          
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+      </div>
+
+
+
+
+
+        

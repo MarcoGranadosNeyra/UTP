@@ -1,0 +1,21 @@
+mat-toolbar {
+    background: #004a9f;
+    color: white;
+  }
+  
+  .example-spacer {
+    flex: 
+    1 1 auto;
+  }
+
+  
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+   }
+   
+   .cat {
+    height:150px;
+    width: 400px;
+   }

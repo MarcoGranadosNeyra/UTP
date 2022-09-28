@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ef29e7fa-4674-472e-a2df-b06f4bdd068d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     documento."id" AS documento_id,
+     documento."documento" AS documento_documento
+FROM
+     "public"."documento" documento]]>
+	</queryString>
+	<field name="documento_id" class="java.lang.Integer"/>
+	<field name="documento_documento" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="277" height="20" uuid="b262c109-1635-4587-844e-7990b909c82e"/>
+				<text><![CDATA[documento_id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="277" y="0" width="277" height="20" uuid="f5a2d3da-7337-44de-b0d3-ea925c217aae"/>
+				<text><![CDATA[documento_documento]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="277" height="20" uuid="9c2ced96-1bc5-4a44-b48d-571797be77b6"/>
+				<textFieldExpression><![CDATA[$F{documento_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="277" y="0" width="277" height="20" uuid="7ab0c8c1-ae4d-489b-9a23-9848bf455eb9"/>
+				<textFieldExpression><![CDATA[$F{documento_documento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

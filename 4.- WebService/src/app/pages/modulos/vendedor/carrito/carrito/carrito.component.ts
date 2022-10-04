@@ -56,8 +56,6 @@ export class CarritoComponent implements OnInit {
 
   public listarCarrito(){
     this.productos=this.carritoService.productosCarrito;
- 
-
   }
 
 

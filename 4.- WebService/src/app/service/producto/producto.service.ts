@@ -19,11 +19,11 @@ export class ProductoService {
 
   listarServicio() {
     return this.httpClient.get(`${this.apiURL}/servicio/list`);
-}
+  }
 
-listarRepuesto() {
-  return this.httpClient.get(`${this.apiURL}/repuesto/list`);
-}
+  listarRepuesto() {
+    return this.httpClient.get(`${this.apiURL}/repuesto/list`);
+  }
 
   agregarProducto(producto) {
     return this.httpClient.post(`${this.apiURL}/producto/agregar/`, producto);

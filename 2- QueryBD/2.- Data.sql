@@ -2146,13 +2146,13 @@ insert into hora values(7,'3:00 AM',15);
 insert into hora values(8,'4:00 AM',16);
 insert into hora values(9,'5:00 PM',17);
 
-insert into dia values(1,'DOMINGO');
-insert into dia values(2,'LUNES');
-insert into dia values(3,'MARTES');
-insert into dia values(4,'MIERCOLES');
-insert into dia values(5,'JUEVES');
-insert into dia values(6,'VIERNES');
-insert into dia values(7,'SABADO');
+insert into dia values(0,'DOMINGO');
+insert into dia values(1,'LUNES');
+insert into dia values(2,'MARTES');
+insert into dia values(3,'MIERCOLES');
+insert into dia values(4,'JUEVES');
+insert into dia values(5,'VIERNES');
+insert into dia values(6,'SABADO');
 
 /*ADM Y TECNICOS*/
 INSERT INTO persona VALUES(DEFAULT,'15','1501','150101',1,'40623674','Marco Antonio','Granados','Neyra','923667760','av. 24 de octubre lt2 mz 27-3 de octubre de villa','1980-05-09',1,'marco.granados.neyra@gmail.com','','','https://res.cloudinary.com/sistemas-granados/image/upload/v1618271851/gcbfupedwhurf4ctgxw9.png',true);
@@ -2182,23 +2182,30 @@ insert into tecnico (id_especialidad,id_persona,especialidad,estado)values(3,4,'
 
 /*LUNES*/
 
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,2,1,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,2,2,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,2,3,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,2,4,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,2,5,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,1,1,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,1,1,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,1,1,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,1,1,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,1,1,5,true,true);
 
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,2,1,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,2,2,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,2,3,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,2,4,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,2,5,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,2,1,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,2,1,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,2,1,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,2,1,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,2,1,5,true,true);
 
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,2,1,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,2,2,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,2,3,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,2,4,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,2,5,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,3,1,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,3,1,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,3,1,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,3,1,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,3,1,5,true,true);
+
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(9,4,1,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(9,4,1,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(9,4,1,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(9,4,1,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(9,4,1,5,true,true);
+
 
 /*MARTES*/
 
@@ -2303,35 +2310,32 @@ insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,7,5,true,
 insert into usuario (id_persona,id_rol,id_tipo_usuario,usuario,password,estado) values(1,1,2,'mgranados','1421',true);
 
 /*MODULOS PARA EL ADMINISTRADOR*/
-insert into modulo (modulo,url,estado)values('Usuarios','./../../UsuarioServlet?accion=listarUsuarios',true);
-insert into modulo (modulo,url,estado)values('Tenicos','administracion/mantenimiento/listarTecnico',true);
-insert into modulo (modulo,url,estado)values('Clientes','./../../ClienteServlet?accion=listarClientes',true);
-insert into modulo (modulo,url,estado)values('Reportes','./../../CitaServlet?accion=listarReporteAtenciones',true);
-insert into modulo (modulo,url,estado)values('Permisos','./../../PermisoServlet?accion=listarPermisos',true);
-insert into modulo (modulo,url,estado)values('producto','administracion/mantenimiento/listarProducto',true);
-/*MODULOS PARA EL TECNICO*/
-insert into modulo (modulo,url,estado)values('Clientes por atender','./../../TecnicoServlet?accion=clientesPorAtender',true);
-insert into modulo (modulo,url,estado)values('Reportes','./../../TecnicoServlet?accion=listarReporteAtenciones',true);
-/*MODULOS PARA EL USUARIO*/
-insert into modulo (modulo,url,estado)values('Servicios','menuPrincipal.jspp',true);
-insert into modulo (modulo,url,estado)values('Mis Citas','misCitas.jspp',true);
-insert into modulo (modulo,url,estado)values('Repuesto','administracion/mantenimiento/listarRepuesto',true);
+
+insert into modulo (modulo,url,estado)values('categorias','administracion/mantenimiento/listarCategoria',true);
+insert into modulo (modulo,url,estado)values('productos','administracion/mantenimiento/listarProducto',true);
+insert into modulo (modulo,url,estado)values('repuestos','administracion/mantenimiento/listarRepuesto',true);
+insert into modulo (modulo,url,estado)values('servicios','administracion/mantenimiento/listarServicio',true);
+insert into modulo (modulo,url,estado)values('usuarios','administracion/mantenimiento/listarUsuario',true);
+insert into modulo (Modulo,url,estado)values('tenicos','administracion/mantenimiento/listarServicio',true);
+insert into modulo (modulo,url,estado)values('modulos','administracion/mantenimiento/listarModulo',true);
+insert into modulo (modulo,url,estado)values('permisos','administracion/mantenimiento/listarPermiso',true);
+insert into modulo (modulo,url,estado)values('catalogo','vendedor/catalogoproductos',true);
+
+/*GRUPO*/
+  insert into grupo (grupo,estado)values('MANTENIMIENTO',true);
+  insert into grupo (grupo,estado)values('REPORTES',true);
+  insert into grupo (grupo,estado)values('VENTAS',true);
+  insert into grupo (grupo,estado)values('SERVICIOS',true);
 
 /*PERMISOS PARA EL ADMINISTRADOR*/
-insert into permiso (id_rol,id_modulo,estado)values(1,1,true);
-insert into permiso (id_rol,id_modulo,estado)values(1,2,true);
-insert into permiso (id_rol,id_modulo,estado)values(1,3,true);
-insert into permiso (id_rol,id_modulo,estado)values(1,4,true);
-/*PERMISOS PARA EL TECNICO*/
-insert into permiso (id_rol,id_modulo,estado)values(2,5,true);
-insert into permiso (id_rol,id_modulo,estado)values(2,6,true);
-/*PERMISOS PARA EL CLIENTE*/
-insert into permiso (id_rol,id_modulo,estado)values(3,7,true);
-insert into permiso (id_rol,id_modulo,estado)values(3,8,true);
-/*Administrador*/
-insert into permiso(id_rol,id_modulo,estado)values(1,9,true)
-insert into permiso(id_rol,id_modulo,estado)values(1,11,true);
-
+insert into permiso (id_grupo,id_rol,id_modulo,orden,estado)values(1,1,1,1,true);
+insert into permiso (id_grupo,id_rol,id_modulo,orden,estado)values(1,1,2,2,true);
+insert into permiso (id_grupo,id_rol,id_modulo,orden,estado)values(1,1,3,3,true);
+insert into permiso (id_grupo,id_rol,id_modulo,orden,estado)values(1,1,4,4,true);
+insert into permiso (id_grupo,id_rol,id_modulo,orden,estado)values(1,1,5,5,true);
+insert into permiso (id_grupo,id_rol,id_modulo,orden,estado)values(1,1,6,6,true);
+insert into permiso (id_grupo,id_rol,id_modulo,orden,estado)values(1,1,7,7,true);
+insert into permiso (id_grupo,id_rol,id_modulo,orden,estado)values(1,1,8,8,true);
 /**/
 
   insert into categoria (categoria,imagen,estado)values('celulares','',true);
@@ -2351,3 +2355,8 @@ INSERT INTO forma_pago (forma_pago,orden,estado)VALUES('DEPOSITO',3,true);
 INSERT INTO forma_pago (forma_pago,orden,estado)VALUES('YAPE',4,true);
 INSERT INTO forma_pago (forma_pago,orden,estado)VALUES('TUNKI',5,true);
 INSERT INTO forma_pago (forma_pago,orden,estado)VALUES('LUKITA',6,true);
+
+
+INSERT INTO tipo_atencion (tipo_atencion,estado)values('RESERVADO',true);
+INSERT INTO tipo_atencion (tipo_atencion,estado)values('ATENTIDO',true);
+INSERT INTO tipo_atencion (tipo_atencion,estado)values('REPROGRAMADO',true);

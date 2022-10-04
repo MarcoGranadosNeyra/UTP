@@ -29,12 +29,12 @@ public class CalendarioResource {
     List<Calendario> listarCalendario= new ArrayList<Calendario>();
 
     @POST
-    @Path("listarPorEspecialidad")
+    @Path("listarCalendarioPorProducto")
     @Produces("application/json")
     @Consumes("application/json")
-    public List<Calendario> listarPorEspecialidad(Calendario calendario) {
-        listarCalendario.clear();
-        listarCalendario=calendarioDAO.listarCalendario(calendario.getId_especialidad(), calendario.getId_dia());
+    public List<Calendario> listarCalendarioPorProducto(Calendario calendario) {
+        
+        listarCalendario=calendarioDAO.listarCalendarioPorProducto(calendario.getId_producto(), calendario.getId_dia());
         return listarCalendario;
     }    
 

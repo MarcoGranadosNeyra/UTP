@@ -38,8 +38,8 @@ export class CalendarioService {
     return this.http.delete(`${this.URL}/activarcalendario/${idCalendar}`);
   }
 
-  listarCalendarioByIdEspecialidad(calendario) {
-    return this.http.post<any>(this.URL + '/calendario/listarPorEspecialidad', calendario);
+  listarCalendarioPorProducto(calendario) {
+    return this.http.post<any>(this.URL + '/calendario/listarCalendarioPorProducto', calendario);
   }
 
 

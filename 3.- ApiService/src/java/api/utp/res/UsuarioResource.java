@@ -1,9 +1,11 @@
 package api.utp.res;
 
+import daoImpl.GrupoDAOImpl;
 import daoImpl.PermisoDAOImpl;
 import daoImpl.PersonaDAOImpl;
 import daoImpl.RolDAOImpl;
 import daoImpl.UsuarioDAOImpl;
+import entidad.Grupo;
 import entidad.Permiso;
 import entidad.Persona;
 import entidad.Rol;
@@ -261,6 +263,7 @@ public class UsuarioResource {
     public Response listarModulosUsuario(@PathParam(value = "id") int id) {
 
         JSONArray jsonArrayPermisos = new JSONArray();
+        JSONArray jsonArrayGrupo = new JSONArray();
         JSONObject jsonPersona = new JSONObject();
         JSONObject jsonRol = new JSONObject();
         JSONObject jsonResult = new JSONObject();
@@ -270,25 +273,40 @@ public class UsuarioResource {
         try {
             PermisoDAOImpl permisoDAO = new PermisoDAOImpl();
             PersonaDAOImpl personaDAO = new PersonaDAOImpl();
+            GrupoDAOImpl grupoDAO = new GrupoDAOImpl();
             RolDAOImpl rolDAO = new RolDAOImpl();
 
             List<Permiso> listarPermiso = permisoDAO.listarPermiso(id);
+            List<Grupo> listarGrupo = grupoDAO.listarGrupoByIdUsuario(id);
             Usuario usuario = usuarioDAO.buscarUsuario(id);
             Persona persona = personaDAO.buscarPersona(usuario.getId_persona());
             Rol rol = rolDAO.buscarRol(usuario.getId_rol());
-
+            
             for (Permiso permiso : listarPermiso) {
                 JSONObject data = new JSONObject();
                 data.put("id", permiso.getId());
+                data.put("id_grupo", permiso.getId_grupo());
                 data.put("modulo", permiso.getModulo());
                 data.put("url", permiso.getUrl());
                 jsonArrayPermisos.add(data);
+            }
+            
+            for (Grupo grupo : listarGrupo) {
+                JSONObject data = new JSONObject();
+                data.put("id", grupo.getId());
+                data.put("grupo", grupo.getGrupo());
+                data.put("estado", grupo.getEstado());
+                
+                jsonArrayGrupo.add(data);
             }
 
             jsonPersona.put("id", persona.getId());
             jsonPersona.put("nombre", persona.getNombre());
             jsonPersona.put("apaterno", persona.getApaterno());
             jsonPersona.put("amaterno", persona.getAmaterno());
+            jsonPersona.put("nro_documento", persona.getNro_documento());
+            jsonPersona.put("telefono", persona.getTelefono());
+            jsonPersona.put("correo", persona.getCorreo());
             jsonPersona.put("foto", persona.getFoto());
 
             jsonRol.put("id", rol.getId());
@@ -307,6 +325,7 @@ public class UsuarioResource {
         jsonResult.put("rol", jsonRol);
         jsonResult.put("persona", jsonPersona);
         jsonResult.put("modulos", jsonArrayPermisos);
+        jsonResult.put("grupos", jsonArrayGrupo);
 
         return Response
                 .status(200)

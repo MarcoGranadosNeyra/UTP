@@ -59,5 +59,27 @@ public class Reporte {
         }
         return outputStream.toByteArray();
     }
+    
+    public byte[] imprimirHojaServicio(ByteArrayOutputStream outputStream, Map parametros) {
+        JRPdfExporter exporter = new JRPdfExporter();
+        try {
+
+            String reportLocation = "C:\\report\\HojaServicio\\"
+                    + "HojaServicio.jrxml";
+                  
+            InputStream jrxmlInput = new FileInputStream(new File(reportLocation));
+            JasperDesign design = JRXmlLoader.load(jrxmlInput);
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, conexion.abrirConexion()); // datasource Service
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, outputStream);
+            exporter.exportReport();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error in generate Report..." + e);
+        } finally {
+        }
+        return outputStream.toByteArray();
+    }
 
 }

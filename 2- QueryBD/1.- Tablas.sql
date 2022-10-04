@@ -128,13 +128,16 @@ CONSTRAINT pk_id_modulo PRIMARY KEY(id)
 
 CREATE TABLE permiso(
 id			SERIAL,
+id_grupo    INT NOT NULL,
 id_rol	    INT NOT NULL,
 id_modulo	INT NOT NULL,
+orden		INT NOT NULL,
 estado		boolean NOT NULL,
 CONSTRAINT uq_id_rol_id_modulo_permiso UNIQUE(id_rol,id_modulo),
-CONSTRAINT pk_rol_modulo PRIMARY KEY(id),
-CONSTRAINT fk_id_rol_rol_modulo FOREIGN KEY (id_rol) REFERENCES rol(id),
-CONSTRAINT fk_id_modulo_rol_modulo FOREIGN KEY (id_modulo) REFERENCES modulo(id)
+CONSTRAINT pk_id_permiso PRIMARY KEY(id),
+CONSTRAINT fk_id_grupo_permiso FOREIGN KEY (id_grupo) REFERENCES grupo(id),
+CONSTRAINT fk_id_rol_permiso FOREIGN KEY (id_rol) REFERENCES rol(id),
+CONSTRAINT fk_id_modulo_permiso FOREIGN KEY (id_modulo) REFERENCES modulo(id)
 );
 
 CREATE TABLE especialidad(
@@ -180,6 +183,7 @@ CONSTRAINT pk_id_dia PRIMARY KEY(id)
 
 CREATE TABLE calendario(
 id				SERIAL,
+id_producto		INT NOT NULL,
 id_tecnico		INT NOT NULL,
 id_dia			INT NOT NULL,
 id_hora			INT NOT NULL,
@@ -187,10 +191,12 @@ libre			boolean NOT NULL,
 estado			boolean NOT NULL,
 CONSTRAINT pk_calendario PRIMARY KEY(id),
 CONSTRAINT uq_tecnico_id_dia_id_hora_calendario UNIQUE(id_tecnico,id_dia,id_hora),
+CONSTRAINT fk_id_producto_calendario FOREIGN KEY(id_producto) REFERENCES producto(id),
 CONSTRAINT fk_id_tecnico_calendario FOREIGN KEY(id_tecnico) REFERENCES tecnico(id),
 CONSTRAINT fk_id_dia_calendario FOREIGN KEY(id_dia) REFERENCES dia(id),
 CONSTRAINT fk_id_hora_calendario FOREIGN KEY(id_hora) REFERENCES hora(id)
 );
+
 
 CREATE TABLE cliente(
 id 				SERIAL,
@@ -306,3 +312,26 @@ estado			boolean NOT NULL,
 CONSTRAINT fk_id_venta_pago FOREIGN KEY (id_venta) REFERENCES venta(id),
 CONSTRAINT fk_id_forma_pago_pago FOREIGN KEY(id_forma_pago) REFERENCES forma_pago(id)
 );
+
+CREATE TABLE tipo_atencion(
+id				SERIAL,
+tipo_atencion	varchar(100) not null,
+estado			boolean NOT NULL,
+CONSTRAINT uq_tipo_atencion UNIQUE(tipo_atencion),
+CONSTRAINT pk_id_tipo_atencion PRIMARY KEY (id)
+);
+
+CREATE TABLE atencion(
+id					SERIAL,
+id_venta			INT NOT NULL,
+id_calendario		INT NOT NULL,
+id_tipo_atencion	INT NOT NULL,
+fecha				date not null,
+hora				varchar(10) not null,
+estado				boolean NOT NULL,
+CONSTRAINT pk_id_atencion PRIMARY KEY (id),
+CONSTRAINT fk_id_venta_cita FOREIGN KEY(id_venta) REFERENCES venta(id),
+CONSTRAINT fk_id_calendario_cita FOREIGN KEY(id_calendario) REFERENCES calendario(id),
+CONSTRAINT fk_id_tipo_atencion_cita FOREIGN KEY(id_tipo_atencion) REFERENCES tipo_atencion(id)
+);
+

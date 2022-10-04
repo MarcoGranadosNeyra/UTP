@@ -7,7 +7,7 @@ public class Modulo {
     private String modulo;
     private String url;
     private Boolean estado;
-
+   
     public Modulo() {
     }
 

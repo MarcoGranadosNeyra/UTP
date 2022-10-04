@@ -18,7 +18,7 @@ export class MainComponent implements OnInit {
 
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
-  sucursales: any = [];
+  grupos: any = [];
   modulos: any = [];
   persona :any={};
   rol :any={};
@@ -67,7 +67,7 @@ export class MainComponent implements OnInit {
   listarModulosUsuario(id_usuario:number){
     this.usuarioService.listarModulosUsuario(id_usuario).subscribe(
       res => {
-
+        this.grupos=res.grupos
         this.modulos=res.modulos
         this.persona=res.persona
         this.rol=res.rol
@@ -83,9 +83,7 @@ export class MainComponent implements OnInit {
 
   }
 
-  getIdSucursal(id_sucursal:number){
-    this.dataService.id_sucursal=id_sucursal;
-  }
+
   
 
 

@@ -55,16 +55,33 @@
             <span> Modulos</span>
         </button>
 
-
+<!--
         <div *ngFor="let modulo of modulos">
             <button mat-button class="menu-button"  >
                 <mat-icon>list</mat-icon>
                 <span  routerLink="{{modulo.url}}">  {{modulo.modulo}} </span>
-                
             </button>
+        </div>
+-->
 
         
-        </div>
+        <ng-container *ngFor="let grupo of grupos" >
+            <button mat-button class="menu-button"  >
+                <mat-icon> business</mat-icon>
+                <span>  {{grupo.grupo}} </span>
+            </button>
+            <ul>
+                <div *ngFor="let modulo of modulos" >
+                    <div *ngIf="grupo.id == modulo.id_grupo" >
+                        <button mat-button class="menu-button"  >
+                            <mat-icon>menu</mat-icon>
+                            
+                            <span  routerLink="{{modulo.url}}">  {{modulo.modulo}} </span>
+                        </button>
+                    </div>
+                </div>
+            </ul>
+        </ng-container>
 
 
 

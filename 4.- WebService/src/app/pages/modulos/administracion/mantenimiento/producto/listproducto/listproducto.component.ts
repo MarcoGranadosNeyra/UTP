@@ -92,7 +92,7 @@ async edit(id: number) {
   
   this.productoService.buscarProducto(id).subscribe(
     res => {
-      console.log(res)
+      //console.log(res)
       this.isPopupOpened = true;
       const dialogRef = this.dialog.open(EditproductoComponent, {
         width: '450px',

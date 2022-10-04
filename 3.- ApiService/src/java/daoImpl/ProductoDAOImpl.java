@@ -159,7 +159,7 @@ public class ProductoDAOImpl implements ProductoDAO{
         int result=0;
             try(
             Connection connect = oconexion.abrirConexion();
-            CallableStatement cs = connect.prepareCall("{call agregarServicio(?,?,?,?,?)}");
+            CallableStatement cs = connect.prepareCall("{call agregarServicio(?,?,?,?)}");
             ){
             cs.setInt(1, producto.getId_categoria());
             cs.setString(2, producto.getProducto());

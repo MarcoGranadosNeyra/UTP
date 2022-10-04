@@ -11,8 +11,6 @@ import { DataService } from 'src/app/service/data/data.service';
 })
 export class EspecialidadComponent implements OnInit {
 
-
-
   especialidades: any = [];
 
   constructor(

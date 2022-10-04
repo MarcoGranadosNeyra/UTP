@@ -31,6 +31,11 @@ import { CatalogoproductosComponent } from './pages/modulos/vendedor/catalogopro
 import { CarritoComponent } from './pages/modulos/vendedor/carrito/carrito/carrito.component';
 import { ImprimirventaComponent } from './pages/modulos/vendedor/imprimirventa/imprimirventa.component';
 import { ListrepuestoComponent } from './pages/modulos/administracion/mantenimiento/repuesto/listrepuesto/listrepuesto.component';
+import { ListservicioComponent } from './pages/modulos/administracion/mantenimiento/servicio/listservicio/listservicio.component';
+import { ServicioComponent } from './pages/modulos/cliente/servicio/servicio.component';
+import { PagoComponent } from './pages/modulos/cliente/pago/pago.component';
+import { ListpermisoComponent } from './pages/modulos/administracion/mantenimiento/permiso/listpermiso/listpermiso.component';
+import { ImprimirservicioComponent } from './pages/modulos/cliente/imprimirservicio/imprimirservicio.component';
 
 const routes: Routes = [
   {
@@ -57,10 +62,15 @@ const routes: Routes = [
         {path:'administracion/mantenimiento/listarCategoria',component:ListcategoriaComponent,canActivate : [SecurityGuard]},
         {path:'administracion/mantenimiento/listarProducto',component:ListproductoComponent,canActivate : [SecurityGuard]},
         {path:'administracion/mantenimiento/listarRepuesto',component:ListrepuestoComponent,canActivate : [SecurityGuard]},
+        {path:'administracion/mantenimiento/listarServicio',component:ListservicioComponent,canActivate : [SecurityGuard]},
         {path:'administracion/mantenimiento/listarModulo',component:ListmoduloComponent,canActivate : [SecurityGuard]},
+        {path:'administracion/mantenimiento/listarPermiso',component:ListpermisoComponent,canActivate : [SecurityGuard]},
 
-        {path:'cliente/servicio/horario',component:HorarioComponent,canActivate : [SecurityGuard]},
-        {path:'cliente/servicio/select-tecnico',component:TecnicoComponent,canActivate : [SecurityGuard]},
+        {path:'cliente/soporte/servicio',component:ServicioComponent,canActivate : [SecurityGuard]},
+        {path:'cliente/soporte/horario',component:HorarioComponent,canActivate : [SecurityGuard]},
+        {path:'cliente/soporte/select-tecnico',component:TecnicoComponent,canActivate : [SecurityGuard]},
+        {path:'cliente/soporte/pago',component:PagoComponent,canActivate : [SecurityGuard]},
+        {path:'cliente/soporte/imprimirservicio',component:ImprimirservicioComponent,canActivate : [SecurityGuard]},
 
         {path:'vendedor/catalogoproductos',component:CatalogoproductosComponent,canActivate : [SecurityGuard]},
         {path:'vendedor/carrito',component:CarritoComponent,canActivate : [SecurityGuard]},

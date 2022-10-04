@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="0ba252ee-c739-4650-bb59-89402498f993">
 	<property name="ireport.zoom" value="3.138428376721004"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="133"/>
+	<property name="ireport.y" value="433"/>
 	<parameter name="id" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -186,7 +186,7 @@
 		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch">
+		<band height="141" splitType="Stretch">
 			<textField pattern="###0.00">
 				<reportElement x="149" y="0" width="30" height="15" uuid="9c8078d2-7856-4205-ad19-f504048ae884"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -222,10 +222,18 @@
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement x="0" y="39" width="179" height="15" uuid="5bb0be43-4732-4d66-bd57-cd30345f779c"/>
+				<reportElement x="0" y="126" width="179" height="15" uuid="5bb0be43-4732-4d66-bd57-cd30345f779c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[*******CUENTA CANCELADA ********]]></text>
 			</staticText>
+			<subreport>
+				<reportElement x="0" y="39" width="178" height="85" uuid="861c234d-f512-4488-9315-fbe3879d6232"/>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["C:\\report\\imprimirFormaPago.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</pageFooter>
 	<summary>

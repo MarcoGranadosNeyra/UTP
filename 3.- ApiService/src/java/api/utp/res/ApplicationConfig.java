@@ -18,16 +18,20 @@ public class ApplicationConfig extends Application {
  
     private void addRestResourceClasses(Set<Class<?>> resources) {
         //resources.add(api.utp.res.ClienteResource.class);
+        resources.add(api.utp.res.AtencionResource.class);
         resources.add(api.utp.res.CalendarioResource.class);
         resources.add(api.utp.res.CategoriaResource.class);
         resources.add(api.utp.res.ClienteResource.class);
         resources.add(api.utp.res.CrossOriginResourceSharingFilter.class);
         resources.add(api.utp.res.FormaPagoResource.class);
+        resources.add(api.utp.res.GrupoResource.class);
         resources.add(api.utp.res.ModuloResource.class);
         resources.add(api.utp.res.PagoResource.class);
+        resources.add(api.utp.res.PermisoResource.class);
         resources.add(api.utp.res.PersonaResource.class);
         resources.add(api.utp.res.ProductoResource.class);
         resources.add(api.utp.res.RepuestoResource.class);
+        resources.add(api.utp.res.ServicioResource.class);
         resources.add(api.utp.res.TecnicoResource.class);
         resources.add(api.utp.res.UsuarioResource.class);
         resources.add(api.utp.res.VentaDetalleResource.class);

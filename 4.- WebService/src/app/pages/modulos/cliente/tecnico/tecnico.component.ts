@@ -15,7 +15,7 @@ export class TecnicoComponent implements OnInit {
 
 
   parametros : any = {
-    id_especialidad:this.dataService.id_especialidad,
+    id_producto:this.dataService.id_producto,
     id_dia:this.dataService.id_dia
   };
 
@@ -41,13 +41,13 @@ export class TecnicoComponent implements OnInit {
 
   ngOnInit(): void {
     //this.listarPacienteByIdUsuario();
-    console.log(this.parametros)
-    this.listarCalendarioByIdEspecialidad(this.parametros);
+    //console.log(this.parametros)
+    this.listarCalendario(this.parametros);
   }
 
 
-  listarCalendarioByIdEspecialidad(parametros : any) {
-    this.calendarioService.listarCalendarioByIdEspecialidad(this.parametros)
+  listarCalendario(parametros : any) {
+    this.calendarioService.listarCalendarioPorProducto(this.parametros)
     .subscribe( res => {
       this.tecnicos=res
     });
@@ -62,7 +62,8 @@ export class TecnicoComponent implements OnInit {
     */
     this.dataService.id_calendario=idCalendario
     this.dataService.hora=hora;
-    this.router.navigate(['main/confirmar-reserva/']);
+   
+    this.router.navigate(['main/cliente/soporte/pago']);
   }
 
   openSnackBar(message: string, action: string) {

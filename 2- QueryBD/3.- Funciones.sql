@@ -538,6 +538,31 @@ $$ language sql;
 * FUNCIONES PARA LA TABLA MODULO
 */
 
+create or replace function listarGrupo()
+returns table (
+  id		  		integer,
+  grupo		   		varchar,
+  estado			boolean)
+as $$
+	SELECT id,grupo,estado from grupo
+$$ language sql;
+
+create or replace function listarGrupoByIdUsuario(_id_usuario int)
+returns table (
+  id		  		integer,
+  grupo		   		varchar,
+  estado			boolean)
+as $$
+	SELECT g.id,g.grupo,g.estado FROM usuario u
+	inner join rol r on r.id=u.id_rol
+	inner join permiso p on p.id_rol=r.id
+	inner join grupo g on g.id=p.id_grupo
+	inner join modulo m on m.id=p.id_modulo
+	where u.id=_id_usuario 
+
+	group by g.id,g.grupo order by g.id asc;
+$$ language sql;
+
 create or replace function listarModulo()
 returns table (
 	id 			integer, 
@@ -548,6 +573,7 @@ as $$
 	select id,modulo,url,estado from modulo
 	where estado=true order by id asc;
 $$ language sql;
+
 
 CREATE OR REPLACE FUNCTION agregarRolModulo(
 	_id_rol			 	int,
@@ -582,37 +608,7 @@ as $$
 $$ language sql;
 
 
-CREATE OR REPLACE FUNCTION agregarPermiso(
-	_id_rol		integer,
-	_id_modulo	integer)
-  RETURNS void AS
-  $BODY$
-  DECLARE
-	BEGIN
-	INSERT INTO permiso	VALUES (DEFAULT, _id_rol, _id_modulo,true);
-    END;
-  $BODY$
-  LANGUAGE 'plpgsql';
 
-          create or replace function eliminarPermiso(_id integer)
-  RETURNS integer AS
-  $BODY$
-  DECLARE
-    AFFECTEDROWS integer;
-  BEGIN
-    WITH a AS (DELETE FROM permiso WHERE id = _id RETURNING 1)
-    SELECT count(*) INTO AFFECTEDROWS FROM a;
-    IF AFFECTEDROWS = 1 THEN
-      RETURN 1;
-    ELSE
-      RETURN 0;
-    END IF;
-  EXCEPTION WHEN OTHERS THEN
-    RETURN 0;
-  END;
-  $BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100;
 
   
     /*
@@ -719,10 +715,10 @@ as $$
 $$ language sql;
 
 
-  create or replace function listarCalendarioPorEspecialidad(_id_especialidad integer,_id_dia integer)
+  create or replace function listarCalendarioPorProducto(_id_producto integer,_id_dia integer)
 returns table (
 	id 					    integer,
-	especialidad			varchar,
+	producto				varchar,
 	sexo					varchar,
 	apelativo				varchar,
 	tecnico				  	varchar,
@@ -733,7 +729,7 @@ returns table (
 	libre				    boolean,
 	estado				  	boolean)
 as $$
-	select c.id,upper(t.especialidad) as especialidad,s.sexo,
+	select c.id,upper(p.producto) as producto,s.sexo,
        CASE s.sexo
            WHEN 'FEMENINO' THEN 'Tecnica'
            WHEN 'MASCULINO' THEN 'Tecnico'
@@ -742,21 +738,21 @@ as $$
 	inner join dia d on d.id=c.id_dia
 	inner join hora h on h.id=c.id_hora
 	inner join tecnico t on t.id=c.id_tecnico
-	inner join especialidad e on e.id=t.id_especialidad
+	inner join producto p on p.id=c.id_producto
 	inner join persona pt on pt.id=t.id_persona
 	inner join sexo s on s.id=pt.id_sexo
-	where e.id=_id_especialidad and d.id=_id_dia and c.libre=true and c.estado=true
+	where p.id=_id_producto and d.id=_id_dia and c.libre=true and c.estado=true
 	order by c.id desc
 $$ language sql;
-
 
 create or replace function listarPermiso(_id_usuario int)
 returns table (
   id            integer,
+  id_grupo      integer,
   modulo        varchar,
   url           varchar)
 as $$
-SELECT p.id,m.modulo,m.url FROM usuario u
+SELECT p.id,p.id_grupo,m.modulo,m.url FROM usuario u
 inner join rol r on r.id=u.id_rol
 inner join permiso p on p.id_rol=r.id
 inner join modulo m on m.id=p.id_modulo
@@ -1694,7 +1690,7 @@ $$ language sql;
   $BODY$
   DECLARE
 	BEGIN
-	INSERT INTO producto (id_categoria, id_tipo_producto,producto,imagen,precio,cantidad,servicio,estado) VALUES (_id_categoria,2, _producto,_imagen,_precio,0, true) returning id INTO v_id_producto;
+	INSERT INTO producto (id_categoria, id_tipo_producto,producto,imagen,precio,cantidad,estado) VALUES (_id_categoria,2, _producto,_imagen,_precio,0, true) returning id INTO v_id_producto;
 	END;
   $BODY$
   LANGUAGE 'plpgsql';
@@ -1747,7 +1743,7 @@ CREATE OR REPLACE FUNCTION actualizarServicio(
   DECLARE
   		
 	BEGIN
-		UPDATE producto set id_categoria=_id_categoria,producto=_producto,imagen=_imagen,precio=_precio,cantidad=_cantidad,estado=_estado where id=_id;
+		UPDATE producto set id_categoria=_id_categoria,producto=_producto,imagen=_imagen,precio=_precio,estado=_estado where id=_id;
       END;
   $BODY$
   LANGUAGE 'plpgsql';
@@ -2025,5 +2021,231 @@ as $$
 	where id=_id;
 $$ language sql;
 
+  create or replace function imprimirFormaPago(_id_venta integer)
+returns table (
+	forma_pago			varchar,
+	monto				decimal(8,2))
+	as $$
+	select fp.forma_pago,sum(monto) from pago p
+	inner join forma_pago fp on fp.id=p.id_forma_pago
+	where p.id_venta=_id_venta and p.estado=true
+	group by fp.forma_pago;
+$$ language sql;
 
 
+
+
+  CREATE OR REPLACE FUNCTION agregarModulo(
+	_modulo		 	varchar,
+	_url 			varchar,
+	out v_id_modulo	int)
+  RETURNS integer AS
+  $BODY$
+  DECLARE
+	BEGIN
+	INSERT INTO modulo (modulo, url,estado) VALUES (_modulo, _url, true) returning id INTO v_id_modulo;
+	END;
+  $BODY$
+  LANGUAGE 'plpgsql';
+  
+  
+ CREATE OR REPLACE FUNCTION actualizarModulo(
+	_modulo				varchar,
+	_url				varchar,
+	_estado				boolean,
+	_id					integer)
+  RETURNS void AS
+  $BODY$
+  DECLARE
+  		
+	BEGIN
+		UPDATE modulo set modulo=_modulo,url=_url,estado=_estado where id=_id;
+      END;
+  $BODY$
+  LANGUAGE 'plpgsql';
+
+create or replace function eliminarModulo(_id integer)
+  RETURNS integer AS
+  $BODY$
+  DECLARE
+    AFFECTEDROWS integer;
+  BEGIN
+    WITH a AS (UPDATE modulo SET ESTADO=false  WHERE id = _id RETURNING 1)
+    SELECT count(*) INTO AFFECTEDROWS FROM a;
+    IF AFFECTEDROWS = 1 THEN
+      RETURN 1;
+    ELSE
+      RETURN 0;
+    END IF;
+  EXCEPTION WHEN OTHERS THEN
+    RETURN 0;
+  END;
+  $BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+  
+create or replace function buscarModulo(_id int)
+returns table (
+  id        		int,
+  modulo			varchar,
+  url				varchar,
+  estado 			boolean)
+as $$
+	select id,modulo,url,estado from modulo where id=_id;
+$$ language sql;
+
+create or replace function listarPermiso()
+returns table (
+	id 			integer, 
+	grupo 		varchar,
+	rol 		varchar,
+	modulo 		varchar,
+	orden 		integer,
+	estado 		boolean)
+as $$
+	select p.id,g.grupo,r.rol,m.modulo,orden,p.estado from permiso p
+	inner join grupo g on g.id=p.id_grupo
+	inner join rol r on r.id=p.id_rol
+	inner join modulo m on m.id=p.id_modulo;
+$$ language sql;
+
+
+  CREATE OR REPLACE FUNCTION agregarPermiso(
+	_id_grupo	 	integer,
+	_id_rol			integer,
+	_id_modulo		integer,
+	_orden			integer,
+	out v_id_permiso	int)
+  RETURNS integer AS
+  $BODY$
+  DECLARE
+	BEGIN
+	INSERT INTO permiso (id_grupo, id_rol,id_modulo,orden,estado) VALUES (_id_grupo, _id_rol,_id_modulo,_orden, true) returning id INTO v_id_permiso;
+	END;
+  $BODY$
+  LANGUAGE 'plpgsql';
+  
+  
+ CREATE OR REPLACE FUNCTION actualizarPermiso(
+	_id_grupo	 	integer,
+	_id_rol			integer,
+	_id_modulo		integer,
+	_orden			integer,
+	_estado			boolean,
+	_id				integer)
+  RETURNS void AS
+  $BODY$
+  DECLARE
+  		
+	BEGIN
+		UPDATE permiso set id_grupo=_id_grupo,id_rol=_id_rol,id_modulo=_id_modulo,orden=_orden,estado=_estado where id=_id;
+      END;
+  $BODY$
+  LANGUAGE 'plpgsql';
+
+create or replace function eliminarPermiso(_id integer)
+  RETURNS integer AS
+  $BODY$
+  DECLARE
+    AFFECTEDROWS integer;
+  BEGIN
+    WITH a AS (UPDATE permiso SET ESTADO=false  WHERE id = _id RETURNING 1)
+    SELECT count(*) INTO AFFECTEDROWS FROM a;
+    IF AFFECTEDROWS = 1 THEN
+      RETURN 1;
+    ELSE
+      RETURN 0;
+    END IF;
+  EXCEPTION WHEN OTHERS THEN
+    RETURN 0;
+  END;
+  $BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+  
+  create or replace function buscarPermiso(_id int)
+returns table (
+  id        		int,
+  id_grupo			int,
+  id_rol			int,
+  id_modulo			int,
+  orden				int,
+  estado 			boolean)
+as $$
+	select id,id_grupo,id_rol,id_modulo,orden,estado from permiso where id=_id;
+$$ language sql;
+
+ CREATE OR REPLACE FUNCTION agregarAtencion(
+	_id_venta		 	int,
+	_id_calendario  	int,
+	_fecha			 	DATE,
+	_hora	 			varchar,
+	out v_id_atencion	int)
+  RETURNS integer AS
+  $BODY$
+  DECLARE
+	BEGIN
+	INSERT INTO atencion (id_venta,id_calendario,id_tipo_atencion,fecha,hora,estado)values(_id_venta,_id_calendario,1,_fecha,_hora,true) returning id INTO v_id_atencion;
+	update calendario set libre =false where id=_id_calendario;
+
+	END;
+  $BODY$
+  LANGUAGE 'plpgsql';
+
+
+    create or replace function imprimirHojaServicio(_id int)
+returns table (
+  id        		int,
+  empresa			varchar,
+  ruc				varchar,
+  telefonos			varchar,
+  direccion			varchar,
+  mensaje			varchar,
+  piepaguina		varchar,
+  cliente			varchar,
+  documento_cliente	varchar,
+  nro_documento_cliente	varchar,
+  telefono_cliente	varchar,
+  direccion_cliente	varchar,
+  tecnico			varchar,
+  documento_tecnico	varchar,
+  nro_documento_tecnico	varchar,
+  telefono_tecnico	varchar,
+  direccion_tecnico	varchar,
+  servicio			varchar,
+  precio			decimal(8,2),
+  dia				varchar,
+  hora				varchar,
+  tipo_atencion 	varchar)
+as $$
+	select 
+		a.id,
+		e.empresa,
+		e.ruc,
+		e.telefonos,
+		e.direccion,
+		e.mensaje,
+		e.piepaguina,
+		pc.nombre || ' ' || pc.apaterno || ' ' || pc.amaterno as cliente,
+		dpc.documento,pc.nro_documento,pc.telefono,pc.direccion,
+		pt.nombre || ' ' || pt.apaterno || ' ' || pt.amaterno as tecnico,
+		dpt.documento,pt.nro_documento,pt.telefono,pt.direccion,
+		pd.producto,pd.precio,
+		to_char(a.fecha,'DD/MM/YYYY'),a.hora,
+		ta.tipo_atencion
+	from atencion a 
+inner join venta v on v.id=a.id_venta
+inner join calendario c on c.id=a.id_calendario
+inner join cliente cl on cl.id=v.id_cliente
+inner join persona pc on pc.id=cl.id_persona
+inner join documento dpc on dpc.id=pc.id_documento
+inner join empresa e on e.id=v.id_empresa
+inner join tecnico t on t.id=c.id_tecnico
+inner join persona pt on pt.id=t.id_persona
+inner join documento dpt on dpt.id=pt.id_documento
+inner join producto pd on pd.id=c.id_producto
+inner join tipo_atencion ta on ta.id=a.id_tipo_atencion
+where a.id=_id;
+$$ language sql;

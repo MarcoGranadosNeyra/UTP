@@ -35,7 +35,7 @@ export class MedicoComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarPacienteByIdUsuario();
-    this.listarCalendarioByIdEspecialidad(this.parametros);
+    this.listarCalendarioPorProducto(this.parametros);
   }
 
   listarPacienteByIdUsuario() {
@@ -46,8 +46,8 @@ export class MedicoComponent implements OnInit {
     });
   }
 
-  listarCalendarioByIdEspecialidad(parametros : any) {
-    this.calendarioService.listarCalendarioByIdEspecialidad(this.parametros)
+  listarCalendarioPorProducto(parametros : any) {
+    this.calendarioService.listarCalendarioPorProducto(this.parametros)
     .subscribe( res => {
       console.log("CALENDARIO"+res)
       this.medicos=res

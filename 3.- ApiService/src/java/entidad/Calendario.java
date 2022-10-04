@@ -11,6 +11,7 @@ package entidad;
  */
 public class Calendario {
     private int id;
+    private int id_producto;
     private int id_tecnico;
     private int id_dia;
     private int id_hora;
@@ -18,8 +19,7 @@ public class Calendario {
     private boolean estado;
     
     //referencias
-    private int id_especialidad;
-    private String especialidad;
+    private String producto;
     private String sexo;
     private String apelativo;
     private String tecnico;
@@ -37,6 +37,14 @@ public class Calendario {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getId_producto() {
+        return id_producto;
+    }
+
+    public void setId_producto(int id_producto) {
+        this.id_producto = id_producto;
     }
 
     public int getId_tecnico() {
@@ -79,12 +87,12 @@ public class Calendario {
         this.estado = estado;
     }
 
-    public String getEspecialidad() {
-        return especialidad;
+    public String getProducto() {
+        return producto;
     }
 
-    public void setEspecialidad(String especialidad) {
-        this.especialidad = especialidad;
+    public void setProducto(String producto) {
+        this.producto = producto;
     }
 
     public String getSexo() {
@@ -114,8 +122,6 @@ public class Calendario {
     public String getEspecialista() {
         return especialista;
     }
-    
-    
 
     public void setEspecialista(String especialista) {
         this.especialista = especialista;
@@ -145,15 +151,5 @@ public class Calendario {
         this.hora = hora;
     }
 
-    public int getId_especialidad() {
-        return id_especialidad;
-    }
-
-    public void setId_especialidad(int id_especialidad) {
-        this.id_especialidad = id_especialidad;
-    }
-    
-    
-    
 
 }

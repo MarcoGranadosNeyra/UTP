@@ -1,0 +1,249 @@
+
+<!--
+
+    <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="container text-center">
+          <div class="col-md-3 text-left justify-content-left align-self-left">
+            <h1><label><strong>DETALLE DE PAGO :</strong></label></h1>
+          </div>
+  
+              <div class="form-group col-md-6 py-2">
+                <label><strong>ESPECIALIDAD:</strong></label>
+                <input type="text"
+                  class="form-control form-control-lg" value="{{especialidad.especialidad}}" disabled>
+              </div>
+              <div class="form-group col-md-6 py-2">
+                <label><strong>MONTO A PAGAR:</strong></label>
+                <input type="text"
+                  class="form-control form-control-lg" value="S/. {{especialidad.precio}}" disabled>
+              </div>
+            </div>
+          </div>
+  
+  
+          <div class="col-md-3 text-left justify-content-left align-self-left">
+            <h1><label><strong>DATOS PERSONALES :</strong></label></h1>
+          </div>
+  
+          <div class="form-row">
+            <div class="row">
+              <div class="form-group col-md-4 py-2">
+                <label><strong>Nombres </strong></label>
+                <input type="text" minlength="16" class="form-control form-control-lg" value="{{persona.nombre}}" disabled>
+              </div>
+              <div class="form-group col-md-4 py-2">
+                <label><strong>Apellido Paterno :</strong></label>
+                <input type="text"   class="form-control form-control-lg" value="{{persona.apaterno}}" disabled>
+              </div>
+              <div class="form-group col-md-4 py-2">
+                <label><strong>Apellido Materno:</strong></label>
+                <input type="text"  class="form-control form-control-lg" value="{{persona.amaterno}}" disabled>
+              </div>
+              <div class="form-group col-md-6 py-2">
+                <label><strong>correo:</strong></label>
+                <input type="text"   class="form-control form-control-lg" value="{{persona.correo}}" disabled>
+              </div>
+              <div class="form-group col-md-6 py-2">
+                <label><strong>Nro Documento:</strong></label>
+                <input type="text"  class="form-control form-control-lg" value="{{persona.nro_documento}}" disabled>
+              </div>
+            </div>
+          </div>
+  
+  
+          <form class="contact-form row" [formGroup]="formularioPago" >
+  
+  
+          <div class="col-md-3 text-left justify-content-left align-self-left py-3">
+            <h1><label><strong>DATOS DE LA TARJETA :</strong></label></h1>
+          </div>
+  
+          <div class="form-row">
+            <div class="row">
+              <div class="form-group col-md-12">
+                <input type="hidden" formControlName="id_cita"
+                  class="form-control form-control-lg">
+              </div>
+            </div>
+          </div>
+  
+          <div class="form-row">
+            <div class="row">
+              <div class="form-group col-md-12">
+                <input type="hidden"  formControlName="id_paciente"
+                  class="form-control form-control-lg">
+              </div>
+            </div>
+          </div>
+  
+          <div class="form-row">
+            <div class="row">
+              <div class="form-group col-md-12">
+                <input type="hidden"  formControlName="id_especialidad"
+                  class="form-control form-control-lg">
+              </div>
+            </div>
+          </div>
+  
+          <div class="form-row">
+            <div class="row">
+              <div class="form-group col-md-12">
+                <input type="hidden"  formControlName="precio_pago"
+                  class="form-control form-control-lg">
+              </div>
+            </div>
+          </div>
+  
+          <div class="form-row">
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label><strong>NUMERO DE TARJETA:</strong></label>
+                <input type="text"  
+                  class="form-control form-control-lg" formControlName="number_card"
+                  placeholder="Numero de Tarjeta Valida">
+                  <mat-error class="mat-error" *ngIf="number_card.invalid && ( number_card.dirty || number_card.touched )">Ingrese un Numero de tarjeta valido</mat-error>
+              </div>
+            
+              <div class="form-group col-md-4">
+                <label><strong>FECHA DE CADUCIDAD :</strong></label>
+                <input type="text" 
+                  class="form-control form-control-lg" formControlName="expire_card"
+                  placeholder="MM / YY">
+                  <mat-error class="mat-error" *ngIf="expire_card.invalid && ( expire_card.dirty || expire_card.touched )">Ingrese un Fecha de expiracion valida</mat-error>
+              </div>
+              <div class="form-group col-md-4">
+                <label><strong>CÓDIGO CCV :</strong></label>
+                <input type="text"  
+                  class="form-control form-control-lg" formControlName="ccv_card"
+                  placeholder="CVC">
+                  <mat-error class="mat-error" *ngIf="ccv_card.invalid && ( ccv_card.dirty || ccv_card.touched )">Ingrese un Numero CCV valido</mat-error>
+              </div>
+             
+  
+  
+          <div class="d-grid gap-2 py-5">
+            <button class="btn btn-success" type="button" [disabled]="!formularioPago.valid" (click)="agregarPago()">Aceptar</button>
+            <button class="btn btn-danger me-md-2" type="button" (click)="cancelarPago(cita.id)">Cancelar</button>
+          </div>
+  
+        </div>
+  
+      </div>
+      
+          </form>
+  
+  
+  
+        </div>
+      </div>
+  -->
+
+
+  <div class="container py-3">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="container text-center">
+        <form class="contact-form row" >
+        
+          <legend><strong>DATOS DEL SERVICIO </strong></legend>
+
+          <div class="form-row">
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label class="col-sm-6 col-form-label"><strong>Servicio :</strong></label>
+                <input type="text"  class="form-control form-control-lg" value="{{servicio.producto}}" disabled>
+              </div>
+              <div class="form-group col-md-6">
+                <label class="col-sm-6 col-form-label"><strong>Precio :</strong></label>
+                <input type="text"  class="form-control form-control-lg" value="{{servicio.precio}}" disabled>
+              </div>
+            </div>
+          </div>
+
+          
+          <div class="col-md-12 text-left justify-content-left align-self-left py-3">
+            <legend><strong>DATOS PERSONALES </strong></legend>
+          </div>
+
+          <div class="form-row">
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label class="col-sm-6 col-form-label"><strong>Nombre :</strong></label>
+                <input type="text"  class="form-control form-control-lg" value="{{persona.nombre}}" disabled>
+              </div>
+              <div class="form-group col-md-4">
+                <label class="col-sm-6 col-form-label"><strong>Apellido paterno :</strong></label>
+                <input type="text"  class="form-control form-control-lg" value="{{persona.apaterno}}" disabled>
+              </div>
+              <div class="form-group col-md-4">
+                <label class="col-sm-6 col-form-label"><strong>Apellido materno :</strong></label>
+                <input type="text"  class="form-control form-control-lg" value="{{persona.amaterno}}" disabled>
+              </div>
+              <div class="form-group col-md-4">
+                <label class="col-sm-6 col-form-label"><strong>Nro de documento :</strong></label>
+                <input type="text"  class="form-control form-control-lg" value="{{persona.nro_documento}}" disabled>
+              </div>
+              <div class="form-group col-md-4">
+                <label class="col-sm-6 col-form-label"><strong>telefono :</strong></label>
+                <input type="text"  class="form-control form-control-lg" value="{{persona.telefono}}" disabled>
+              </div>
+              <div class="form-group col-md-4">
+                <label class="col-sm-6 col-form-label"><strong>Correo electronico :</strong></label>
+                <input type="text"  class="form-control form-control-lg" value="{{persona.correo}}" disabled>
+              </div>
+            </div>
+          </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="container text-center">
+        <form class="contact-form row" [formGroup]="formularioPago">
+          
+          <div class="col-md-12 text-left justify-content-left align-self-left py-3">
+            <legend><strong>DATOS DE LA TARJETA </strong></legend>
+          </div>
+          <div class="form-row">
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label class="col-sm-6 col-form-label"><strong>NUMERO DE TARJETA :</strong></label>
+                <input type="text" class="form-control form-control-lg" formControlName="number_card"  placeholder="Numero de Tarjeta Valida">
+                <mat-error class="mat-error" *ngIf="number_card.invalid && ( number_card.dirty || number_card.touched )">Ingrese un Numero de tarjeta valido</mat-error>
+               
+              </div>
+              <div class="form-group col-md-4">
+                <label class="col-sm-6 col-form-label"><strong>FECHA DE CADUCIDAD :</strong></label>
+                <input type="text" class="form-control form-control-lg" formControlName="expire_card" placeholder="MM / YY">
+                <mat-error class="mat-error" *ngIf="expire_card.invalid && ( expire_card.dirty || expire_card.touched )">Ingrese un Fecha de expiracion valida</mat-error>
+              </div>
+              <div class="form-group col-md-4">
+                <label class="col-sm-6 col-form-label"><strong>CÓDIGO CCV :</strong></label>
+                <input type="text" class="form-control form-control-lg" formControlName="ccv_card" placeholder="CVC" minlength="3">
+                  <mat-error class="mat-error" *ngIf="ccv_card.invalid && ( ccv_card.dirty || ccv_card.touched )">Ingrese un Numero CCV valido</mat-error>
+              </div>
+            </div>
+          </div>
+
+          <input type="hidden" class="form-control form-control-lg" formControlName="id_usuario" >
+          <input type="hidden" class="form-control form-control-lg" formControlName="id_cliente" >
+          <input type="hidden" class="form-control form-control-lg" formControlName="id_producto" >
+          <input type="hidden" class="form-control form-control-lg" formControlName="precio" >
+
+          <div class="d-grid gap-2 py-5">
+            <button class="btn btn-success btn-lg btn-block" [disabled]="!formularioPago.valid" (click)="agregarVenta()">Realizar Pago</button>
+            <button class="btn btn-danger btn-lg btn-block"(click)="cancelarPago()">Cancelar</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

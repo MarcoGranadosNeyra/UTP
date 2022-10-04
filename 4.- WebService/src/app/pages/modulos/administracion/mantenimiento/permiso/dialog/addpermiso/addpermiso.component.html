@@ -1,0 +1,55 @@
+<mat-card-header>
+    <p>
+      <mat-toolbar color="primary">
+        <span>Agregar Modulo</span>
+        <span class="example-spacer"></span>
+      </mat-toolbar>
+    </p>
+  </mat-card-header>
+  <div mat-dialog-content>
+    <form [formGroup]="formPermiso">
+      <div class="form-group">
+        <div class="row">
+
+          <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>Grupo</mat-label>
+            <mat-select formControlName="id_grupo">
+              <mat-option *ngFor="let grupo of grupos" [value]="grupo.id"  >
+                {{grupo.grupo}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>Rol</mat-label>
+            <mat-select formControlName="id_rol">
+              <mat-option *ngFor="let rol of roles" [value]="rol.id"  >
+                {{rol.rol}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>Modulo</mat-label>
+            <mat-select formControlName="id_modulo">
+              <mat-option *ngFor="let modulo of modulos" [value]="modulo.id"  >
+                {{modulo.modulo}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>Orden</mat-label>
+            <input type="number" matInput formControlName="orden">
+          </mat-form-field>
+
+        </div>
+  </div>
+  <form class="row g-3">
+    <div class="col-auto">
+      <button mat-raised-button color="primary" [disabled]="!formPermiso.valid" [mat-dialog-close]="1" (click)="agregarPermiso()"><mat-icon>save</mat-icon> Aceptar</button>
+    </div>
+    <div class="col-auto">
+      <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1"><mat-icon>exit_to_app</mat-icon> Cancelar</button>
+    </div>
+  </form>

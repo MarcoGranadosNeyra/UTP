@@ -1,4 +1,4 @@
-
+<!--
 <div class="container">
     <div class="list-group py-2" *ngFor="let tecnico of tecnicos">
       <a class="list-group-item">
@@ -21,4 +21,27 @@
       </a>
     </div>
   </div>
+-->
+  <div class="container">
+    <div class="row">
+        <div class="col-md-3 py-2" *ngFor="let tecnico of tecnicos" >
+            <mat-card>
+              <div class="col-md-3 d-flex justify-content-center user-img text-center pt-1">
+                <img class="img-fluid d-none d-sm-block" src="{{tecnico.foto}}" class="img-responsive img-circle rounded-circle"/>
+              </div>
+                <div style="display: inline-block; vertical-align: top">
+                  <h2 class="mb-1 text-calmelcase">{{ tecnico.apelativo }} {{tecnico.tecnico}}</h2>
+                  <h4 class="mb-1">Especialidad : {{ tecnico.especialidad }}</h4>
+                    <div class="user-detail">
+                      <p class="m-0"><i class="fas fa-calendar-day" aria-hidden="true"></i> {{tecnico.dia}}</p>
+                      <p class="m-0"><i class="far fa-clock" aria-hidden="true"></i> {{tecnico.hora}}</p>
+                  </div>
+                    <button (click)="getIdCalendario(tecnico.id,tecnico.hora)" type="button" class="btn btl-lg btn-success">
+                      <i class="far fa-check-circle"></i> Reservar
+                    </button>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>
   

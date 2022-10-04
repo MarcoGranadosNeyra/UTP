@@ -70,21 +70,28 @@ export class HorarioComponent implements OnInit {
 
 
   getFecha(fecha:Date){
-    console.log(fecha)
+    //console.log("FECHA"+fecha)
     
-    this.fechaSelected=fecha
+    //this.fechaSelected=fecha
 
+    /*
     let day = fecha.getDate()
     let month = fecha.getMonth()+1
     let year = fecha.getFullYear()
+*/
+    let dia = fecha.getDate()
+    let day = `${(fecha.getDate())}`.padStart(2,'0');
+    let month = `${(fecha.getMonth()+1)}`.padStart(2,'0');
+    let year = fecha.getFullYear();
 
     this.fechaSelected=year+'-'+month+'-'+day;
 
     this.dataService.id_dia=fecha.getDay();
     this.dataService.fecha=this.fechaSelected;
-    this.dataService.id_especialidad=1
+    //this.dataService.id_producto=1
     console.log("ID DIA "+this.dataService.id_dia)
-    this.router.navigate(['main/cliente/servicio/select-tecnico']);
+
+    this.router.navigate(['main/cliente/soporte/select-tecnico']);
       
   }
 

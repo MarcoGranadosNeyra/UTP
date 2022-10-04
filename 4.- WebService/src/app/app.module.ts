@@ -77,6 +77,12 @@ import { EditservicioComponent } from './pages/modulos/administracion/mantenimie
 import { EditrepuestoComponent } from './pages/modulos/administracion/mantenimiento/repuesto/dialog/editrepuesto/editrepuesto.component';
 import { AddrepuestoComponent } from './pages/modulos/administracion/mantenimiento/repuesto/dialog/addrepuesto/addrepuesto.component';
 import { ListrepuestoComponent } from './pages/modulos/administracion/mantenimiento/repuesto/listrepuesto/listrepuesto.component';
+import { ServicioComponent } from './pages/modulos/cliente/servicio/servicio.component';
+import { PagoComponent } from './pages/modulos/cliente/pago/pago.component';
+import { ListpermisoComponent } from './pages/modulos/administracion/mantenimiento/permiso/listpermiso/listpermiso.component';
+import { AddpermisoComponent } from './pages/modulos/administracion/mantenimiento/permiso/dialog/addpermiso/addpermiso.component';
+import { AditpermisoComponent } from './pages/modulos/administracion/mantenimiento/permiso/dialog/aditpermiso/aditpermiso.component';
+import { ImprimirservicioComponent } from './pages/modulos/cliente/imprimirservicio/imprimirservicio.component';
 
 
 
@@ -152,6 +158,12 @@ registerLocaleData(localeES,'es');
       EditrepuestoComponent,
       AddrepuestoComponent,
       ListrepuestoComponent,
+      ServicioComponent,
+      PagoComponent,
+      ListpermisoComponent,
+      AddpermisoComponent,
+      AditpermisoComponent,
+      ImprimirservicioComponent,
 
 
 

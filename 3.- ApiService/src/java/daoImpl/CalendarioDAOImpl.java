@@ -24,19 +24,19 @@ public class CalendarioDAOImpl implements CalendarioDAO{
     Conexion oconexion = new Conexion();
     
     @Override
-    public List listarCalendario(int id_especialidad, int id_dia) {
+    public List listarCalendarioPorProducto(int id_producto, int id_dia) {
         final ArrayList<Calendario> lista = new ArrayList<>();
         try (
             Connection connect = oconexion.abrirConexion();
-            CallableStatement cs = connect.prepareCall("{call listarCalendarioPorEspecialidad(?,?)}")
+            CallableStatement cs = connect.prepareCall("{call listarCalendarioPorProducto(?,?)}")
             ){
-            cs.setInt(1, id_especialidad);
+            cs.setInt(1, id_producto);
             cs.setInt(2, id_dia);
             try (ResultSet rs = cs.executeQuery()){
                 while (rs.next()) {
                         Calendario calendario = new Calendario();
                         calendario.setId(rs.getInt("id"));
-                        calendario.setEspecialidad(rs.getString("especialidad"));
+                        calendario.setProducto(rs.getString("producto"));
                         calendario.setTecnico(rs.getString("tecnico"));
                         calendario.setFoto(rs.getString("foto"));
                         calendario.setDia(rs.getString("dia"));

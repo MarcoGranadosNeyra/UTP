@@ -49,6 +49,10 @@ export class PersonaService {
   agregarPersona(persona: any) {
     return this.http.post<any>(this.URL + '/persona/add', persona);
   }
+
+  agregarPersonaResumida(persona: any) {
+    return this.http.post<any>(this.URL + '/persona/agregar', persona);
+  }
 /*
 actualizarPersona(idPersona: number, persona: any) {
   return this.http.put(`${this.URL}/persona/${idPersona}`, persona);

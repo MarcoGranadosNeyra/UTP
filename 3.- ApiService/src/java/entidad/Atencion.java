@@ -10,6 +10,15 @@ public class Atencion {
     private Integer id_tipo_atencion;
     private Date fecha;
     private String hora;
+    
+    //referencias
+    private String producto;
+    private Double precio;
+    private String cliente;
+    private String tecnico;
+    private String strfecha;
+    private String dia;
+    private String atencion;
 
     public Atencion() {
     }
@@ -61,6 +70,65 @@ public class Atencion {
     public void setHora(String hora) {
         this.hora = hora;
     }
+
+    public String getProducto() {
+        return producto;
+    }
+
+    public void setProducto(String producto) {
+        this.producto = producto;
+    }
+
+    public String getTecnico() {
+        return tecnico;
+    }
+
+    public void setTecnico(String tecnico) {
+        this.tecnico = tecnico;
+    }
+
+    public String getDia() {
+        return dia;
+    }
+
+    public void setDia(String dia) {
+        this.dia = dia;
+    }
+
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
+    public String getAtencion() {
+        return atencion;
+    }
+
+    public void setAtencion(String atencion) {
+        this.atencion = atencion;
+    }
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
+
+    public String getStrfecha() {
+        return strfecha;
+    }
+
+    public void setStrfecha(String strfecha) {
+        this.strfecha = strfecha;
+    }
+    
+    
+    
     
     
 }

@@ -135,6 +135,43 @@ public class PersonaResource {
     }
     
     @POST
+    @Path("agregar")
+    @Produces("application/json")
+    @Consumes("application/json")
+    public Response addPersona(Persona persona) {
+
+        int result = 0;
+        int id_persona=0;
+        String mensaje = "";
+        JSONObject json = new JSONObject();
+        try {
+            id_persona=personaDAO.agregarPersonaResumido(persona);
+            if (id_persona>0) {
+                result=1;
+                mensaje = "Registro Agregado";
+            }
+
+        } catch (Exception e) {
+            mensaje = e.getMessage();
+        }
+
+        json.put("result", result);
+        json.put("mensaje", mensaje);
+        json.put("id_persona", id_persona);
+        
+            return Response
+            .status(200)
+            .header("Access-Control-Allow-Origin", "*")
+            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+            .header("Access-Control-Allow-Credentials", "true")
+            .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+            .header("Access-Control-Max-Age", "1209600")
+            .entity(json.toString())
+            .build();
+        
+    }
+    
+    @POST
     @Path("actualizar")
     @Produces("application/json")
     @Consumes("application/json")

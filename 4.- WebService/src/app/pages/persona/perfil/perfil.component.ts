@@ -42,7 +42,15 @@ export class PerfilComponent implements OnInit {
 
   response: any = { };
 
-  constructor(private snackBar: MatSnackBar,private formBuilder: FormBuilder,private personaService:PersonaService,private usuarioService:UsuarioService,private uploadImgService:UploadimgService,  private router: Router,private activateRoute:ActivatedRoute) { }
+  constructor(
+          private snackBar: MatSnackBar,
+          private formBuilder: FormBuilder,
+          private personaService:PersonaService,
+          private usuarioService:UsuarioService,
+          private uploadImgService:UploadimgService,  
+          private router: Router,
+          private activateRoute:ActivatedRoute
+          ) { }
 
   ngOnInit() {
     
@@ -155,7 +163,7 @@ export class PerfilComponent implements OnInit {
     this.personaService.listarPersonaById(idPersona).subscribe(
       res => {
         this.persona=res
-        
+        console.log(res)
         this.persona.id;
         this.formPersona.setValue(this.persona);
         this.listarProvincia(this.persona.id_departamento)

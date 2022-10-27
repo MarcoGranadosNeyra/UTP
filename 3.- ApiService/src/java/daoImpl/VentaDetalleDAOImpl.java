@@ -24,11 +24,12 @@ public class VentaDetalleDAOImpl implements VentaDetalleDAO{
         boolean result=false;
             try(
             Connection connect = oconexion.abrirConexion();
-            CallableStatement cs = connect.prepareCall("{call agregarDetalleVenta(?,?,?)}");
+            CallableStatement cs = connect.prepareCall("{call agregarDetalleVenta(?,?,?,?)}");
             ){
-            cs.setInt(1, detalleVenta.getId_producto());
-            cs.setInt(2, detalleVenta.getCantidad());
-            cs.setDouble(3, detalleVenta.getPrecio());
+            cs.setInt(1, detalleVenta.getId_venta());
+            cs.setInt(2, detalleVenta.getId_producto());
+            cs.setInt(3, detalleVenta.getCantidad());
+            cs.setDouble(4, detalleVenta.getPrecio());
             cs.executeUpdate();
             result=true;
             cs.close();

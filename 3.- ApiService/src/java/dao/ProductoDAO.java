@@ -9,6 +9,7 @@ public interface ProductoDAO {
     public List<Producto> listarProducto();
     public List<Producto> listarRepuesto();
     public List<Producto> listarServicio();
+    public List<Producto> listarRepuestoServicio();
     public Integer agregarProducto(Producto producto);
     public Integer agregarRepuesto(Producto producto);
     public Integer agregarServicio(Producto producto);

@@ -9,7 +9,7 @@ public class Conexion {
     public Connection abrirConexion(){
         try {
             Class.forName("org.postgresql.Driver");
-             cn = DriverManager.getConnection("jdbc:postgresql://192.168.0.106:5432/UTP","postgres", "123456");
+             cn = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/UTP","postgres", "123456");
              //cn = DriverManager.getConnection("jdbc:postgresql://158.69.48.3:5432/UTP","postgres", "123456");
             System.out.println("conectado a PosgreSQL exitosamente");
         } catch (Exception e) {

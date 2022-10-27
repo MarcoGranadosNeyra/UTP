@@ -1,0 +1,34 @@
+<mat-card-header>
+    <p>
+      <mat-toolbar color="primary">
+        <span>Agregar Cliente</span>
+        <span class="example-spacer"></span>
+      </mat-toolbar>
+    </p>
+  </mat-card-header>
+  <div mat-dialog-content>
+    <form [formGroup]="formCliente">
+      <div class="form-group">
+        <div class="row">
+
+          <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>Persona</mat-label>
+            <mat-select formControlName="id_persona">
+              <mat-option *ngFor="let persona of personas" [value]="persona.id"  >
+                {{persona.nombres}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <section class="py-2">
+          </section>
+        </div>
+  </div>
+  <form class="row g-3">
+    <div class="col-auto">
+      <button mat-raised-button color="primary" [disabled]="!formCliente.valid" [mat-dialog-close]="1" (click)="agregarCliente()"><mat-icon>save</mat-icon> Aceptar</button>
+    </div>
+    <div class="col-auto">
+      <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1"><mat-icon>exit_to_app</mat-icon> Cancelar</button>
+    </div>
+  </form>

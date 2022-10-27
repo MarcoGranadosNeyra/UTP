@@ -397,5 +397,32 @@ public class ProductoDAOImpl implements ProductoDAO{
             }
         return producto;
     }
+
+    @Override
+    public List<Producto> listarRepuestoServicio() {
+       final ArrayList<Producto> lista = new ArrayList<>();
+         try(
+            Connection connect = oconexion.abrirConexion();
+            CallableStatement cs = connect.prepareCall("{call listarRepuestoServicio}")
+            ){
+            try (ResultSet rs = cs.executeQuery()){
+                while (rs.next()) {
+                    Producto producto=new Producto();
+                    producto.setId(rs.getInt("id"));
+                    producto.setCategoria(rs.getString("categoria"));
+                    producto.setProducto(rs.getString("producto"));
+                    producto.setImagen(rs.getString("imagen"));
+                    producto.setPrecio(rs.getDouble("precio"));
+                    producto.setEstado(rs.getBoolean("estado"));
+                    lista.add(producto);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("ERROR : SQL EXCEPTION " +e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException("ERROR : EXCEPTION " +e.getMessage());
+        }
+        return lista;
+    }
     
 }

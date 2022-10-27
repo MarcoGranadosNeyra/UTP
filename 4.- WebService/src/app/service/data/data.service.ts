@@ -7,6 +7,7 @@ import { Producto } from 'src/app/modelo/Producto';
 export class DataService {
 
   id_usuario      : number = 0;
+  id_cliente      : number = 0;
   rol             : any = {}
   strpersona      : String = null;
   foto            : String = null;
@@ -42,5 +43,7 @@ export class DataService {
 
  id_venta         : number = 0;
  id_atencion      : number = 0;
+ id_cotizacion    : number = 0;
+ formaPago        : any = [];
   constructor() { }
 }

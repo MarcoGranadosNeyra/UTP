@@ -81,6 +81,38 @@ public class PersonaDAOImpl implements PersonaDAO{
         } 
         return result;
     }
+    
+    @Override
+    public Integer agregarPersonaResumido(Persona persona) {
+        int result=0;
+            try(
+            Connection connect = oconexion.abrirConexion();
+            CallableStatement cs = connect.prepareCall("{call agregarPersonaResumido(?,?,?,?,?,?,?,?)}");
+            ){
+            cs.setInt(1, persona.getId_documento());
+            cs.setString(2, persona.getNro_documento());
+            cs.setString(3, persona.getNombre());
+            cs.setString(4, persona.getApaterno());
+            cs.setString(5, persona.getAmaterno());
+            cs.setString(6, persona.getTelefono());
+            cs.setString(7, persona.getDireccion());
+            cs.setString(8, persona.getCorreo());
+            cs.executeUpdate();
+            
+            try (ResultSet last_inserted = cs.getResultSet()){;
+                if(last_inserted.next()) {
+                   result = last_inserted.getInt(1);
+                }
+            }
+            cs.close();
+        } catch (SQLException e) {
+             throw new RuntimeException(e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        } 
+        return result;
+    }
+
 
 
     @Override

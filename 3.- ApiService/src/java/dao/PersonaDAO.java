@@ -15,6 +15,7 @@ import entidad.Persona;
 public interface PersonaDAO {
     public List listarPersona(String filtro);
     public Integer agregarPersona(Persona usuario);
+    public Integer agregarPersonaResumido(Persona usuario);
     public Boolean actualizarPersona(Persona usuario);
     public Boolean eliminarPersona(int id);
     public Persona buscarPersona(int id);

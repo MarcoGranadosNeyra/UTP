@@ -9,9 +9,9 @@ import {FormControl, Validators} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/service/data/data.service';
-import { EspecialidadService } from 'src/app/service/especialidad/especialidad.service';
+
 import { PersonaService } from 'src/app/service/persona/persona.service';
-import { TecnicoService } from 'src/app/service/tecnico/tecnico.service';
+
 import { CategoriaService } from 'src/app/service/categoria/categoria.service';
 import { ProductoService } from 'src/app/service/producto/producto.service';
 import { UploadimgService } from 'src/app/service/uploadimg/uploadimg.service';

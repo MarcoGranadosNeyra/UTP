@@ -2360,3 +2360,6 @@ INSERT INTO forma_pago (forma_pago,orden,estado)VALUES('LUKITA',6,true);
 INSERT INTO tipo_atencion (tipo_atencion,estado)values('RESERVADO',true);
 INSERT INTO tipo_atencion (tipo_atencion,estado)values('ATENTIDO',true);
 INSERT INTO tipo_atencion (tipo_atencion,estado)values('REPROGRAMADO',true);
+
+
+insert into recepcion (id_usuario,id_cliente,equipo,marca,modelo,serie,descripcion,fecha,hora,entregado,estado)values(4,2,'CELULAR','SANSUNG','S7','S0125478','NO PRENDE',current_date,to_char(current_timestamp, 'HH12:MI:SS'),false,true);

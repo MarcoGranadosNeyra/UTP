@@ -12,22 +12,35 @@ export class CalendarioService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  
+  listarDia() {
+    return this.http.get<any>(this.URL + '/calendario/dia/list');
+  }
+
+  listarHora() {
+    return this.http.get<any>(this.URL + '/calendario/hora/list');
+  }
+
+
   listarCalendario() {
-    return this.http.get<any>(this.URL + '/calendario');
+    return this.http.get<any>(this.URL + '/calendario/list');
   }
 
-  listarCalendarioById(idCalendar: number) {
-    return this.http.get(`${this.URL}/calendario/${idCalendar}`);
+  buscarCalendario(id: number) {
+    return this.http.get(`${this.URL}/calendario/buscar/${id}`);
   }
 
-  agregarCalendario(calendar) {
-    return this.http.post<any>(this.URL + '/calendario/add', calendar);
+  agregarCalendario(calendario) {
+    return this.http.post<any>(this.URL + '/calendario/agregar', calendario);
   }
 
-  actualizarCalendar(idCalendar: number, calendar) {
-    return this.http.put(`${this.URL}/calendar/${idCalendar}`, calendar);
+  actualizarCalendario(calendario) {
+    return this.http.post(`${this.URL}/calendario/actualizar`, calendario);
   }
+
+
+
+
+
 
 
   eliminarCalendario(idCalendar: number) {

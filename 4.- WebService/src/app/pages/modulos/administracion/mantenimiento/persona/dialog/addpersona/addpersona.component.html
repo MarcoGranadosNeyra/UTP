@@ -1,0 +1,69 @@
+<mat-card-header>
+    <p>
+      <mat-toolbar color="primary">
+        <span>Agregar Persona</span>
+        <span class="example-spacer"></span>
+      </mat-toolbar>
+    </p>
+  </mat-card-header>
+  <div mat-dialog-content>
+    <form [formGroup]="formPersona">
+      <div class="form-group">
+        <div class="row">
+
+          <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>Documento</mat-label>
+            <mat-select formControlName="id_documento" [(ngModel)]="defaultDocumento">
+              <mat-option *ngFor="let documento of documento" [value]="documento.id"  >
+                {{documento.documento}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>Nro Documento</mat-label>
+            <input matInput formControlName="nro_documento">
+          </mat-form-field>
+
+          <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre">
+          </mat-form-field>
+
+          <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>Apellido Paterno</mat-label>
+            <input matInput formControlName="apaterno">
+          </mat-form-field>
+
+          <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>Apellido Materno</mat-label>
+            <input matInput formControlName="amaterno">
+          </mat-form-field>
+
+          <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>Telefono</mat-label>
+            <input matInput formControlName="telefono">
+          </mat-form-field>
+
+          <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>Direccion</mat-label>
+            <input matInput formControlName="direccion">
+          </mat-form-field>
+
+          <mat-form-field class="fullWidth" appearance="outline">
+            <mat-label>Correo</mat-label>
+            <input matInput formControlName="correo">
+          </mat-form-field>
+
+          <section class="py-2">
+          </section>
+        </div>
+  </div>
+  <form class="row g-3">
+    <div class="col-auto">
+      <button mat-raised-button color="primary" [disabled]="!formPersona.valid" [mat-dialog-close]="1" (click)="agregarPersona()"><mat-icon>save</mat-icon> Aceptar</button>
+    </div>
+    <div class="col-auto">
+      <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1"><mat-icon>exit_to_app</mat-icon> Cancelar</button>
+    </div>
+  </form>

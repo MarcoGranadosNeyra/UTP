@@ -9,6 +9,8 @@ export class CarritoService {
   productosCarrito: any[] = [];
   totalCarrito = 0;
 
+  formaPagoCarrito: any[] = [];
+  montoFormaPago = 0;
   constructor(
 
   ) { }
@@ -61,6 +63,31 @@ export class CarritoService {
 
   limpiarCarrito(){
     this.productosCarrito.length  = 0
+  }
+
+  agregarFormaPago(formaPago) {
+    let exists = false;
+    const monto = parseFloat(formaPago.monto);
+    this.montoFormaPago += monto;
+    
+    // Search this product on the cart and increment the quantity
+    this.formaPagoCarrito = this.formaPagoCarrito.map(_formaPago => {
+      if (_formaPago.formpago.id === formaPago.id) {
+        _formaPago.quantity++;
+        exists = true;
+      }
+      //console.log(_product);
+      return _formaPago;
+      
+    });
+    // Add a new product to the cart if it's a new product
+    if (!exists) {
+      formaPago.monto = monto;
+      this.formaPagoCarrito.push({
+        formaPago: formaPago,
+        quantity: 1
+      });
+    }
   }
 
   

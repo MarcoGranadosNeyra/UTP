@@ -138,6 +138,14 @@ public class TecnicoResource {
        return tecnico;   
     }
     
+    @GET   
+    @Path("/buscar/persona/{id}")
+    @Produces(MediaType.APPLICATION_JSON)   
+    public Tecnico buscarTecnicoByIdPersona(@PathParam(value="id") int id) {   
+       Tecnico tecnico = tecnicoDAO.buscarTecnicoByIdPersona(id);
+       return tecnico;   
+    }
+    
     @DELETE
     @Path("/eliminar/{id}")
     @Produces("application/json")

@@ -338,6 +338,7 @@ public class UsuarioResource {
                 .build();
 
     }
+    
 
     @GET
     @Path("/gerarPdf")

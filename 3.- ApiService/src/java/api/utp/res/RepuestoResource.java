@@ -39,6 +39,14 @@ public class RepuestoResource {
          return listarProducto;
     }
     
+    @GET
+    @Path("repuestosyservicios/list")
+    @Produces("application/json")
+    public List<Producto> ListarRepuestosyServicios() {
+         listarProducto = productoDAO.listarRepuestoServicio();
+         return listarProducto;
+    }
+    
     @POST
     @Path("agregar")
     @Produces("application/json")

@@ -29,6 +29,10 @@ export class TecnicoService {
     return this.httpClient.get(`${this.apiURL}/tecnico/buscar/${id}`);
   }
 
+  buscarTecnicoByIdPersona(id: number) {
+    return this.httpClient.get(`${this.apiURL}/tecnico/buscar/persona/${id}`);
+  }
+
   eliminarTecnico(id: number) {
     return this.httpClient.delete(`${this.apiURL}/tecnico/eliminar/${id}`);
   }

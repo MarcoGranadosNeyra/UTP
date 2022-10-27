@@ -36,6 +36,20 @@ import { ServicioComponent } from './pages/modulos/cliente/servicio/servicio.com
 import { PagoComponent } from './pages/modulos/cliente/pago/pago.component';
 import { ListpermisoComponent } from './pages/modulos/administracion/mantenimiento/permiso/listpermiso/listpermiso.component';
 import { ImprimirservicioComponent } from './pages/modulos/cliente/imprimirservicio/imprimirservicio.component';
+import { ListclienteComponent } from './pages/modulos/administracion/mantenimiento/cliente/listcliente/listcliente.component';
+import { ListpersonaComponent } from './pages/modulos/administracion/mantenimiento/persona/listpersona/listpersona.component';
+import { ListcalendarioComponent } from './pages/modulos/administracion/mantenimiento/calendario/listcalendario/listcalendario.component';
+import { AtencionespendientesComponent } from './pages/modulos/tecnico/atenciones/atencionespendientes/atencionespendientes.component';
+import { AtencionesfinalizadasComponent } from './pages/modulos/tecnico/atenciones/atencionesfinalizadas/atencionesfinalizadas.component';
+import { FormapagolistComponent } from './pages/modulos/vendedor/formapago/formapagolist/formapagolist.component';
+import { ListrecepcionComponent } from './pages/modulos/tecnico/recepcion/listrecepcion/listrecepcion.component';
+import { CarritorepuestosComponent } from './pages/modulos/tecnico/repuestos/carritorepuestos/carritorepuestos.component';
+import { CatalogorepuestosComponent } from './pages/modulos/tecnico/repuestos/catalogorepuestos/catalogorepuestos.component';
+import { ImprimircotizacionComponent } from './pages/modulos/tecnico/cotizacion/imprimircotizacion/imprimircotizacion.component';
+import { CotizacionespendietesComponent } from './pages/modulos/tecnico/cotizacion/cotizacionespendietes/cotizacionespendietes.component';
+import { CotizacionesaprobadasComponent } from './pages/modulos/tecnico/cotizacion/cotizacionesaprobadas/cotizacionesaprobadas.component';
+import { ListrecibidosComponent } from './pages/modulos/tecnico/recepcion/equipos/listrecibidos/listrecibidos.component';
+import { ListentregadosComponent } from './pages/modulos/tecnico/recepcion/equipos/listentregados/listentregados.component';
 
 const routes: Routes = [
   {
@@ -57,6 +71,8 @@ const routes: Routes = [
 
         {path:'perfil/:id',component:PerfilComponent,canActivate : [SecurityGuard]},
 
+        {path:'administracion/mantenimiento/listarPersona',component:ListpersonaComponent,canActivate : [SecurityGuard]},
+        {path:'administracion/mantenimiento/listarCliente',component:ListclienteComponent,canActivate : [SecurityGuard]},
         {path:'administracion/mantenimiento/listarUsuario',component:ListusuarioComponent,canActivate : [SecurityGuard]},
         {path:'administracion/mantenimiento/listarTecnico',component:ListtecnicoComponent,canActivate : [SecurityGuard]},
         {path:'administracion/mantenimiento/listarCategoria',component:ListcategoriaComponent,canActivate : [SecurityGuard]},
@@ -65,6 +81,7 @@ const routes: Routes = [
         {path:'administracion/mantenimiento/listarServicio',component:ListservicioComponent,canActivate : [SecurityGuard]},
         {path:'administracion/mantenimiento/listarModulo',component:ListmoduloComponent,canActivate : [SecurityGuard]},
         {path:'administracion/mantenimiento/listarPermiso',component:ListpermisoComponent,canActivate : [SecurityGuard]},
+        {path:'administracion/mantenimiento/listarCalendario',component:ListcalendarioComponent,canActivate : [SecurityGuard]},
 
         {path:'cliente/soporte/servicio',component:ServicioComponent,canActivate : [SecurityGuard]},
         {path:'cliente/soporte/horario',component:HorarioComponent,canActivate : [SecurityGuard]},
@@ -74,7 +91,19 @@ const routes: Routes = [
 
         {path:'vendedor/catalogoproductos',component:CatalogoproductosComponent,canActivate : [SecurityGuard]},
         {path:'vendedor/carrito',component:CarritoComponent,canActivate : [SecurityGuard]},
+        {path:'vendedor/carrito/formapago',component:FormapagolistComponent,canActivate : [SecurityGuard]},
         {path:'vendedor/carrito/imprimirventa',component:ImprimirventaComponent,canActivate : [SecurityGuard]},
+        
+
+        {path:'tecnico/atenciones/pendientes',component:AtencionespendientesComponent,canActivate : [SecurityGuard]},
+        {path:'tecnico/atenciones/finalizadas',component:AtencionesfinalizadasComponent,canActivate : [SecurityGuard]},
+        {path:'tecnico/recepcion/equipos/recibidos',component:ListrecibidosComponent,canActivate : [SecurityGuard]},
+        {path:'tecnico/recepcion/equipos/entregados',component:ListentregadosComponent,canActivate : [SecurityGuard]},
+        {path:'tecnico/recepcion/catalogorepuestos',component:CatalogorepuestosComponent,canActivate : [SecurityGuard]},
+        {path:'tecnico/recepcion/carrito',component:CarritorepuestosComponent,canActivate : [SecurityGuard]},
+        {path:'tecnico/cotizacion/imprimircotizacion',component:ImprimircotizacionComponent,canActivate : [SecurityGuard]},
+        {path:'tecnico/cotizacion/pendientes',component:CotizacionespendietesComponent,canActivate : [SecurityGuard]},
+        {path:'tecnico/cotizacion/aprobadas',component:CotizacionesaprobadasComponent,canActivate : [SecurityGuard]},
       ]},
 
 

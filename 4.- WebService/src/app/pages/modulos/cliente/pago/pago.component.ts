@@ -90,9 +90,6 @@ export class PagoComponent implements OnInit {
       id_cliente        :  [null, Validators.required],
       id_producto       :  [null, Validators.required],
       precio            :  [null, Validators.required],
-      number_card       :  [null, Validators.compose([Validators.minLength(16),Validators.maxLength(16)])],
-      expire_card       :  [null, Validators.minLength(5)],
-      ccv_card          :  [null, Validators.required],
     });
   }
 
@@ -161,7 +158,6 @@ export class PagoComponent implements OnInit {
     .subscribe( res => {
       console.log(res)
     });
-    
   }
 
   agregarDetalle(id_venta:number,id_producto:number,precio:number) {

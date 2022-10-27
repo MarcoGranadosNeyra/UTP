@@ -9,6 +9,7 @@ import { PersonaService } from 'src/app/service/persona/persona.service';
 import { VentaService } from 'src/app/service/venta/venta.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { ClienteService } from 'src/app/service/cliente/cliente.service';
 declare var require: any
 const FileSaver = require('file-saver');
 
@@ -21,6 +22,7 @@ export class CarritoComponent implements OnInit {
 
   documento:any[];
   productos:any[];
+  pagos:any[];
   persona :any={};
   id_usuario :any={};
   detalle :any={};
@@ -32,6 +34,7 @@ export class CarritoComponent implements OnInit {
             private dialog :MatDialog,
             private carritoService:CarritoService,
             private personaService:PersonaService,
+            private clienteService:ClienteService,
             private ventaServive:VentaService,
             private formBuilder:FormBuilder,
             private router: Router,
@@ -135,16 +138,21 @@ export class CarritoComponent implements OnInit {
   validarCliente() {
     if(this.formCliente.valid){
       
-      this.personaService.listarPersonaByDNI(this.formCliente.value)
+      this.clienteService.validarCliente(this.formCliente.value)
       .subscribe( res => {
-        
-        this.persona=res.persona;
-        this.formVenta.get('id_cliente').setValue(this.persona.id)
+        console.log(res)
+        if (res.result==1) {
+          this.persona=res.persona;
+          this.formVenta.get('id_cliente').setValue(this.persona.id)
+  
+        var id: number = Number(localStorage.getItem('id_usuario'));
+        this.id_usuario=id;
+        //console.log(this.id_usuario);
+        this.formVenta.get('id_usuario').setValue(id)
+        }else{
+          this.openSnackBar('Mensaje ',res.mensaje)  ;
+        }
 
-      var id: number = Number(localStorage.getItem('id_usuario'));
-      this.id_usuario=id;
-      console.log(this.id_usuario);
-      this.formVenta.get('id_usuario').setValue(id)
       });
     }
   }
@@ -160,6 +168,10 @@ listarDocumento(){
 
   agregarVenta() {
     if(this.formVenta.valid){
+      /*
+      this.dataService.formaPago
+      this.router.navigate(['main/vendedor/carrito/formapago']);
+      */
       
       this.ventaServive.agregarVenta(this.formVenta.value)
       .subscribe( res => {
@@ -172,14 +184,11 @@ listarDocumento(){
           this.dataService.id_venta=res.id_venta;
         }else{
           this.openSnackBar('Mensaje ',res.mensaje);
-          /*
-          if(res.error.constraint=="uq_id_persona_medico"){
-            this.openSnackBar('Error : El Medico ya esta registrado','');
-          }
-            */
         }
       });
+      
     }
+    
   }
 
   agregarDetalle(id_venta:number) {
@@ -201,6 +210,13 @@ listarDocumento(){
   cancelar() {
     this.router.navigate(['main/vendedor/catalogoproductos']);
     this.carritoService.limpiarCarrito();
+  }
+
+  public eliminarPago(id:number){
+    let busqueda = id;
+    let indice = this.dataService.productos.findIndex(idendificador => idendificador.id === busqueda);
+    this.dataService.productos.splice(indice, 1);
+    this.subtotal();
   }
 
 }

@@ -215,6 +215,28 @@ CREATE OR REPLACE FUNCTION agregarPersona(
 	END;
   $BODY$
   LANGUAGE 'plpgsql';
+
+  CREATE OR REPLACE FUNCTION agregarPersonaResumido(
+	_id_documento	 	int,
+	_nro_documento		varchar,
+	_nombre				varchar,
+	_apaterno			varchar,
+	_amaterno			varchar,
+	_telefono			varchar,
+	_direccion			varchar,
+	_correo				varchar,
+	out v_id_persona 	integer)
+  RETURNS integer AS
+  $BODY$
+  DECLARE
+
+	BEGIN
+	INSERT INTO Persona (id_departamento,id_provincia,id_distrito,id_documento,nro_documento,nombre,apaterno,amaterno,telefono,direccion,fecha_naci,id_sexo,correo,firma,huella,foto,estado) 
+	VALUES ('15', '1501', '150101',_id_documento, _nro_documento, _nombre, _apaterno,_amaterno, _telefono, _direccion,
+			'1980-05-09',1,_correo, '','','', true) returning id INTO v_id_persona;
+	END;
+  $BODY$
+  LANGUAGE 'plpgsql';
   
   CREATE OR REPLACE FUNCTION actualizarPersona(
 	_id_documento	 	integer,
@@ -711,7 +733,16 @@ returns table (
 	dia					varchar
 	)
 as $$
-	select * from dia where id>0
+	select id,dia from dia
+$$ language sql;
+
+  create or replace function listarHora()
+returns table (
+	id 					integer,
+	hora					varchar
+	)
+as $$
+	select id,hora from hora
 $$ language sql;
 
 
@@ -908,6 +939,18 @@ as $$
 	SELECT id,id_tecnico,id_dia,id_hora,libre,estado FROM calendario WHERE id=_id
 $$ language sql;
 
+create or replace function buscarCalendario(_id integer)
+returns table (
+	id 					    integer,
+	id_producto				integer,
+	id_tecnico				integer,
+	id_dia					integer,
+	id_hora					integer,
+	libre					boolean,
+	estado					boolean)
+as $$
+	SELECT id,id_producto,id_tecnico,id_dia,id_hora,libre,estado FROM calendario WHERE id=_id
+$$ language sql;
 
   create or replace function buscarTecnico(_id int)
 returns table (
@@ -1103,18 +1146,69 @@ returns table (
   nombre            varchar,
   telefono		    varchar,
   direccion		    varchar,
-  estado			varchar)
+  estado			boolean)
 as $$
-  select c.id,c.id_persona,d.documento,p.nro_documento,upper(p.nombre|| ' ' || p.apaterno) as nombre,p.telefono,p.direccion,
-  		CASE 
-		  WHEN c.estado=true  THEN 'Activo'
-		  WHEN c.estado=false  THEN 'Eliminado'
-		END
+  select c.id,
+  		c.id_persona,
+		d.documento,
+		p.nro_documento,
+		upper(p.nombre|| ' ' || p.apaterno) as nombre,
+		p.telefono,
+		p.direccion,
+		c.estado
 	from cliente c 
   inner join persona p on p.id=c.id_persona
   inner join documento d on d.id=p.id_documento
   order by c.id asc
 $$ language sql;
+
+  CREATE OR REPLACE FUNCTION agregarCliente(
+	_id_persona			integer,
+	out v_id_cliente	int)
+  RETURNS integer AS
+  $BODY$
+  DECLARE
+
+	BEGIN
+	INSERT INTO cliente (id_persona,estado)values(_id_persona,true) returning id INTO v_id_cliente;
+	END;
+  $BODY$
+  LANGUAGE 'plpgsql';
+
+
+  CREATE OR REPLACE FUNCTION actualizarCliente(
+	_id_persona			integer,
+	_estado				boolean,
+	_id					integer)
+  RETURNS void AS
+  $BODY$
+  DECLARE
+  		
+	BEGIN
+		UPDATE cliente SET id_persona=_id_persona,estado=_estado WHERE id=_id;
+      END;
+  $BODY$
+  LANGUAGE 'plpgsql';
+
+create or replace function eliminarCliente(_id integer)
+  RETURNS integer AS
+  $BODY$
+  DECLARE
+    AFFECTEDROWS integer;
+  BEGIN
+    WITH a AS (UPDATE cliente SET ESTADO=false  WHERE id = _id RETURNING 1)
+    SELECT count(*) INTO AFFECTEDROWS FROM a;
+    IF AFFECTEDROWS = 1 THEN
+      RETURN 1;
+    ELSE
+      RETURN 0;
+    END IF;
+  EXCEPTION WHEN OTHERS THEN
+    RETURN 0;
+  END;
+  $BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
 
 create or replace function eliminarUsuario(_id integer)
   RETURNS integer AS
@@ -1497,7 +1591,7 @@ as $$
 $$ language sql;
 
 
-    CREATE OR REPLACE FUNCTION finalizarRecepcion(
+      CREATE OR REPLACE FUNCTION finalizarRecepcion(
 	_id	 	integer
   	)
   RETURNS void AS
@@ -1505,7 +1599,7 @@ $$ language sql;
   DECLARE
 
 	BEGIN
-	update recepcion set estado=false where id=_id;
+	update recepcion set entregado=true where id=_id;
 
     END;
   $BODY$
@@ -1584,6 +1678,23 @@ $$ language sql;
   $BODY$
   LANGUAGE 'plpgsql';
 
+   CREATE OR REPLACE FUNCTION actualizarCalendario(
+	_id_producto		integer,
+	_id_tecnico			integer,
+	_id_dia				integer,
+	_id_hora			integer,
+	_estado				boolean,
+	_id					integer)
+  RETURNS void AS
+  $BODY$
+  DECLARE
+  		
+	BEGIN
+		UPDATE calendario set id_producto=_id_producto,id_tecnico=_id_tecnico,id_dia=_id_dia,id_hora=_id_hora,estado=_estado where id=_id;
+      END;
+  $BODY$
+  LANGUAGE 'plpgsql';
+
 create or replace function eliminarCategoria(_id integer)
   RETURNS integer AS
   $BODY$
@@ -1644,6 +1755,21 @@ as $$
   inner join tipo_producto tp on tp.id=p.id_tipo_producto
   inner join categoria c on c.id=p.id_categoria
   where tp.id=2
+$$ language sql;
+
+  create or replace function listarRepuestoServicio()
+returns table (
+  id                integer,
+  categoria        	varchar,
+  producto         	varchar,
+  imagen         	varchar,
+  precio         	decimal(8,2),
+  estado			boolean)
+as $$
+  select p.id,c.categoria,producto,p.imagen,precio,p.estado from producto p
+  inner join tipo_producto tp on tp.id=p.id_tipo_producto
+  inner join categoria c on c.id=p.id_categoria
+  where tp.id<>1
 $$ language sql;
 
   create or replace function listarRepuesto()
@@ -2187,7 +2313,7 @@ $$ language sql;
   $BODY$
   DECLARE
 	BEGIN
-	INSERT INTO atencion (id_venta,id_calendario,id_tipo_atencion,fecha,hora,estado)values(_id_venta,_id_calendario,1,_fecha,_hora,true) returning id INTO v_id_atencion;
+	INSERT INTO hoja_servicio (id_venta,id_calendario,id_tipo_atencion,fecha,hora,estado)values(_id_venta,_id_calendario,1,_fecha,_hora,true) returning id INTO v_id_atencion;
 	update calendario set libre =false where id=_id_calendario;
 
 	END;
@@ -2235,7 +2361,7 @@ as $$
 		pd.producto,pd.precio,
 		to_char(a.fecha,'DD/MM/YYYY'),a.hora,
 		ta.tipo_atencion
-	from atencion a 
+	from hoja_servicio a 
 inner join venta v on v.id=a.id_venta
 inner join calendario c on c.id=a.id_calendario
 inner join cliente cl on cl.id=v.id_cliente
@@ -2248,4 +2374,533 @@ inner join documento dpt on dpt.id=pt.id_documento
 inner join producto pd on pd.id=c.id_producto
 inner join tipo_atencion ta on ta.id=a.id_tipo_atencion
 where a.id=_id;
+$$ language sql;
+
+
+
+    create or replace function listarCalendario()
+returns table (
+  id        		int,
+  producto			varchar,
+  tecnico			varchar,
+  dia				varchar,
+  hora				varchar,
+  libre				varchar,
+  estado		 	boolean)
+as $$
+
+select 
+	c.id,
+	p.producto,
+	pt.nombre || ' ' || pt.apaterno || ' ' || pt.amaterno as tecnico , 
+	d.dia,
+	h.hora,
+	c.libre,
+	c.estado 
+from calendario c
+inner join producto p on p.id=c.id_producto
+inner join tecnico t on t.id=c.id_tecnico
+inner join persona pt on pt.id=t.id_persona
+inner join dia d on d.id=c.id_dia
+inner join hora h on h.id=c.id_hora
+$$ language sql;
+
+
+  CREATE OR REPLACE FUNCTION agregarCalendario(
+	_id_producto		integer,
+	_id_tecnico		 	integer,
+	_id_dia 			integer,
+	_id_hora 			integer,
+	out v_id_calendario	int)
+  RETURNS integer AS
+  $BODY$
+  DECLARE
+	BEGIN
+	INSERT INTO calendario (id_producto, id_tecnico,id_dia,id_hora,libre,estado) VALUES (_id_producto,_id_tecnico, _id_dia,_id_hora,true,true) returning id INTO v_id_calendario;
+	END;
+  $BODY$
+  LANGUAGE 'plpgsql';
+
+      create or replace function listarAtenciones(_id_usuario integer)
+returns table (
+  id        		int,
+  producto			varchar,
+  precio			decimal(8,2),
+  cliente			varchar,
+  fecha				varchar,
+  hora				varchar,
+  atencion		 	varchar,
+  tecnico		 	varchar)
+as $$
+
+select 
+	a.id,
+	p.producto,
+	precio,
+	pc.nombre || ' ' || pc.apaterno || ' ' || pc.amaterno as cliente ,
+	to_char(a.fecha,'DD/MM/YYYY'),
+	a.hora,
+	ta.tipo_atencion,
+	pt.nombre || ' ' || pt.apaterno || ' ' || pt.amaterno as tecnico
+from hoja_servicio a
+inner join calendario c on c.id=a.id_calendario
+inner join producto p on p.id=c.id_producto
+inner join venta v on v.id=a.id_venta
+inner join cliente cli on cli.id=v.id_cliente
+inner join persona pc on pc.id=cli.id_persona
+inner join tipo_atencion ta on ta.id=a.id_tipo_atencion
+inner join tecnico t on t.id=c.id_tecnico
+inner join persona pt on pt.id=t.id_persona
+inner join usuario u on u.id_persona=t.id_persona
+where u.id=_id_usuario and a.id_tipo_atencion=1;
+$$ language sql;
+
+
+      create or replace function listarAtencionesFinalizadas(_id_usuario integer)
+returns table (
+  id        		int,
+  producto			varchar,
+  precio			decimal(8,2),
+  cliente			varchar,
+  fecha				varchar,
+  hora				varchar,
+  atencion		 	varchar,
+  tecnico		 	varchar)
+as $$
+
+select 
+	a.id,
+	p.producto,
+	precio,
+	pc.nombre || ' ' || pc.apaterno || ' ' || pc.amaterno as cliente ,
+	to_char(a.fecha,'DD/MM/YYYY'),
+	a.hora,
+	ta.tipo_atencion,
+	pt.nombre || ' ' || pt.apaterno || ' ' || pt.amaterno as tecnico
+from hoja_servicio a
+inner join calendario c on c.id=a.id_calendario
+inner join producto p on p.id=c.id_producto
+inner join venta v on v.id=a.id_venta
+inner join cliente cli on cli.id=v.id_cliente
+inner join persona pc on pc.id=cli.id_persona
+inner join tipo_atencion ta on ta.id=a.id_tipo_atencion
+inner join tecnico t on t.id=c.id_tecnico
+inner join persona pt on pt.id=t.id_persona
+inner join usuario u on u.id_persona=t.id_persona
+where u.id=_id_usuario and a.id_tipo_atencion=2;
+$$ language sql;
+
+
+   CREATE OR REPLACE FUNCTION finalizarAtencion(
+	_id				integer)
+  RETURNS void AS
+  $BODY$
+  DECLARE
+  		_id_calendario 			integer;
+	BEGIN
+		SELECT id_calendario into _id_calendario from hoja_servicio;
+		UPDATE hoja_servicio SET id_tipo_atencion=2  WHERE id = _id;
+		UPDATE calendario set libre=true where id=_id_calendario;
+      END;
+  $BODY$
+  LANGUAGE 'plpgsql';
+
+
+  create or replace function buscarCliente(_id_documento int,_nro_documento varchar)
+returns table (
+	id 					   	integer,
+	id_departamento 		varchar,
+	id_provincia 		  	varchar,
+	id_distrito			  	varchar,
+	id_documento 		  	integer,
+	nro_documento		  	varchar,
+	nombre				    varchar,
+	apaterno			    varchar,
+	amaterno			    varchar,
+	telefono			    varchar,
+	direccion			    varchar,
+	fecha_naci			  	date,
+	id_sexo				    integer,
+	correo				    varchar,
+	firma				    varchar,
+	huella				    varchar,
+	foto				    varchar,
+	estado				    boolean)
+as $$
+	SELECT c.id,id_departamento,id_provincia,id_distrito,id_documento,nro_documento,nombre,apaterno,amaterno,telefono,direccion,fecha_naci,id_sexo,correo,firma,huella,foto,p.estado FROM cliente c
+	inner join persona p on p.id=c.id_persona
+	WHERE id_documento=_id_documento and nro_documento=_nro_documento;
+	
+$$ language sql;
+
+
+
+
+create or replace function listarRecepcion()
+returns table (
+  id            varchar, 
+  tecnico  		varchar,
+  cliente  		varchar,
+  equipo  		varchar,
+  marca  		varchar,
+  modelo  		varchar,
+  serie  		varchar,
+  descripcion  	varchar,                               
+  fecha		  	varchar,
+  hora		  	varchar, 
+  entregado		boolean,
+  estado		boolean)
+as $$
+	select 
+		r.id,
+		pt.nombre || ' ' || pt.apaterno || ' ' || pt.amaterno as tecnico ,
+		pc.nombre || ' ' || pc.apaterno || ' ' || pc.amaterno as cliente ,
+		equipo,
+		marca,
+		modelo,
+		serie,
+		descripcion,
+		to_char(r.fecha,'DD/MM/YYYY'),
+		r.hora,
+		entregado,
+		r.estado
+	from recepcion r
+	inner join usuario u on u.id=r.id_usuario
+	--inner join tecnico t on t.id_persona=u.id_persona
+	inner join persona pt on pt.id=u.id_persona
+	inner join cliente c on c.id=r.id_cliente
+	inner join persona pc on pc.id=c.id_persona
+	order by id asc;
+$$ language sql;
+
+create or replace function listarEquiposRecibidos()
+returns table (
+  id            varchar, 
+  tecnico  		varchar,
+  cliente  		varchar,
+  equipo  		varchar,
+  marca  		varchar,
+  modelo  		varchar,
+  serie  		varchar,
+  descripcion  	varchar,                               
+  fecha		  	varchar,
+  hora		  	varchar, 
+  entregado		boolean,
+  estado		boolean)
+as $$
+	select 
+		r.id,
+		pt.nombre || ' ' || pt.apaterno || ' ' || pt.amaterno as tecnico ,
+		pc.nombre || ' ' || pc.apaterno || ' ' || pc.amaterno as cliente ,
+		equipo,
+		marca,
+		modelo,
+		serie,
+		descripcion,
+		to_char(r.fecha,'DD/MM/YYYY'),
+		r.hora,
+		entregado,
+		r.estado
+	from recepcion r
+	inner join usuario u on u.id=r.id_usuario
+	--inner join tecnico t on t.id_persona=u.id_persona
+	inner join persona pt on pt.id=u.id_persona
+	inner join cliente c on c.id=r.id_cliente
+	inner join persona pc on pc.id=c.id_persona
+	where r.entregado=false
+	order by id asc;
+$$ language sql;
+
+create or replace function listarEquiposEntregados()
+returns table (
+  id            varchar, 
+  tecnico  		varchar,
+  cliente  		varchar,
+  equipo  		varchar,
+  marca  		varchar,
+  modelo  		varchar,
+  serie  		varchar,
+  descripcion  	varchar,                               
+  fecha		  	varchar,
+  hora		  	varchar, 
+  entregado		boolean,
+  estado		boolean)
+as $$
+	select 
+		r.id,
+		pt.nombre || ' ' || pt.apaterno || ' ' || pt.amaterno as tecnico ,
+		pc.nombre || ' ' || pc.apaterno || ' ' || pc.amaterno as cliente ,
+		equipo,
+		marca,
+		modelo,
+		serie,
+		descripcion,
+		to_char(r.fecha,'DD/MM/YYYY'),
+		r.hora,
+		entregado,
+		r.estado
+	from recepcion r
+	inner join usuario u on u.id=r.id_usuario
+	--inner join tecnico t on t.id_persona=u.id_persona
+	inner join persona pt on pt.id=u.id_persona
+	inner join cliente c on c.id=r.id_cliente
+	inner join persona pc on pc.id=c.id_persona
+		where r.entregado=true
+	order by id asc;
+$$ language sql;
+
+
+
+
+CREATE OR REPLACE FUNCTION agregarRecepcion(
+	_id_usuario			int,
+	_id_cliente		 	int,
+	_equipo				varchar,
+	_marca				varchar,
+	_modelo				varchar,
+	_serie				varchar,
+	_descripcion		varchar,
+	_fecha 				varchar,
+	_hora				varchar,
+	_entregado			boolean,
+	_estado				boolean,
+	out v_id_recepcion	int)
+  RETURNS integer AS
+  $BODY$
+  DECLARE
+	BEGIN
+	
+	INSERT INTO recepcion (id_usuario,id_cliente,equipo,marca,modelo,serie,descripcion,fecha,hora,entregado,estado)	VALUES (_id_usuario, _id_cliente, _equipo,_marca,_modelo,_serie,_descripcion,current_date,to_char(current_timestamp, 'HH12:MI:SS'),false,true) returning id INTO v_id_recepcion;
+
+	END;
+  $BODY$
+  LANGUAGE 'plpgsql';
+
+      create or replace function imprimirGuiaRecepcion(_id int)
+returns table (
+  id        		int,
+  cliente			varchar,
+  documento_cliente	varchar,
+  nro_documento_cliente	varchar,
+  telefono_cliente	varchar,
+  direccion_cliente	varchar,
+  tecnico			varchar,
+  documento_tecnico	varchar,
+  nro_documento_tecnico	varchar,
+  telefono_tecnico	varchar,
+  direccion_tecnico	varchar,
+  equipo			varchar,
+  marca				varchar,
+  modelo			varchar,
+  serie				varchar,
+  descripcion		varchar,
+  fecha				varchar,
+  hora				varchar)
+as $$
+	select 
+		r.id,
+		pc.nombre || ' ' || pc.apaterno || ' ' || pc.amaterno as cliente,
+		dpc.documento,pc.nro_documento,pc.telefono,pc.direccion,
+		pt.nombre || ' ' || pt.apaterno || ' ' || pt.amaterno as tecnico,
+		dpt.documento,pt.nro_documento,pt.telefono,pt.direccion,
+		equipo,marca,modelo,serie,descripcion,
+		to_char(r.fecha,'DD/MM/YYYY'),r.hora
+	from recepcion r 
+inner join cliente c on c.id=r.id_cliente
+inner join persona pc on pc.id=c.id_persona
+inner join documento dpc on dpc.id=pc.id_documento
+inner join usuario u on u.id=r.id_usuario
+--inner join tecnico t on t.id=u.id_persona
+inner join persona pt on pt.id=u.id_persona
+inner join documento dpt on dpt.id=pt.id_documento
+where r.id=_id;
+$$ language sql;
+
+
+   CREATE OR REPLACE FUNCTION agregarDetalleCotizacion(
+	_id_cotizacion		int,
+	_id_producto	 	int,
+	_cantidad		 	int,
+	_precio				double precision)
+  RETURNS void AS
+  $BODY$
+  DECLARE
+
+	BEGIN
+	INSERT INTO cotizacion_detalle (id_cotizacion, id_producto,cantidad,precio,estado) VALUES (_id_cotizacion, _id_producto,_cantidad,_precio,true);
+	END;
+  $BODY$
+  LANGUAGE 'plpgsql';
+
+        create or replace function buscarRecepcion(_id integer)
+returns table (
+  id            int, 
+  id_usuario	int,
+  id_cliente	int,
+  equipo        varchar, 
+  marca         varchar, 
+  modelo        varchar, 
+  serie         varchar, 
+  descripcion	varchar, 
+  fecha			date, 
+  hora			varchar, 
+  entregado     boolean, 
+  estado        boolean)
+as $$
+	select id,id_usuario,id_cliente,equipo,marca,modelo,serie,descripcion,fecha,hora,entregado,estado from recepcion
+	where id=_id;
+$$ language sql;
+
+
+ CREATE OR REPLACE FUNCTION agregarCotizacion(
+	_id_usuario			int,
+	_id_cliente		 	int,
+	out v_id_cotizacion		int)
+  RETURNS integer AS
+  $BODY$
+  DECLARE
+
+	BEGIN
+	INSERT INTO cotizacion (id_usuario, id_cliente,id_empresa,fecha,hora,aprobado,estado) VALUES (_id_usuario, _id_cliente,1,current_date,to_char(current_timestamp, 'HH12:MI:SS'),false, true) returning id INTO v_id_cotizacion;
+	END;
+  $BODY$
+  LANGUAGE 'plpgsql';
+
+
+   create or replace function imprimirCotizacion(_id integer)
+returns table (
+  id            int, 
+  usuario		varchar,
+  vendedor		varchar,
+  cliente		varchar,
+  producto		varchar,
+  cantidad		int,
+  subtotal		decimal(8,2),
+  descuento		decimal(8,2),
+  empresa		varchar,
+  ruc			varchar,
+  telefonos		varchar	
+  )
+as $$
+	SELECT c.id,
+	u.usuario,
+	pu.nombre || ' ' || pu.apaterno || ' ' ||pu.amaterno as vendedor,
+	pc.nombre || ' ' || pc.apaterno || ' ' ||pc.amaterno as cliente,
+	p.producto,
+	cd.cantidad,
+	cd.cantidad*cd.precio,
+	0 as descuento,
+	e.empresa,
+	e.ruc,
+	e.telefonos  FROM cotizacion c 
+	INNER JOIN cotizacion_detalle cd on cd.id_cotizacion=c.id
+	INNER JOIN usuario u on u.id=c.id_usuario
+	INNER JOIN persona pu on pu.id=u.id_persona
+	INNER JOIN cliente cli on cli.id=c.id_cliente
+	INNER JOIN persona pc on pc.id=cli.id_persona
+	INNER JOIN producto p on p.id=cd.id_producto
+	INNER JOIN empresa e on e.id=c.id_empresa
+	WHERE c.id=_id
+$$ language sql;
+
+
+
+    create or replace function listarCotizacionesPendientes()
+returns table (
+  id            int, 
+  tecnico		varchar,
+  cliente		varchar,
+  fecha			varchar,
+  hora			varchar,
+  estado		varchar
+  )
+as $$
+	SELECT c.id,
+	pu.nombre || ' ' || pu.apaterno || ' ' ||pu.amaterno as tecnico,
+	pc.nombre || ' ' || pc.apaterno || ' ' ||pc.amaterno as cliente,
+	to_char(c.fecha,'DD/MM/YYYY'),
+	c.hora,
+	       CASE c.aprobado
+           WHEN true THEN 'APROBADO'
+           WHEN false THEN 'PENDIENTE'
+       END estado
+  FROM cotizacion c 
+	INNER JOIN usuario u on u.id=c.id_usuario
+	INNER JOIN persona pu on pu.id=u.id_persona
+	INNER JOIN cliente cli on cli.id=c.id_cliente
+	INNER JOIN persona pc on pc.id=cli.id_persona
+	WHERE c.aprobado=false;
+$$ language sql;
+
+   create or replace function listarCotizacionesAprobadas()
+returns table (
+  id            int, 
+  tecnico		varchar,
+  cliente		varchar,
+  fecha			varchar,
+  hora			varchar,
+  estado		varchar
+  )
+as $$
+	SELECT c.id,
+	pu.nombre || ' ' || pu.apaterno || ' ' ||pu.amaterno as tecnico,
+	pc.nombre || ' ' || pc.apaterno || ' ' ||pc.amaterno as cliente,
+	to_char(c.fecha,'DD/MM/YYYY'),
+	c.hora,
+	       CASE c.aprobado
+           WHEN true THEN 'APROBADO'
+           WHEN false THEN 'PENDIENTE'
+       END estado
+  FROM cotizacion c 
+	INNER JOIN usuario u on u.id=c.id_usuario
+	INNER JOIN persona pu on pu.id=u.id_persona
+	INNER JOIN cliente cli on cli.id=c.id_cliente
+	INNER JOIN persona pc on pc.id=cli.id_persona
+	WHERE c.aprobado=true;
+$$ language sql;
+
+
+  create or replace function aprobarCotizacion(_id integer)
+  RETURNS integer AS
+  $BODY$
+  DECLARE
+    AFFECTEDROWS integer;
+  BEGIN
+    WITH a AS (UPDATE cotizacion SET aprobado=true  WHERE id = _id RETURNING 1)
+    SELECT count(*) INTO AFFECTEDROWS FROM a;
+    IF AFFECTEDROWS = 1 THEN
+      RETURN 1;
+    ELSE
+      RETURN 0;
+    END IF;
+  EXCEPTION WHEN OTHERS THEN
+    RETURN 0;
+  END;
+  $BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+
+      create or replace function buscarCotizacion(_id integer)
+returns table (
+  id            int, 
+  id_usuario	int,
+  id_cliente  	int,
+  id_empresa  	int,
+  fecha  		date,
+  hora  		varchar,
+  estado        boolean)
+as $$
+	select id,id_usuario,id_cliente,id_empresa,fecha,hora,estado from cotizacion
+	where id=_id;
+$$ language sql;
+
+create or replace function listarDetalleCotizacion(_id_cotizacion int)
+returns table (
+  	id_cotizacion        		int, 
+  	id_producto  		int,
+  	cantidad 	int,
+	precio	decimal(8,2))
+as $$
+	select id_cotizacion,id_producto,cantidad,precio from cotizacion_detalle where id_cotizacion=_id_cotizacion and estado=true;
 $$ language sql;

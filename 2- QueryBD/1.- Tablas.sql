@@ -81,6 +81,9 @@ CONSTRAINT fk_id_distrito_persona FOREIGN KEY (id_distrito) REFERENCES distrito(
 CONSTRAINT fk_id_sexo FOREIGN KEY (id_sexo) REFERENCES sexo(id)
 );
 
+ALTER TABLE persona 
+    ADD CONSTRAINT uq_correo UNIQUE (correo);
+
 CREATE TABLE tipo_usuario(
 id			SERIAL,
 tipo		varchar(40) NOT NULL,
@@ -206,6 +209,9 @@ CONSTRAINT pk_id_paciente PRIMARY KEY (id),
 CONSTRAINT fk_id_persona FOREIGN KEY (id_persona) REFERENCES persona(id)
 );
 
+ALTER TABLE cliente 
+    ADD CONSTRAINT uq_id_persona_cliente UNIQUE (id_persona);
+
 /*
 CREATE TABLE atencion(
 id				SERIAL,
@@ -321,7 +327,7 @@ CONSTRAINT uq_tipo_atencion UNIQUE(tipo_atencion),
 CONSTRAINT pk_id_tipo_atencion PRIMARY KEY (id)
 );
 
-CREATE TABLE atencion(
+CREATE TABLE hoja_servicio(
 id					SERIAL,
 id_venta			INT NOT NULL,
 id_calendario		INT NOT NULL,
@@ -335,3 +341,49 @@ CONSTRAINT fk_id_calendario_cita FOREIGN KEY(id_calendario) REFERENCES calendari
 CONSTRAINT fk_id_tipo_atencion_cita FOREIGN KEY(id_tipo_atencion) REFERENCES tipo_atencion(id)
 );
 
+
+
+CREATE TABLE recepcion(
+id 					SERIAL,
+id_usuario			INTEGER,
+id_cliente  		INTEGER,
+equipo				VARCHAR(100),
+marca				VARCHAR(50),
+modelo				VARCHAR(50),
+serie				VARCHAR(50),
+descripcion			VARCHAR(100),
+fecha				date not null,
+hora				varchar(10) not null,
+entregado			boolean NOT NULL,
+estado				boolean NOT NULL,
+CONSTRAINT pk_id_recepcion PRIMARY KEY(id),
+CONSTRAINT fk_id_tecnico_recepcion FOREIGN KEY (id_usuario) REFERENCES usuario(id),
+CONSTRAINT fk_id_cliente_recepcion FOREIGN KEY (id_cliente) REFERENCES cliente(id)
+);
+
+
+CREATE TABLE cotizacion(
+id				SERIAL,
+id_usuario		INT NOT NULL,
+id_cliente		INT NOT NULL,
+id_empresa		INT NOT NULL,
+fecha			date not null,
+hora			varchar(10) not null,
+aprobado		boolean NOT NULL,
+estado			boolean NOT NULL,
+CONSTRAINT pk_id_cotizacion PRIMARY KEY (id),
+CONSTRAINT fk_id_usuario_cotizacion FOREIGN KEY(id_usuario) REFERENCES usuario(id),
+CONSTRAINT fk_id_cliente_cotizacion FOREIGN KEY(id_cliente) REFERENCES cliente(id),
+CONSTRAINT fk_id_empresa_cotizacion FOREIGN KEY(id_empresa) REFERENCES empresa(id)
+);
+
+CREATE TABLE cotizacion_detalle(
+id_cotizacion	INTEGER,
+id_producto		INTEGER,
+cantidad		INTEGER,
+precio			DECIMAL(8,2),
+estado			boolean NOT NULL,
+CONSTRAINT pk_id_cotizacion_id_producto_cotizacion_detalle PRIMARY KEY (id_cotizacion,id_producto),
+CONSTRAINT fk_id_cotizacion_cotizacion_detalle  FOREIGN KEY (id_cotizacion) REFERENCES cotizacion(id),
+CONSTRAINT fk_id_producto_cotizacion_detalle FOREIGN KEY (id_producto) REFERENCES producto(id)
+);

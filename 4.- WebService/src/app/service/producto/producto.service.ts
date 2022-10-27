@@ -25,6 +25,10 @@ export class ProductoService {
     return this.httpClient.get(`${this.apiURL}/repuesto/list`);
   }
 
+  listarRepuestosyServicios() {
+    return this.httpClient.get(`${this.apiURL}/repuesto/repuestosyservicios/list`);
+  }
+
   agregarProducto(producto) {
     return this.httpClient.post(`${this.apiURL}/producto/agregar/`, producto);
   }

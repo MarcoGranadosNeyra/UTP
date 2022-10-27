@@ -58,7 +58,7 @@ import { RegistrousuarioComponent } from './pages/persona/registrousuario/regist
 import { RegistradoComponent } from './pages/persona/registrado/registrado.component';
 import { HorarioComponent } from './pages/modulos/cliente/horario/horario.component';
 import { TecnicoComponent } from './pages/modulos/cliente/tecnico/tecnico.component';
-import { AtencionesComponent } from './pages/modulos/cliente/atenciones/atenciones.component';
+
 import { ListusuarioComponent } from './pages/modulos/administracion/mantenimiento/usuario/listusuario/listusuario.component';
 import { AddusuarioComponent } from './pages/modulos/administracion/mantenimiento/usuario/dialog/addusuario/addusuario.component';
 import { EditusuarioComponent } from './pages/modulos/administracion/mantenimiento/usuario/dialog/editusuario/editusuario.component';
@@ -70,7 +70,7 @@ import { CatalogoproductosComponent } from './pages/modulos/vendedor/catalogopro
 import { BuscadorPipe } from './pages/modulos/vendedor/buscador/buscador.pipe';
 import { CarritoComponent } from './pages/modulos/vendedor/carrito/carrito/carrito.component';
 import { ImprimirventaComponent } from './pages/modulos/vendedor/imprimirventa/imprimirventa.component';
-import { DialogFormapagoComponent } from './pages/modulos/vendedor/dialog-formapago/dialog-formapago.component';
+import { DialogFormapagoComponent } from './pages/modulos/vendedor/formapago/dialog/dialog-formapago/dialog-formapago.component';
 import { ListservicioComponent } from './pages/modulos/administracion/mantenimiento/servicio/listservicio/listservicio.component';
 import { AddservicioComponent } from './pages/modulos/administracion/mantenimiento/servicio/dialog/addservicio/addservicio.component';
 import { EditservicioComponent } from './pages/modulos/administracion/mantenimiento/servicio/dialog/editservicio/editservicio.component';
@@ -83,6 +83,30 @@ import { ListpermisoComponent } from './pages/modulos/administracion/mantenimien
 import { AddpermisoComponent } from './pages/modulos/administracion/mantenimiento/permiso/dialog/addpermiso/addpermiso.component';
 import { AditpermisoComponent } from './pages/modulos/administracion/mantenimiento/permiso/dialog/aditpermiso/aditpermiso.component';
 import { ImprimirservicioComponent } from './pages/modulos/cliente/imprimirservicio/imprimirservicio.component';
+import { ClienteSelectComponent } from './pages/modulos/vendedor/cliente-select/cliente-select.component';
+import { AddclienteComponent } from './pages/modulos/administracion/mantenimiento/cliente/dialog/addcliente/addcliente.component';
+import { EditclienteComponent } from './pages/modulos/administracion/mantenimiento/cliente/dialog/editcliente/editcliente.component';
+import { ListclienteComponent } from './pages/modulos/administracion/mantenimiento/cliente/listcliente/listcliente.component';
+import { ListpersonaComponent } from './pages/modulos/administracion/mantenimiento/persona/listpersona/listpersona.component';
+import { AddpersonaComponent } from './pages/modulos/administracion/mantenimiento/persona/dialog/addpersona/addpersona.component';
+import { EdipersonaComponent } from './pages/modulos/administracion/mantenimiento/persona/dialog/edipersona/edipersona.component';
+
+import { ListcalendarioComponent } from './pages/modulos/administracion/mantenimiento/calendario/listcalendario/listcalendario.component';
+import { AddcalendarioComponent } from './pages/modulos/administracion/mantenimiento/calendario/dialog/addcalendario/addcalendario.component';
+import { EditcalendarioComponent } from './pages/modulos/administracion/mantenimiento/calendario/dialog/editcalendario/editcalendario.component';
+import { AtencionespendientesComponent } from './pages/modulos/tecnico/atenciones/atencionespendientes/atencionespendientes.component';
+import { AtencionesfinalizadasComponent } from './pages/modulos/tecnico/atenciones/atencionesfinalizadas/atencionesfinalizadas.component';
+import { FormapagolistComponent } from './pages/modulos/vendedor/formapago/formapagolist/formapagolist.component';
+import { ListrecepcionComponent } from './pages/modulos/tecnico/recepcion/listrecepcion/listrecepcion.component';
+import { CatalogorepuestosComponent } from './pages/modulos/tecnico/repuestos/catalogorepuestos/catalogorepuestos.component';
+import { BucadorrepuestosPipe } from './pages/modulos/tecnico/repuestos/buscador/bucadorrepuestos.pipe';
+import { CarritorepuestosComponent } from './pages/modulos/tecnico/repuestos/carritorepuestos/carritorepuestos.component';
+import { ImprimircotizacionComponent } from './pages/modulos/tecnico/cotizacion/imprimircotizacion/imprimircotizacion.component';
+import { CotizacionespendietesComponent } from './pages/modulos/tecnico/cotizacion/cotizacionespendietes/cotizacionespendietes.component';
+import { CotizacionesaprobadasComponent } from './pages/modulos/tecnico/cotizacion/cotizacionesaprobadas/cotizacionesaprobadas.component';
+import { ListrecibidosComponent } from './pages/modulos/tecnico/recepcion/equipos/listrecibidos/listrecibidos.component';
+import { ListentregadosComponent } from './pages/modulos/tecnico/recepcion/equipos/listentregados/listentregados.component';
+
 
 
 
@@ -139,7 +163,7 @@ registerLocaleData(localeES,'es');
       RegistradoComponent,
       HorarioComponent,
       TecnicoComponent,
-      AtencionesComponent,
+
       ListusuarioComponent,
       AddusuarioComponent,
       EditusuarioComponent,
@@ -164,6 +188,34 @@ registerLocaleData(localeES,'es');
       AddpermisoComponent,
       AditpermisoComponent,
       ImprimirservicioComponent,
+      ClienteSelectComponent,
+      AddclienteComponent,
+      EditclienteComponent,
+      ListclienteComponent,
+      ListpersonaComponent,
+      AddpersonaComponent,
+      EdipersonaComponent,
+
+      ListcalendarioComponent,
+      AddcalendarioComponent,
+      EditcalendarioComponent,
+      AtencionespendientesComponent,
+      AtencionesfinalizadasComponent,
+      FormapagolistComponent,
+      ListrecepcionComponent,
+      CatalogorepuestosComponent,
+      BucadorrepuestosPipe,
+      CarritorepuestosComponent,
+      ImprimircotizacionComponent,
+      CotizacionespendietesComponent,
+      CotizacionesaprobadasComponent,
+      ListrecibidosComponent,
+      ListentregadosComponent,
+
+      
+  
+      
+  
 
 
 

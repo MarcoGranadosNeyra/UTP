@@ -5,5 +5,6 @@ export interface Tecnico {
     nro_documento   :  string,
     nombre          :  string,
     especialidad    :  string,
+    experiencia     :  string,
     estado          :  boolean,
   }

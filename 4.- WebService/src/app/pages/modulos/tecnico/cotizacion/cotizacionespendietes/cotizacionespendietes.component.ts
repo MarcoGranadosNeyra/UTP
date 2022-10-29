@@ -28,7 +28,7 @@ export class CotizacionespendietesComponent implements OnInit {
 
   isPopupOpened = true;
   atenciones:any=[];
-
+  cotizacion:any={};
   displayedColumns: string[] = ['ID','TECNICO','CLIENTE','FECHA','HORA','ESTADO','ACCIONES'];
  
   public dataSource: MatTableDataSource<Cotizacion>;
@@ -153,6 +153,47 @@ abrirDocumento(id:number) {
   
   window.open(`${this.apiURL}/cotizacion/imprimirCotizacion/${id}`+ '#page=' + 1, '_blank', '');
   
+}
+
+
+confirmarDialogoEnviarCorreo(id:number):void{
+  
+  const dialogRef=this.dialog.open(DialogComponent,{
+        width:'450px',
+        data:'¿confirma que se enviara por correo esta cotizacion?'
+  });
+
+  dialogRef.afterClosed().subscribe(res=>{
+
+    if (res) {
+      this.buscarCotizacion(id);
+      //this.openSnackBar('Mensaje ','Registro actualizado!')  
+    }
+  });
+  
+}
+
+buscarCotizacion(id:number){
+  
+  this.cotizacionService.buscarCotizacion(id).subscribe(
+    res => {
+      this.cotizacion=res;
+      this.enviarCorreo();
+    },
+    err => console.log(err)
+  )
+}
+
+enviarCorreo() {
+
+  this.cotizacionService.enviarCorreo(this.cotizacion)
+  .subscribe( res => {
+
+    this.openSnackBar('Mensaje ',res.mensaje)  ;
+    
+
+  });
+
 }
   
 }

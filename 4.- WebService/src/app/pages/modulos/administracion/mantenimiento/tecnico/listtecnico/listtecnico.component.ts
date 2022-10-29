@@ -34,7 +34,7 @@ export class ListtecnicoComponent implements OnInit {
   usuario:any=[];
   objetousuario:any=[];
 
-  displayedColumns: string[] = ['ID','DOCUMENTO','NRO DOCUMENTO','NOMBRE','ESPECIALIDAD','ACTIVO','ACCIONES'];
+  displayedColumns: string[] = ['ID','DOCUMENTO','NRO DOCUMENTO','NOMBRE','EXPERIENCIA','ACTIVO','ACCIONES'];
  
   public dataSource: MatTableDataSource<Tecnico>;
 

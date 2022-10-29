@@ -72,7 +72,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Agency FB" size="26" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[INNOVA AQP]]></text>
+				<text><![CDATA[INNOVA UTP]]></text>
 			</staticText>
 		</band>
 	</title>

@@ -5,8 +5,13 @@ import conexion.Conexion;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -141,6 +146,48 @@ public class Reporte {
         } finally {
         }
         return outputStream.toByteArray();
+    }
+    
+    public void guardarCotizacionPDF(int id, String nombreCliente) {
+        try {
+            InputStream inputStream = null;
+            JasperPrint jasperPrint = null;
+            Conexion bd = new Conexion();
+
+            String destino = "C:\\correo\\" + id + "-" + nombreCliente + ".pdf";
+
+            try {
+                inputStream = new FileInputStream("C:\\report\\Cotizacion\\Cotizacion.jrxml");
+            } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(null, "No se encuentra el archivo jasper report " + ex.getMessage());
+            }
+
+            try {
+
+                Map Parametro = new HashMap();
+                Parametro.put("id", id);
+                JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
+                JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+                jasperPrint = JasperFillManager.fillReport(jasperReport, Parametro, bd.abrirConexion());
+                //JasperPrintManager.printReport(jasperPrint, true);//aagrege a true este ultimo para imprimir directamente en la impresora predeterminada
+                //JasperViewer vista=new JasperViewer(jasperPrint,false);
+                //vista.setTitle("REPORTE DE RESULTADO DE PRUEBA RAPIDA - COVID 19");
+                //vista.setVisible(true);
+                JRExporter exporter = new JRPdfExporter();
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+                exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, destino);
+                //JasperExportManager.exportReportToPdfFile( jasperPrint, "C:\\reportes/reporte.pdf");
+                exporter.exportReport();
+
+            } catch (JRException e) {
+                //JOptionPane.showMessageDialog(null, "Error : "+e, "Mensaje de Sistema", JOptionPane.ERROR_MESSAGE);
+                System.out.println("Error JRException : "+e);
+            }
+        } catch (Exception e) {
+            //JOptionPane.showMessageDialog(null, "Error : "+e, "Mensaje de Sistema", JOptionPane.ERROR_MESSAGE);
+            System.out.println("Error Exception : "+e);
+        }
+
     }
 
 }

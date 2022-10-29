@@ -29,6 +29,9 @@ public class Tecnico {
     private double monto_repuestos;
     private double monto_servicios;
     
+    //
+    private String experiencia;
+    
     public Tecnico() {
     }
 
@@ -158,6 +161,14 @@ public class Tecnico {
 
     public void setMonto_servicios(double monto_servicios) {
         this.monto_servicios = monto_servicios;
+    }
+
+    public String getExperiencia() {
+        return experiencia;
+    }
+
+    public void setExperiencia(String experiencia) {
+        this.experiencia = experiencia;
     }
     
     

@@ -14,6 +14,7 @@ import { Recepcion } from 'src/app/modelo/Recepcion';
 import { RecepcionService } from 'src/app/service/recepcion/recepcion.service';
 import { UsuarioService } from 'src/app/service/usuario/usuario.service';
 import { TecnicoService } from 'src/app/service/tecnico/tecnico.service';
+import { AddequipoComponent } from '../dialog/addequipo/addequipo.component';
 
 @Component({
   selector: 'app-listrecibidos',
@@ -96,22 +97,27 @@ edit(id: number) {
   */
 }
 
-categoria: string;
-imagen: string;
+id_usuario: number;
+id_cliente: number;
+equipo: string;
+marca: string;
+modelo: string;
+serie: string;
+descripcion: string;
 
 add(){
-  /*
-  const dialogRef = this.dialog.open(AddcategoriaComponent, {
+  
+  const dialogRef = this.dialog.open(AddequipoComponent, {
     width: '450px',
-    data: {categoria: this.categoria,imagen:this.imagen}
+    data: {id_usuario: this.id_usuario,id_cliente:this.id_cliente,equipo: this.equipo,marca:this.equipo,modelo: this.modelo,serie:this.serie,descripcion:this.descripcion}
   });
 
   dialogRef.afterClosed().subscribe(result => {
     if (result === 1) {
-      this.listarCategoria();
+      this.listarEquiposRecibidos();
   }
   });
-  */
+  
 }
 
 openSnackBar(message: string, action: string) {

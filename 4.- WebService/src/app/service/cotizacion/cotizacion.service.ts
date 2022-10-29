@@ -39,5 +39,9 @@ export class CotizacionService {
     return this.httpClient.get<any>(`${this.apiURL}/cotizacion/buscar/${id}`);
   }
 
+  enviarCorreo(cotizacion) {
+    return this.httpClient.post<any>(`${this.apiURL}/cotizacion/enviarcorreo/`, cotizacion);
+  }
+
 
 }

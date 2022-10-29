@@ -83,7 +83,33 @@ public class RecepcionDAOImpl implements RecepcionDAO{
 
     @Override
     public Integer agregarRecepcion(Recepcion recepcion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int result=0;
+            try(
+            Connection connect = oconexion.abrirConexion();
+            CallableStatement cs = connect.prepareCall("{call agregarRecepcion(?,?,?,?,?,?,?)}");
+            ){
+            cs.setInt(1, recepcion.getId_usuario());
+            cs.setInt(2, recepcion.getId_cliente());
+            cs.setString(3, recepcion.getEquipo());
+            cs.setString(4, recepcion.getMarca());
+            cs.setString(5, recepcion.getModelo());
+            cs.setString(6, recepcion.getSerie());
+            cs.setString(7, recepcion.getDescripcion());
+
+            cs.executeUpdate();
+            
+            try (ResultSet last_inserted = cs.getResultSet()){;
+                if(last_inserted.next()) {
+                   result = last_inserted.getInt(1);
+                }
+            }
+            cs.close();
+        } catch (SQLException e) {
+             throw new RuntimeException(e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        } 
+        return result;
     }
 
     @Override

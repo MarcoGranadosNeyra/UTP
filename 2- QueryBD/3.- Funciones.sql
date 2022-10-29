@@ -210,8 +210,8 @@ CREATE OR REPLACE FUNCTION agregarPersona(
 		_id 			integer;
 	BEGIN
 	SELECT COALESCE(MAX(id+1),1) into _id from persona;
-	INSERT INTO Persona	VALUES (_id, _id_departamento, _id_provincia, _id_distrito,_id_documento, _nro_documento, _nombre, _apaterno,_amaterno, _telefono, _direccion,
-			_fecha_naci,_id_sexo,_correo, _firma,_huella,_foto, true) returning id INTO v_id_persona;
+	INSERT INTO Persona	VALUES ( _id,_id_departamento, _id_provincia, _id_distrito,_id_documento, _nro_documento, _nombre, _apaterno,_amaterno, _telefono, _direccion,
+			_fecha_naci,_id_sexo,_correo, 'https://toppng.com/uploads/preview/firma-en-png-firmas-en-formato-11562869799c09le16rgz.png','https://i.pinimg.com/736x/47/86/d3/4786d3b6b130a28adc451800e9ad2c2c--yo.jpg','https://icons.iconarchive.com/icons/papirus-team/papirus-status/512/avatar-default-icon.png', true) returning id INTO v_id_persona;
 	END;
   $BODY$
   LANGUAGE 'plpgsql';
@@ -1127,15 +1127,17 @@ returns table (
   nro_documento     varchar,
   nombre            varchar,
   especialidad      varchar,
+  experiencia		varchar,
   estado			varchar)
 as $$
-  select t.id,t.id_persona,d.documento,p.nro_documento,upper(p.nombre|| ' ' || p.apaterno) as nombre,e.especialidad,t.estado
+  select t.id,t.id_persona,d.documento,p.nro_documento,upper(p.nombre|| ' ' || p.apaterno) as nombre,e.especialidad,t.especialidad as experiencia,t.estado
 	from tecnico t 
   inner join persona p on p.id=t.id_persona
   inner join documento d on d.id=p.id_documento
   inner join especialidad e on e.id=t.id_especialidad
   order by t.id asc
 $$ language sql;
+
 
 create or replace function listarCliente()
 returns table (
@@ -2904,3 +2906,22 @@ returns table (
 as $$
 	select id_cotizacion,id_producto,cantidad,precio from cotizacion_detalle where id_cotizacion=_id_cotizacion and estado=true;
 $$ language sql;
+
+
+  CREATE OR REPLACE FUNCTION agregarRecepcion(
+	_id_usuario		 	int,
+	_id_cliente 		int,
+	_equipo		 		varchar,
+	_marca 				varchar,
+	_modelo		 		varchar,
+	_serie 				varchar,
+	_descripcion 		varchar,
+	out v_id_recepcion	int)
+  RETURNS integer AS
+  $BODY$
+  DECLARE
+	BEGIN
+	INSERT INTO recepcion (id_usuario,id_cliente,equipo,marca,modelo,serie,descripcion,fecha,hora,entregado,estado) VALUES (_id_usuario,_id_cliente,_equipo,_marca,_modelo,_serie,_descripcion,current_date,to_char(current_timestamp, 'HH12:MI:SS'),false,true) returning id INTO v_id_recepcion;
+	END;
+  $BODY$
+  LANGUAGE 'plpgsql';

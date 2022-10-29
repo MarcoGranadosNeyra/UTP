@@ -21,7 +21,11 @@ export class RecepcionService {
 
   listarEquiposEntregados() {
     return this.httpClient.get(`${this.apiURL}/recepcion/equipos/entregados`);
-}
+  } 
+
+  agregarRecepcion(recepcion) {
+    return this.httpClient.post(`${this.apiURL}/recepcion/agregar/`, recepcion);
+  }
 
   buscarRecepcion(id: number) {
     return this.httpClient.get(`${this.apiURL}/recepcion/buscar/${id}`);

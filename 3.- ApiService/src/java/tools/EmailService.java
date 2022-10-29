@@ -1,6 +1,9 @@
 package tools;
  
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -47,7 +50,7 @@ public class EmailService {
 		session = Session.getDefaultInstance(properties);
 	}
  
-	public boolean sendEmail(File[] destino,String correo,String empresa){
+	public boolean sendEmail(File[] destino,String correo,String nombreCliente){
                 boolean result=false;
 		init();
 		try{
@@ -63,7 +66,7 @@ public class EmailService {
 
                         // Se compone la parte del texto
                         BodyPart texto = new MimeBodyPart();
-                        texto.setText("Ficha de Resultados generados por el Policlinico Virgen de Guadalupe para : "+ empresa.toUpperCase());
+                        texto.setText("La empresa Innova UTP adjunta cotizacion de su equipo, a la espera de su respuesta");
                         List<BodyPart> bp = new LinkedList<BodyPart>();
                                                 
                         for(int i=0;i<=destino.length-1;i++)
@@ -94,7 +97,7 @@ public class EmailService {
                             Message.RecipientType.TO,
                             new InternetAddress("marco.granados.neyra@gmail.com"));
                         */
-                        message.setSubject("Ficha de Resultados generados por el Policlinico Virgen de Guadalupe S.A.C");
+                        message.setSubject("Cotizacion generada - INNOVA UTP S.A.C");
                         message.setContent(multiParte);
 
                         // Se envia el correo.
@@ -123,5 +126,66 @@ public class EmailService {
 		}
 		return result;
 	}
- 
+        /*
+        void enviarCorreo(int id,String cliente,String correo){
+            try {
+
+                if (enviarPDFporCorreo(id,cliente,correo)) {
+
+                    JOptionPane.showMessageDialog(null,"Correo Enviado a "+cliente,"Mensaje de sistema",JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null,"Error al Enviar Correo a "+cliente,"Mensaje de sistema",JOptionPane.ERROR_MESSAGE);
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null,"Error : "+e,"Mensaje de sistema",JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        void eliminarCarpeta(File pArchivo) {
+            if (!pArchivo.exists()) { return; }
+
+            if (pArchivo.isDirectory()) {
+                for (File f : pArchivo.listFiles()) {
+                    eliminarCarpeta(f);  }
+            }
+            pArchivo.delete();
+        } 
+
+        public boolean enviarPDFporCorreo(int id,String cliente,String correo){
+            File directorio = new File("C:\\correos\\cotizacion\\");
+            eliminarCarpeta(directorio);
+            crearCarpeta();
+            generarDocumentoPDF(id,cliente);
+            boolean result=adjuntarPDF(correo);
+            return result;
+        }
+        
+        void crearCarpeta(){
+
+            Path path = Paths.get("C:\\correos\\cotizacion\\");
+             try {
+                Files.createDirectories(path);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+
+        void generarDocumentoPDF(int id,String nombrePaciente){
+
+            Reporte rp = new Reporte();
+            rp.guardarCotizacionPDF(id, nombrePaciente);
+
+        }
+
+        public boolean adjuntarPDF(String correo){
+
+            File directorio = new File("C:\\correos\\cotizacion\\");
+            File[] adjuntos = directorio.listFiles();
+
+            //gui.tools.EmailSenderService enviarCorreo = new gui.tools.EmailSenderService();
+            boolean result=this.sendEmail(adjuntos,correo);
+            return result;
+        }
+        */
 }

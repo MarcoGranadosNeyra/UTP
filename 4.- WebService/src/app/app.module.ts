@@ -106,6 +106,8 @@ import { CotizacionespendietesComponent } from './pages/modulos/tecnico/cotizaci
 import { CotizacionesaprobadasComponent } from './pages/modulos/tecnico/cotizacion/cotizacionesaprobadas/cotizacionesaprobadas.component';
 import { ListrecibidosComponent } from './pages/modulos/tecnico/recepcion/equipos/listrecibidos/listrecibidos.component';
 import { ListentregadosComponent } from './pages/modulos/tecnico/recepcion/equipos/listentregados/listentregados.component';
+import { AddequipoComponent } from './pages/modulos/tecnico/recepcion/equipos/dialog/addequipo/addequipo.component';
+import { EditequipoComponent } from './pages/modulos/tecnico/recepcion/equipos/dialog/editequipo/editequipo.component';
 
 
 
@@ -211,6 +213,8 @@ registerLocaleData(localeES,'es');
       CotizacionesaprobadasComponent,
       ListrecibidosComponent,
       ListentregadosComponent,
+      AddequipoComponent,
+      EditequipoComponent,
 
       
   

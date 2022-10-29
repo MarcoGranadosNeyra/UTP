@@ -91,6 +91,7 @@ public class TecnicoDAOImpl implements TecnicoDAO{
                         tecnico.setNro_documento(rs.getString("nro_documento"));
                         tecnico.setNombre(rs.getString("nombre"));
                         tecnico.setEspecialidad(rs.getString("especialidad"));
+                        tecnico.setExperiencia(rs.getString("experiencia"));
                         tecnico.setEstado(rs.getBoolean("estado"));
                         lista.add(tecnico);
                 }

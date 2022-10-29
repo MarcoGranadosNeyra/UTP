@@ -1,8 +1,13 @@
 package api.utp.res;
 
+import daoImpl.ClienteDAOImpl;
 import daoImpl.CotizacionDAOImpl;
+import daoImpl.PersonaDAOImpl;
+import entidad.Cliente;
 import entidad.Cotizacion;
+import entidad.Persona;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -84,25 +89,31 @@ public class CotizacionResource {
                 .build();
 
     }
-/*
+    
     @POST
-    @Path("actualizar")
+    @Path("/enviarcorreo/")
     @Produces("application/json")
-    @Consumes("application/json")
-    public Response update(Categoria categoria) {
-
+    public Response enviarCorreo(Cotizacion cotizacion) {
+        
+        
+        ClienteDAOImpl clienteDAO = new ClienteDAOImpl();
+        PersonaDAOImpl personaDAO=new PersonaDAOImpl();
+                
         int result = 0;
         String mensaje = "";
         JSONObject json = new JSONObject();
-        try {
-
-            if (categoriaDAO.actualizarCategoria(categoria)) {
-                result = 1;
-                mensaje = "Registro actualizado";
-            }
-
-        } catch (Exception e) {
-            mensaje = e.getMessage();
+  
+        Cliente cliente=clienteDAO.buscarCliente(cotizacion.getId_cliente());
+        Persona persona=personaDAO.buscarPersona(cliente.getId_persona());
+        
+        String nombreCliente=persona.getNombreCompleto();
+        
+        if (enviarPDFporCorreo(cotizacion.getId(),persona.getCorreo().trim(),nombreCliente)) {
+            result = 1;
+            mensaje = "Cotizacion enviada exitosamente";
+        } else {
+            result = 0;
+            mensaje = "Error al enviar cotizacion";
         }
 
         json.put("result", result);
@@ -117,9 +128,8 @@ public class CotizacionResource {
                 .header("Access-Control-Max-Age", "1209600")
                 .entity(json.toString())
                 .build();
-
     }
-*/
+
     @GET
     @Path("/buscar/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -170,5 +180,52 @@ public class CotizacionResource {
 
         String nomeRelatorio = "cotizacion" + ".pdf";
         return Response.ok(bytes).type("application/pdf").header("Content-Disposition", "filename=\"" + nomeRelatorio + "\"").build();
+    }
+    
+    public boolean enviarPDFporCorreo(int id,String correo,String nombreCliente){
+        File directorio = new File("C:\\correo\\");
+        eliminarCarpeta(directorio);
+        crearCarpeta();
+        generarDocumentoPDF(id,nombreCliente);
+        boolean result=adjuntarPDF(correo,nombreCliente);
+        return result;
+    }
+    
+    void eliminarCarpeta(File pArchivo) {
+        if (!pArchivo.exists()) { return; }
+
+        if (pArchivo.isDirectory()) {
+            for (File f : pArchivo.listFiles()) {
+                eliminarCarpeta(f);  }
+        }
+        pArchivo.delete();
+    }
+    
+    void crearCarpeta(){
+        File directorio = new File("C:\\correo\\");
+        if (!directorio.exists()) {
+            if (directorio.mkdirs()) {
+                System.out.println("Directorio creado");
+            } else {
+                System.out.println("Error al crear directorio");
+            }
+        }
+    }
+    
+    void generarDocumentoPDF(int id,String nombreCliente){
+        
+        Reporte rp = new Reporte();
+        rp.guardarCotizacionPDF(id, nombreCliente);
+     
+    }
+    
+    public boolean adjuntarPDF(String correo,String nombreCliente){
+        
+        File directorio = new File("C:\\correo\\");
+        File[] adjuntos = directorio.listFiles();
+
+        tools.EmailService enviarCorreo = new tools.EmailService();
+        boolean result=enviarCorreo.sendEmail(adjuntos,correo,nombreCliente);
+        return result;
     }
 }

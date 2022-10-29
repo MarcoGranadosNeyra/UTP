@@ -50,54 +50,6 @@ public class RecepcionResource {
         return listarRecepcion;
     }
 
-    /*
-    @GET
-    @Path("list")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response ListarRecepcion() {
-        JSONArray jsonArrayRecepcion = new JSONArray();
-        JSONObject jsonResult = new JSONObject();
-         int result = 0;
-        String mensaje = "";
-        try {
-            List<Recepcion> listar = recepcionDAO.listarRecepcion();
-                for (Recepcion recepcion : listar) {
-                JSONObject data = new JSONObject();
-                data.put("id", recepcion.getId());
-                data.put("tecnico", recepcion.getTecnico());
-                data.put("cliente", recepcion.getCliente());
-                data.put("equipo", recepcion.getEquipo());
-                data.put("marca", recepcion.getMarca());
-                data.put("modelo", recepcion.getModelo());
-                data.put("serie", recepcion.getSerie());
-                data.put("descripcion", recepcion.getDescripcion());
-                data.put("fecha", recepcion.getStrFecha());
-                data.put("hora", recepcion.getHora());
-                data.put("engregado", recepcion.isEntregado());
-                data.put("estado", recepcion.isEstado());
-                jsonArrayRecepcion.add(data);
-            }
-            result = 1;
-            mensaje = "successful";
-        } catch (Exception e) {
-            mensaje = e.getMessage();
-        }
-        
-        jsonResult.put("result", result);
-        jsonResult.put("mensaje", mensaje);
-        jsonResult.put("recepciones", jsonArrayRecepcion);
-        
-                return Response
-                .status(200)
-                .header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-                .header("Access-Control-Allow-Credentials", "true")
-                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-                .header("Access-Control-Max-Age", "1209600")
-                .entity(jsonResult.toString())
-                .build();
-    }
-    */
     @POST
     @Path("agregar")
     @Produces("application/json")

@@ -94,13 +94,11 @@ export class ValidarComponent implements OnInit {
   }
 
   validatePersona() {
-    console.log(this.formValidate.value)
     let resource = JSON.stringify(this.formValidate.value);
     if(this.formValidate.valid){
       
       this.personaService.listarPersonaByDNI(this.formValidate.value)
       .subscribe( res => {
-        console.log(res)
 
         if(res.result==0){
           //this.listarPersonaSunat(); //ESTE FUNCIONAVA DESPUES YA NO
@@ -126,11 +124,6 @@ export class ValidarComponent implements OnInit {
           this.router.navigate(['registrousuario']);
 
         }
-          
-
-
-        
-      
       });
     }
   

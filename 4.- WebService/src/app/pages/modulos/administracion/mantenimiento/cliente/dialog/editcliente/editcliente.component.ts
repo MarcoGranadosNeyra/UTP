@@ -68,7 +68,13 @@ export class EditclienteComponent {
           this.formCliente.reset();
           this.dialogRef.close(1);
         }else{
-          this.openSnackBar('Mensaje : ',this.response.mensaje)  
+          var uq_id_persona_cliente:string="uq_id_persona_cliente";
+
+          if(this.response.mensaje.includes(uq_id_persona_cliente)){
+            this.openSnackBar('Error : Esta Persona ya esta registrada como cliente','');
+          }else{
+              this.openSnackBar('Error : ',this.response.mensaje);
+          }
         }
 
       });

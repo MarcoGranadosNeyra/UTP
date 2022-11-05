@@ -6,9 +6,7 @@ import {FormControl, Validators} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/service/data/data.service';
-
 import { PersonaService } from 'src/app/service/persona/persona.service';
-
 import { CategoriaService } from 'src/app/service/categoria/categoria.service';
 import { ProductoService } from 'src/app/service/producto/producto.service';
 
@@ -18,8 +16,6 @@ import { ProductoService } from 'src/app/service/producto/producto.service';
   styleUrls: ['./editrepuesto.component.css']
 })
 export class EditrepuestoComponent {
-
-
 
   public formProducto: FormGroup;
   formControl = new FormControl('', [Validators.required]);
@@ -106,7 +102,13 @@ export class EditrepuestoComponent {
           this.formProducto.reset();
           this.dialogRef.close(1);
         }else{
-          this.openSnackBar('Mensaje : ',this.response.mensaje)  
+          var uq_producto:string="uq_producto";
+
+          if(this.response.mensaje.includes(uq_producto)){
+            this.openSnackBar('Error : El nombre del Repuesto ya esta registrado','');
+          }else{
+              this.openSnackBar('Error : ',this.response.mensaje);
+          }
         }
 
       });

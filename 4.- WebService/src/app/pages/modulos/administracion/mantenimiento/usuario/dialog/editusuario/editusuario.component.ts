@@ -2,16 +2,11 @@ import {Component, Inject} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormGroup } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
-
 import {FormControl, Validators} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/service/data/data.service';
-import { EspecialidadService } from 'src/app/service/especialidad/especialidad.service';
 import { PersonaService } from 'src/app/service/persona/persona.service';
-import { TecnicoService } from 'src/app/service/tecnico/tecnico.service';
-import { CategoriaService } from 'src/app/service/categoria/categoria.service';
-import { ProductoService } from 'src/app/service/producto/producto.service';
 import { UsuarioService } from 'src/app/service/usuario/usuario.service';
 import { RolService } from 'src/app/service/rol/rol.service';
 
@@ -120,7 +115,18 @@ export class EditusuarioComponent {
           this.formUsuario.reset();
           this.dialogRef.close(1);
         }else{
-          this.openSnackBar('Mensaje : ',this.response.mensaje)  
+          var uq_id_persona:string="uq_id_persona";
+          var uq_id_persona_id_rol:string ="uq_id_persona_id_rol";
+          
+          if(this.response.mensaje.includes(uq_id_persona)){
+            this.openSnackBar('Error : Esta Persona ya tiene una cuenta de Usuario','');
+          }else{
+              if(this.response.mensaje.includes(uq_id_persona_id_rol)){
+                this.openSnackBar('Error : Este usuario ya tiene un rol definido','');
+            }else{
+              this.openSnackBar('Error : ',this.response.mensaje);
+            }
+          }
         }
 
       });

@@ -102,7 +102,13 @@ export class EdittecnicoComponent {
           this.formTecnico.reset();
           this.dialogRef.close(1);
         }else{
-          this.openSnackBar('Mensaje : ',this.response.mensaje)  
+          var uq_id_persona_tecnico:string="uq_id_persona_tecnico";
+
+          if(this.response.mensaje.includes(uq_id_persona_tecnico)){
+            this.openSnackBar('Error : Esta Persona ya esta registrado como Tecnico','');
+          }else{
+              this.openSnackBar('Error : ',this.response.mensaje);
+          }
         }
 
       });

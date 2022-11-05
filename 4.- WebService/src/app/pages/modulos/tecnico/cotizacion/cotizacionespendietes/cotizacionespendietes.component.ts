@@ -8,8 +8,6 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatSort, Sort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import { DataService } from 'src/app/service/data/data.service';
-import { Atencion } from 'src/app/modelo/Atencion';
-import { AtencionService } from 'src/app/service/atencion/atencion.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { CotizacionService } from 'src/app/service/cotizacion/cotizacion.service';
@@ -191,7 +189,6 @@ enviarCorreo() {
 
     this.openSnackBar('Mensaje ',res.mensaje)  ;
     
-
   });
 
 }

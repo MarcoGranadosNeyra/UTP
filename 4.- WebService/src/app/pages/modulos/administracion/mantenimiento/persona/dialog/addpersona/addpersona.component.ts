@@ -131,7 +131,6 @@ export class AddpersonaComponent {
       this.personaService.agregarPersonaResumida(this.formPersona.value)
       .subscribe( res => {
         this.response=res
-        console.log(res)
         if (this.response.result===1) {
           this.openSnackBar('Mensaje : ',this.response.mensaje);
           this.formPersona.reset();
@@ -158,7 +157,7 @@ export class AddpersonaComponent {
 
 openSnackBar(message: string, action: string) {
   this.snackBar.open(message, action, {
-    duration: 5000,
+    duration: 7000,
     verticalPosition: 'bottom',
     horizontalPosition:'right',
   });

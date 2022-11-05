@@ -65,6 +65,32 @@ public class Reporte {
         return outputStream.toByteArray();
     }
     
+    public byte[] imprimirHojaServicioVenta(ByteArrayOutputStream outputStream, Map parametros) {
+        JRPdfExporter exporter = new JRPdfExporter();
+        try {
+            
+            String reportLocation = "C:\\report\\HojaServicioVenta\\"
+                    + "HojaServicioVenta.jrxml";
+              System.out.println(reportLocation);        
+              
+            InputStream jrxmlInput = new FileInputStream(new File(reportLocation));
+
+            JasperDesign design = JRXmlLoader.load(jrxmlInput);
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, conexion.abrirConexion()); // datasource Service
+
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, outputStream);
+            exporter.exportReport();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error in generate Report..." + e);
+        } finally {
+        }
+        return outputStream.toByteArray();
+    }
+    
     public byte[] imprimirHojaServicio(ByteArrayOutputStream outputStream, Map parametros) {
         JRPdfExporter exporter = new JRPdfExporter();
         try {
@@ -188,6 +214,117 @@ public class Reporte {
             System.out.println("Error Exception : "+e);
         }
 
+    }
+    
+    public byte[] imprimirReporteVenta(ByteArrayOutputStream outputStream, Map parametros) {
+        JRPdfExporter exporter = new JRPdfExporter();
+        try {
+            
+            String reportLocation = "C:\\report\\ReporteVenta\\"
+                    + "reporteVenta.jrxml";
+              System.out.println(reportLocation);        
+              
+            InputStream jrxmlInput = new FileInputStream(new File(reportLocation));
+            JasperDesign design = JRXmlLoader.load(jrxmlInput);
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, conexion.abrirConexion());
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, outputStream);
+            exporter.exportReport();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error in generate Report..." + e);
+        } finally {
+        }
+        return outputStream.toByteArray();
+    }
+    public byte[] imprimirReporteProductosVendidos(ByteArrayOutputStream outputStream, Map parametros) {
+        JRPdfExporter exporter = new JRPdfExporter();
+        try {
+            
+            String reportLocation = "C:\\report\\ReporteProductos\\"
+                    + "reporteProductosVendidos.jrxml";
+              System.out.println(reportLocation);        
+              
+            InputStream jrxmlInput = new FileInputStream(new File(reportLocation));
+            JasperDesign design = JRXmlLoader.load(jrxmlInput);
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, conexion.abrirConexion());
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, outputStream);
+            exporter.exportReport();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error in generate Report..." + e);
+        } finally {
+        }
+        return outputStream.toByteArray();
+    }
+    public byte[] imprimirReporteRepuestosVendidos(ByteArrayOutputStream outputStream, Map parametros) {
+        JRPdfExporter exporter = new JRPdfExporter();
+        try {
+            
+            String reportLocation = "C:\\report\\ReporteRepuestos\\"
+                    + "reporteRepuestos.jrxml";
+              System.out.println(reportLocation);        
+              
+            InputStream jrxmlInput = new FileInputStream(new File(reportLocation));
+            JasperDesign design = JRXmlLoader.load(jrxmlInput);
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, conexion.abrirConexion());
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, outputStream);
+            exporter.exportReport();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error in generate Report..." + e);
+        } finally {
+        }
+        return outputStream.toByteArray();
+    }
+    public byte[] imprimirReporteServiciosVendidos(ByteArrayOutputStream outputStream, Map parametros) {
+        JRPdfExporter exporter = new JRPdfExporter();
+        try {
+            
+            String reportLocation = "C:\\report\\ReporteServicios\\"
+                    + "reporteServicios.jrxml";
+              System.out.println(reportLocation);        
+              
+            InputStream jrxmlInput = new FileInputStream(new File(reportLocation));
+            JasperDesign design = JRXmlLoader.load(jrxmlInput);
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, conexion.abrirConexion());
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, outputStream);
+            exporter.exportReport();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error in generate Report..." + e);
+        } finally {
+        }
+        return outputStream.toByteArray();
+    }
+    public byte[] imprimirReporteAtencionesTecnico(ByteArrayOutputStream outputStream, Map parametros) {
+        JRPdfExporter exporter = new JRPdfExporter();
+        try {
+            
+            String reportLocation = "C:\\report\\ReporteAtenciones\\"
+                    + "reporteAtenciones.jrxml";
+              System.out.println(reportLocation);        
+              
+            InputStream jrxmlInput = new FileInputStream(new File(reportLocation));
+            JasperDesign design = JRXmlLoader.load(jrxmlInput);
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, conexion.abrirConexion());
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, outputStream);
+            exporter.exportReport();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error in generate Report..." + e);
+        } finally {
+        }
+        return outputStream.toByteArray();
     }
 
 }

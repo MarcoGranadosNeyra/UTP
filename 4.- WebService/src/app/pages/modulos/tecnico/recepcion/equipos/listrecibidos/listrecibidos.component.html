@@ -2,13 +2,13 @@
 
     <div class="app-title">
       <div>
-        <h2><i class="fa fa-th-list"></i> Modulo Tencico - Recepcion de Equipos</h2>
-        <p> Modulo Tencico - Recepcion de Equipos</p>
+        <h2><i class="fa fa-th-list"></i> Modulo Tecnico - Equipos Recibidos</h2>
+        <p> Modulo Tecnico - Equipos Recibidos</p>
       </div>
       <ul class="app-breadcrumb breadcrumb side">
         <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
         <li class="breadcrumb-item active"><a routerLink='/main'>Dashboard</a></li>
-        <li class="breadcrumb-item"> Modulo Tencico - Recepcion de Equipos</li>
+        <li class="breadcrumb-item"> Modulo Tecnico - Equipos Recibidos</li>
   
       </ul>
     </div>
@@ -89,13 +89,13 @@
           <th mat-header-cell *matHeaderCellDef  mat-sort-header> ACCIONES  </th>
           <td mat-cell *matCellDef="let element">
             <button mat-icon-button (click)="confirmarDialogo(element['id'])">
-              <mat-icon>donut_small</mat-icon>
+              <mat-icon matTooltip="Generar cotizacion">donut_small</mat-icon>
             </button>
             <button mat-icon-button (click)="abrirDocumento(element['id'])">
-              <mat-icon>picture_as_pdf</mat-icon>
+              <mat-icon matTooltip="Documento Guia de Recepcion">picture_as_pdf</mat-icon>
             </button>
             <button mat-icon-button (click)="confirmarDialogoEntregar(element['id'])">
-              <mat-icon>exit_to_app</mat-icon>
+              <mat-icon matTooltip="Finalizar recepcion de equipo">exit_to_app</mat-icon>
             </button>
           </td>
         </ng-container>
@@ -109,10 +109,10 @@
   
     <div class="py-2 d-grid gap-2 d-md-block">
       <button mat-raised-button
-        (click)="exporter.exportTable('xls', {fileName:'reporte almacenn principal', sheet: 'reporte almacenn principal', Props: {Author: 'Cevicheria Rosita'}})">Exportar
+        (click)="exporter.exportTable('xls', {fileName:'recepcion', sheet: 'recepcion', Props: {Author: 'Innota UTP'}})">Exportar
         excel</button>
       <button mat-raised-button
-        (click)="exporter.exportTable('csv', {fileName:'reporte', sheet: 'reporte almacenn principal', Props: {Author: 'Cevicheria Rosita'}})">Exportar
+        (click)="exporter.exportTable('csv', {fileName:'recepcion', sheet: 'recepcion', Props: {Author: 'Innota UTP'}})">Exportar
         csv</button>
     </div>
   

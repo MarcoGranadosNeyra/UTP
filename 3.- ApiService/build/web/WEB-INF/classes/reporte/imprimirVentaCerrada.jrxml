@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="0ba252ee-c739-4650-bb59-89402498f993">
 	<property name="ireport.zoom" value="3.138428376721004"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="433"/>
+	<property name="ireport.y" value="193"/>
 	<parameter name="id" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -13,6 +13,10 @@
 	<field name="usuario" class="java.lang.String"/>
 	<field name="vendedor" class="java.lang.String"/>
 	<field name="cliente" class="java.lang.String"/>
+	<field name="documento" class="java.lang.String"/>
+	<field name="nro_documento" class="java.lang.String"/>
+	<field name="telefono" class="java.lang.String"/>
+	<field name="direccion" class="java.lang.String"/>
 	<field name="producto" class="java.lang.String"/>
 	<field name="cantidad" class="java.lang.Integer"/>
 	<field name="subtotal" class="java.math.BigDecimal"/>
@@ -30,7 +34,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="137" splitType="Stretch">
 			<textField isStretchWithOverflow="true">
 				<reportElement x="0" y="0" width="179" height="15" uuid="06e03fef-16a4-4b44-919e-631112bdea87"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -93,6 +97,34 @@
 					<font size="10"/>
 				</textElement>
 				<text><![CDATA[USUARIO :]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="56" y="123" width="123" height="14" uuid="6b2260c5-32db-4031-ba2d-1a84468abd15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nro_documento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-1" y="123" width="57" height="14" uuid="37f4501f-442d-4451-9edb-261d4d76753b"/>
+				<textElement markup="none">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[NRO  DOC.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="101" width="178" height="14" uuid="54101780-72d4-4ae0-8c1c-816edb037b00"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="87" width="57" height="14" uuid="059719cc-26ed-49d9-bea5-3fdf00854bc3"/>
+				<textElement markup="none">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[CLIENTE : ]]></text>
 			</staticText>
 		</band>
 	</title>

@@ -53,6 +53,14 @@ public class CotizacionResource {
         listarCotizacion = cotizacionDAO.listarCotizacionesAprobadas();
         return listarCotizacion;
     }
+    
+    @GET
+    @Path("finalizadas")
+    @Produces("application/json")
+    public List<Cotizacion> listarCotizacionesFinalizadas() {
+        listarCotizacion = cotizacionDAO.listarCotizacionesFinalizadas();
+        return listarCotizacion;
+    }
 
     @POST
     @Path("agregar")
@@ -146,6 +154,35 @@ public class CotizacionResource {
         String mensaje = "";
         JSONObject json = new JSONObject();
         if (cotizacionDAO.aprobarCotizacion(id)) {
+            result = 1;
+            mensaje = "Registro Actualizado";
+        } else {
+            result = 0;
+            mensaje = "Error al actualizar registro";
+        }
+
+        json.put("result", result);
+        json.put("mensaje", mensaje);
+
+        return Response
+                .status(200)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                .header("Access-Control-Max-Age", "1209600")
+                .entity(json.toString())
+                .build();
+    }
+    
+    @DELETE
+    @Path("/finalizar/{id}")
+    @Produces("application/json")
+    public Response finalizarCotizacion(@PathParam(value = "id") int id) {
+        int result = 0;
+        String mensaje = "";
+        JSONObject json = new JSONObject();
+        if (cotizacionDAO.finalizarCotizacion(id)) {
             result = 1;
             mensaje = "Registro Actualizado";
         } else {

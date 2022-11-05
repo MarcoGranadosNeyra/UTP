@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3a573939-fcf8-435c-b6bc-95164121f46a">
+	<property name="ireport.zoom" value="2.1435888100000025"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="255"/>
+	<parameter name="id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM imprimirHojaServicioVenta($P{id})]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="empresa" class="java.lang.String"/>
+	<field name="ruc" class="java.lang.String"/>
+	<field name="telefonos" class="java.lang.String"/>
+	<field name="direccion" class="java.lang.String"/>
+	<field name="mensaje" class="java.lang.String"/>
+	<field name="piepaguina" class="java.lang.String"/>
+	<field name="cliente" class="java.lang.String"/>
+	<field name="documento_cliente" class="java.lang.String"/>
+	<field name="nro_documento_cliente" class="java.lang.String"/>
+	<field name="telefono_cliente" class="java.lang.String"/>
+	<field name="direccion_cliente" class="java.lang.String"/>
+	<field name="tecnico" class="java.lang.String"/>
+	<field name="documento_tecnico" class="java.lang.String"/>
+	<field name="nro_documento_tecnico" class="java.lang.String"/>
+	<field name="telefono_tecnico" class="java.lang.String"/>
+	<field name="direccion_tecnico" class="java.lang.String"/>
+	<field name="servicio" class="java.lang.String"/>
+	<field name="precio" class="java.math.BigDecimal"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="hora" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="91" splitType="Stretch">
+			<textField>
+				<reportElement x="131" y="0" width="247" height="29" uuid="454ee178-93c0-4bb8-81f0-9be6a38b804b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Agency FB" size="24"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="271" y="29" width="107" height="18" uuid="ec72c968-9aff-47de-bb3c-323e7dda2ce2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Agency FB" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefonos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="131" y="62" width="247" height="29" uuid="f162b99e-ce37-423f-8d99-c2756134cfd2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Agency FB" size="14" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[DOCUMENTO DE HOJA DE SERVICIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="421" y="74" width="65" height="17" uuid="1949a27d-013e-44d7-8046-6867ca17f6f3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Agency FB" size="12" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Nº de Registro :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="131" y="29" width="140" height="18" uuid="11d9cbbe-afe8-4bb6-95bd-8ddb51e72e79"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Agency FB" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mensaje}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="486" y="74" width="70" height="17" uuid="a0abc720-5ef5-445c-bdfd-3a6b912cebc1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Agency FB" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="399" y="0" width="186" height="34" uuid="963d11ac-3d18-4054-a237-2439a66d4caa"/>
+				<imageExpression><![CDATA["C:\\report\\HojaServicio\\img\\logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="187" splitType="Stretch">
+			<line>
+				<reportElement x="486" y="0" width="69" height="1" uuid="8edb1af6-4f0e-4f1d-be9f-04736d71de6a"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="3" width="555" height="20" backcolor="#3366FF" uuid="ea8af9c3-5f8b-4994-b9e1-a19e0dd7b9f3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Agency FB" size="12"/>
+				</textElement>
+				<text><![CDATA[ DATOS DEL CLIENTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="336" y="28" width="100" height="16" uuid="77b9ec2b-ea09-49e5-b65f-b15b7056eabe"/>
+				<text><![CDATA[NRO DOCUMENTO :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="27" width="101" height="15" uuid="6e3ddba4-5e40-43ee-8970-18d67994f443"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[TIPO DOCUMENTO :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="46" width="100" height="15" uuid="373feb27-6694-43b5-a6fa-5f10919f9808"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[CLIENTE : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="66" width="100" height="15" uuid="f12ac675-8a75-4b0e-bcde-a9c88fc79f4a"/>
+				<text><![CDATA[DIRECCION :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="101" y="80" width="322" height="1" uuid="22cbf6a5-4ec6-4607-b2e2-9b35f16650b6"/>
+			</line>
+			<line>
+				<reportElement x="101" y="42" width="219" height="1" uuid="5ef97a29-93d2-4aca-9ab8-0473a6a56d95"/>
+			</line>
+			<textField>
+				<reportElement x="101" y="27" width="219" height="15" uuid="04b476ba-8322-4302-9642-690da090de27"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{documento_cliente}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="101" y="61" width="292" height="1" uuid="11b92a7d-70e0-4c89-818b-e608944da950"/>
+			</line>
+			<textField>
+				<reportElement x="101" y="66" width="322" height="15" uuid="67703728-e60a-42ba-a634-e7f0c7df20b7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{direccion_cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="101" y="46" width="292" height="15" uuid="a62842fe-0716-4674-90a8-0a94925bf66d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="393" y="46" width="42" height="16" uuid="71839723-a8a2-42ed-9392-14a15f381af9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[TELF:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="436" y="28" width="120" height="15" uuid="10f38931-c538-4ff8-88c3-a1874ad180f8"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nro_documento_cliente}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="436" y="43" width="119" height="1" uuid="185ce91b-7a0a-491e-9de3-2663b42a1f6a"/>
+			</line>
+			<line>
+				<reportElement x="439" y="60" width="116" height="1" uuid="7efb4106-fdd9-47b4-8ae4-f19b3918f538"/>
+			</line>
+			<textField>
+				<reportElement x="435" y="46" width="121" height="15" uuid="418ec07a-3b29-4c39-a853-46aadab254a6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{telefono_cliente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="85" width="555" height="20" backcolor="#3366FF" uuid="decf158e-3e19-4b6c-8435-d013dcdc115e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Agency FB" size="12"/>
+				</textElement>
+				<text><![CDATA[ DATOS DEL TECNICO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="101" y="127" width="292" height="15" uuid="aba6d9a5-6cc5-42f8-a1e6-d2de1ec3d64a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tecnico}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="393" y="127" width="42" height="16" uuid="bd83a958-69d7-44d5-a3f3-e36d05d5148e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[TELF:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="101" y="147" width="322" height="15" uuid="a0a54581-8121-4f12-9a3c-7167c1f7516c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{direccion_tecnico}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="336" y="109" width="100" height="16" uuid="2c17dc84-cc16-4049-9490-e000ac736c6f"/>
+				<text><![CDATA[NRO DOCUMENTO :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="101" y="123" width="219" height="1" uuid="3d1f9ce4-6622-483a-958d-44c2d6c16ffe"/>
+			</line>
+			<line>
+				<reportElement x="101" y="142" width="292" height="1" uuid="26057ccf-774a-4d1e-b502-7f1afbe6bcb9"/>
+			</line>
+			<textField>
+				<reportElement x="435" y="127" width="121" height="15" uuid="88d5b532-dbcc-4aaf-9787-8d81bb3b5a3c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{telefono_tecnico}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="436" y="124" width="119" height="1" uuid="92a720f4-27f4-476f-bd59-4eb3093cc74e"/>
+			</line>
+			<textField>
+				<reportElement x="101" y="108" width="219" height="15" uuid="9c8a467c-e07c-4f26-9839-1496753a0ee2"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{documento_tecnico}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="439" y="141" width="116" height="1" uuid="c588f161-e52e-47af-820b-55db39489298"/>
+			</line>
+			<textField>
+				<reportElement x="436" y="109" width="120" height="15" uuid="6a3f0609-7505-4c1e-bddd-774c4bd3b90a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nro_documento_tecnico}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="127" width="100" height="15" uuid="7f7d402f-9f79-46b9-af5f-a67dd1681b75"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[CLIENTE : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="147" width="100" height="15" uuid="0da2b73c-161c-4053-b36a-1b1467767dc0"/>
+				<text><![CDATA[DIRECCION :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="108" width="100" height="15" uuid="a28564da-7ef3-4156-b115-d4a654f8ef80"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[TIPO DOCUMENTO :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="167" width="555" height="20" backcolor="#3366FF" uuid="14b1814c-7ed3-411a-9d67-1ceef9854362"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Agency FB" size="12"/>
+				</textElement>
+				<text><![CDATA[ DATOS DE LOS SERVICIOS Y REPUESTOS]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="64" y="0" width="277" height="22" uuid="395b70da-2d91-466a-95ae-779ff90fb714"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[servicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="341" y="0" width="136" height="22" uuid="9640690d-8a31-47fa-a684-8c792936b5ee"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[precio]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="64" y="0" width="277" height="20" uuid="47ad2afd-a724-4e04-a4a5-ebd5f2a2a51a"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{servicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="341" y="0" width="136" height="20" uuid="28b52b3f-cc46-4d18-bbce-c7e1b35fa9b9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="165" y="1" width="252" height="19" uuid="17d0e83f-8bf7-4e77-a193-d15544be3d23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{empresa}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="165" y="0" width="122" height="20" uuid="38fd2768-cfd3-42a8-8577-47769c0bdb9c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{direccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="0" width="220" height="20" uuid="e2b2e2de-a7c0-4064-adc9-65b400f7048f"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{piepaguina}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="15" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -81,12 +81,13 @@
     <mat-paginator [pageSizeOptions]="[5]"></mat-paginator>
   </div>
 
+
   <div class="py-2 d-grid gap-2 d-md-block">
     <button mat-raised-button
-      (click)="exporter.exportTable('xls', {fileName:'reporte almacenn principal', sheet: 'reporte almacenn principal', Props: {Author: 'Cevicheria Rosita'}})">Exportar
+      (click)="exporter.exportTable('xls', {fileName:'categoria', sheet: 'categoria', Props: {Author: 'Innova UTP'}})">Exportar
       excel</button>
     <button mat-raised-button
-      (click)="exporter.exportTable('csv', {fileName:'reporte', sheet: 'reporte almacenn principal', Props: {Author: 'Cevicheria Rosita'}})">Exportar
+      (click)="exporter.exportTable('csv', {fileName:'categoria', sheet: 'categoria', Props: {Author: 'Innova UTP'}})">Exportar
       csv</button>
   </div>
 

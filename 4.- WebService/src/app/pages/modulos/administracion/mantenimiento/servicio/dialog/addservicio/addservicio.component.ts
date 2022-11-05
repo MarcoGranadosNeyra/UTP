@@ -95,7 +95,13 @@ export class AddservicioComponent {
           this.dialogRef.close(1);
           this.listarServicio();
         }else{
-          this.openSnackBar('Mensaje : ',this.response.mensaje)  
+          var uq_producto:string="uq_producto";
+
+          if(this.response.mensaje.includes(uq_producto)){
+            this.openSnackBar('Error : El nombre del Servicio ya esta registrado','');
+          }else{
+              this.openSnackBar('Error : ',this.response.mensaje);
+          }
         }
       });
     }

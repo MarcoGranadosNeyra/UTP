@@ -2,25 +2,18 @@
 
     <div class="app-title">
       <div>
-        <h2><i class="fa fa-th-list"></i> Modulo Tencico - Recepcion de Equipos</h2>
-        <p> Modulo Tencico - Recepcion de Equipos</p>
+        <h2><i class="fa fa-th-list"></i> Modulo Tecnico - Equipos Entregados</h2>
+        <p> Modulo Tecnico - Equipos Entregados</p>
       </div>
       <ul class="app-breadcrumb breadcrumb side">
         <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
         <li class="breadcrumb-item active"><a routerLink='/main'>Dashboard</a></li>
-        <li class="breadcrumb-item"> Modulo Tencico - Recepcion de Equipos</li>
+        <li class="breadcrumb-item"> Modulo Tecnico - Equipos Entregados</li>
   
       </ul>
     </div>
   
     <div class="example-button-row">
-  
-        <form class="row g-3">
-            <div class="col-auto">
-              <button mat-raised-button color="primary" (click)="add()"><mat-icon>add</mat-icon> Nueva Recepcion</button>
-              
-            </div>
-          </form>
   
     <mat-form-field>
       <mat-label>Buscar</mat-label>
@@ -89,7 +82,7 @@
           <th mat-header-cell *matHeaderCellDef  mat-sort-header> ACCIONES  </th>
           <td mat-cell *matCellDef="let element">
             <button mat-icon-button (click)="abrirDocumento(element['id'])">
-              <mat-icon>picture_as_pdf</mat-icon>
+              <mat-icon matTooltip="Documento Guia de Recepcion">picture_as_pdf</mat-icon>
             </button>
           </td>
         </ng-container>
@@ -103,10 +96,10 @@
   
     <div class="py-2 d-grid gap-2 d-md-block">
       <button mat-raised-button
-        (click)="exporter.exportTable('xls', {fileName:'reporte almacenn principal', sheet: 'reporte almacenn principal', Props: {Author: 'Cevicheria Rosita'}})">Exportar
+        (click)="exporter.exportTable('xls', {fileName:'recepcion', sheet: 'recepcion', Props: {Author: 'Innova UTP'}})">Exportar
         excel</button>
       <button mat-raised-button
-        (click)="exporter.exportTable('csv', {fileName:'reporte', sheet: 'reporte almacenn principal', Props: {Author: 'Cevicheria Rosita'}})">Exportar
+        (click)="exporter.exportTable('csv', {fileName:'recepcion', sheet: 'recepcion', Props: {Author: 'Innova UTP'}})">Exportar
         csv</button>
     </div>
   

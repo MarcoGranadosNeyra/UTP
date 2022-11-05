@@ -89,7 +89,13 @@ export class AditpermisoComponent {
           this.formPermiso.reset();
           this.dialogRef.close(1);
         }else{
-          this.openSnackBar('Mensaje : ',this.response.mensaje)  
+          var uq_id_rol_id_modulo_permiso:string="uq_id_rol_id_modulo_permiso";
+
+          if(this.response.mensaje.includes(uq_id_rol_id_modulo_permiso)){
+            this.openSnackBar('Error : El Rol y Modulo ya esta registrado','');
+          }else{
+              this.openSnackBar('Error : ',this.response.mensaje);
+          }
         }
 
       });

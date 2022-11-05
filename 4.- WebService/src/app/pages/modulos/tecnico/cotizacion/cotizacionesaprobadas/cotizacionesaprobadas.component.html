@@ -68,10 +68,10 @@
           <th mat-header-cell *matHeaderCellDef  mat-sort-header> ACCIONES  </th>
           <td mat-cell *matCellDef="let element">
             <button mat-icon-button (click)="confirmarDialogo(element['id'])">
-                <mat-icon>insert_chart</mat-icon>
+                <mat-icon matTooltip="Generar Venta">insert_chart</mat-icon>
             </button>
             <button mat-icon-button (click)="abrirDocumento(element['id'])">
-              <mat-icon>picture_as_pdf</mat-icon>
+              <mat-icon matTooltip="Documento de Cotizacion">picture_as_pdf</mat-icon>
             </button>
             
           </td>

@@ -1,25 +1,16 @@
 import { Component, OnInit , ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UsuarioService } from 'src/app/service/usuario/usuario.service';
-import { ProductoalmacenService } from 'src/app/service/productoAlmacen/productoalmacen.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/tools/dialog/dialog.component';
-import {FormBuilder, FormGroup,FormControl, Validators} from "@angular/forms";
-import { Subject } from 'rxjs';
+import {FormBuilder} from "@angular/forms";
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort, Sort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatTable} from '@angular/material/table';
-import { Tecnico } from 'src/app/modelo/Tecnico';
-import { formatDate } from '@angular/common';
 import { DataService } from 'src/app/service/data/data.service';
-import { TecnicoService } from 'src/app/service/tecnico/tecnico.service';
 import { EditcategoriaComponent } from '../dialog/editcategoria/editcategoria.component';
 import { AddcategoriaComponent } from '../dialog/addcategoria/addcategoria.component';
 import { CategoriaService } from 'src/app/service/categoria/categoria.service';
-import { ProductoService } from 'src/app/service/producto/producto.service';
-import { Producto } from 'src/app/modelo/Producto';
 import { Categoria } from 'src/app/modelo/Categoria';
 
 @Component({

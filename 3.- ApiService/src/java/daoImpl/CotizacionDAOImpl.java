@@ -68,6 +68,33 @@ public class CotizacionDAOImpl implements CotizacionDAO{
         }
         return lista;
     }
+    
+        @Override
+    public List listarCotizacionesFinalizadas() {
+        final ArrayList<Cotizacion> lista = new ArrayList<>();
+         try(
+            Connection connect = oconexion.abrirConexion();
+            CallableStatement cs = connect.prepareCall("{call listarCotizacionesFinalizadas}")
+            ){
+            try (ResultSet rs = cs.executeQuery()){
+                while (rs.next()) {
+                    Cotizacion cotizacion=new Cotizacion();
+                    cotizacion.setId(rs.getInt("id"));
+                    cotizacion.setTecnico(rs.getString("tecnico"));
+                    cotizacion.setCliente(rs.getString("cliente"));
+                    cotizacion.setStrfecha(rs.getString("fecha"));
+                    cotizacion.setHora(rs.getString("hora"));
+                    cotizacion.setStrEstado(rs.getString("estado"));
+                    lista.add(cotizacion);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("ERROR : SQL EXCEPTION " +e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException("ERROR : EXCEPTION " +e.getMessage());
+        }
+        return lista;
+    }
 
     @Override
     public Integer agregarCotizacion(Cotizacion cotizacion) {
@@ -110,6 +137,25 @@ public class CotizacionDAOImpl implements CotizacionDAO{
         try (
             Connection connect = oconexion.abrirConexion();
             CallableStatement cs=connect.prepareCall("{call aprobarCotizacion(?)}");
+            ){
+            cs.setInt(1, id);
+            cs.executeUpdate();
+            cs.close();
+           result=true;
+        } catch (SQLException e) {
+             throw new RuntimeException(e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        } 
+        return result;
+    }
+    
+    @Override
+    public boolean finalizarCotizacion(int id) {
+        boolean result=false;
+        try (
+            Connection connect = oconexion.abrirConexion();
+            CallableStatement cs=connect.prepareCall("{call finalizarCotizacion(?)}");
             ){
             cs.setInt(1, id);
             cs.executeUpdate();

@@ -61,7 +61,7 @@ export class RegistroComponent implements OnInit {
     this.listarDocumento();
     this.listarSexo();
     this.getPersona();
-    console.log(this.dataService.persona.nro_documento)
+
   }
 
   getPersona(){
@@ -214,12 +214,10 @@ export class RegistroComponent implements OnInit {
     if(this.formPersona.valid){
       this.personaService.agregarPersona(this.formPersona.value)
       .subscribe( res =>{
-              console.log(res)
 
             if (res.result==1) {
               
               this.openSnackBar('Mensaje',res.mensaje);
-              //this.router.navigate(['registrado']);
               this.dataService.id_persona=res.id_persona;
               this.router.navigate(['registrousuario']);
 

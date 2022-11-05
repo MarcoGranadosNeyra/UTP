@@ -97,7 +97,13 @@ export class AddrepuestoComponent {
           this.dialogRef.close(1);
           this.listarRepuesto();
         }else{
-          this.openSnackBar('Mensaje : ',this.response.mensaje)  
+          var uq_producto:string="uq_producto";
+
+          if(this.response.mensaje.includes(uq_producto)){
+            this.openSnackBar('Error : El nombre del Repuesto ya esta registrado','');
+          }else{
+              this.openSnackBar('Error : ',this.response.mensaje);
+          }
         }
       });
     }

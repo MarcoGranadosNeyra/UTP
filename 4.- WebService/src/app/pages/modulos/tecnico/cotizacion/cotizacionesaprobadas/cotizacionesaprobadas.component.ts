@@ -159,13 +159,13 @@ generarVenta(id:number){
       this.formVenta.get('id_cliente').setValue(res.id_cliente);
       const id_cotizacion=res.id;
       this.listarCotizacionDetalle(id_cotizacion);
-      this.agregarVenta()
+      this.agregarVenta(id_cotizacion)
     },
     err => console.log(err)
   )
 }
 
-agregarVenta() {
+agregarVenta(id_cotizacion:number) {
   if(this.formVenta.valid){
     /*
     this.dataService.formaPago
@@ -177,8 +177,10 @@ agregarVenta() {
       console.log(res)
       if (res.result==1) {
 
+        
         this.agregarDetalle(res.id_venta);
         this.openSnackBar('Mensaje ',res.mensaje);
+        this.finalizarCotizacion(id_cotizacion);
         //this.router.navigate(['main/vendedor/carrito/imprimirventa']);
         this.dataService.id_venta=res.id_venta;
       }else{
@@ -211,6 +213,16 @@ listarCotizacionDetalle(id:number) {
   .subscribe(res => {
     this.detalleCotizacion=res;
   });
+}
+
+finalizarCotizacion(id:number){
+  
+  this.cotizacionService.finalizarCotizacion(id).subscribe(
+    res => {
+      console.log(res)
+    },
+    err => console.log(err)
+  )
 }
 
 abrirDocumento(id:number) {

@@ -1,24 +1,16 @@
 import { Component, OnInit , ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UsuarioService } from 'src/app/service/usuario/usuario.service';
-import { ProductoalmacenService } from 'src/app/service/productoAlmacen/productoalmacen.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/tools/dialog/dialog.component';
 import {FormBuilder, FormGroup,FormControl, Validators} from "@angular/forms";
-import { Subject } from 'rxjs';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort, Sort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatTable} from '@angular/material/table';
-import { Tecnico } from 'src/app/modelo/Tecnico';
-import { formatDate } from '@angular/common';
 import { DataService } from 'src/app/service/data/data.service';
-import { TecnicoService } from 'src/app/service/tecnico/tecnico.service';
 import { Persona } from 'src/app/modelo/Persona';
 import { PersonaService } from 'src/app/service/persona/persona.service';
 import { EdipersonaComponent } from '../dialog/edipersona/edipersona.component';
-import { AddpermisoComponent } from '../../permiso/dialog/addpermiso/addpermiso.component';
 import { AddpersonaComponent } from '../dialog/addpersona/addpersona.component';
 
 @Component({
@@ -35,7 +27,7 @@ export class ListpersonaComponent implements OnInit {
   usuario:any=[];
   objetousuario:any=[];
 
-  displayedColumns: string[] = ['ID','DOCUMENTO','NRO DOCUMENTO','NOMBRE','ACCIONES'];
+  displayedColumns: string[] = ['ID','DOCUMENTO','NRO DOCUMENTO','NOMBRE','TELEFONO','CORREO','ACCIONES'];
  
   public dataSource: MatTableDataSource<Persona>;
 

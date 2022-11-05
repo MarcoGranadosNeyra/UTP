@@ -19,6 +19,11 @@ export class CotizacionService {
   return this.httpClient.get(`${this.apiURL}/cotizacion/aprobadas`);
   }
 
+  listarCotizacionesFinalizadas() {
+    return this.httpClient.get(`${this.apiURL}/cotizacion/finalizadas`);
+    }
+  
+
   listarCotizacionDetalle(id: number) {
     return this.httpClient.get(`${this.apiURL}/cotizaciondetalle/cotizacion/${id}`);
   }
@@ -33,6 +38,10 @@ export class CotizacionService {
 
   aprobarCotizacion(id: number) {
     return this.httpClient.delete(`${this.apiURL}/cotizacion/aprobar/${id}`);
+  }
+
+  finalizarCotizacion(id: number) {
+    return this.httpClient.delete(`${this.apiURL}/cotizacion/finalizar/${id}`);
   }
 
   buscarCotizacion(id: number) {

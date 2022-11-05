@@ -99,7 +99,13 @@ export class EditcalendarioComponent {
           this.formCalendario.reset();
           this.dialogRef.close(1);
         }else{
-          this.openSnackBar('Mensaje : ',this.response.mensaje)  
+          var uq_tecnico_id_dia_id_hora_calendario:string="uq_tecnico_id_dia_id_hora_calendario";
+
+          if(this.response.mensaje.includes(uq_tecnico_id_dia_id_hora_calendario)){
+            this.openSnackBar('Error : El Tecnico ya tiene un dia y hora asignado','');
+          }else{
+              this.openSnackBar('Error : ',this.response.mensaje);
+          }
         }
 
       });

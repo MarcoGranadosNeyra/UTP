@@ -150,7 +150,19 @@ export class EdipersonaComponent {
           this.formPersona.reset();
           this.dialogRef.close(1);
         }else{
-          this.openSnackBar('Error : ',this.response.mensaje);
+          var uq_id_documento_nro_documento:string="uq_id_documento_nro_documento";
+          var uq_correo:string ="uq_correo";
+          
+          if(this.response.mensaje.includes(uq_id_documento_nro_documento)){
+            this.openSnackBar('Error : Tipo de Documento y Nro de Documento ya esta registrado','');
+          }else{
+              if(this.response.mensaje.includes(uq_correo)){
+                this.openSnackBar('Error : Este Correo ya esta registrado','');
+            }else{
+              this.openSnackBar('Error : ',this.response.mensaje);
+            }
+          }
+          
         }
       });
     }

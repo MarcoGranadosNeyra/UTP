@@ -8,7 +8,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/service/data/data.service';
 import { EspecialidadService } from 'src/app/service/especialidad/especialidad.service';
 import { PersonaService } from 'src/app/service/persona/persona.service';
-import { TecnicoService } from 'src/app/service/tecnico/tecnico.service';
 import { UsuarioService } from 'src/app/service/usuario/usuario.service';
 import { RolService } from 'src/app/service/rol/rol.service';
 
@@ -97,7 +96,19 @@ export class AddusuarioComponent {
           this.formUsuario.reset();
           this.dialogRef.close(1);
         }else{
-          this.openSnackBar('Mensaje : ',this.response.mensaje)  
+
+          var uq_id_persona:string="uq_id_persona";
+          var uq_id_persona_id_rol:string ="uq_id_persona_id_rol";
+          
+          if(this.response.mensaje.includes(uq_id_persona)){
+            this.openSnackBar('Error : Esta Persona ya tiene una cuenta de Usuario','');
+          }else{
+              if(this.response.mensaje.includes(uq_id_persona_id_rol)){
+                this.openSnackBar('Error : Este usuario ya tiene un rol definido','');
+            }else{
+              this.openSnackBar('Error : ',this.response.mensaje);
+            }
+          }
         }
       });
     }
@@ -105,7 +116,7 @@ export class AddusuarioComponent {
 
 openSnackBar(message: string, action: string) {
   this.snackBar.open(message, action, {
-    duration: 5000,
+    duration: 7000,
     verticalPosition: 'bottom',
     horizontalPosition:'right',
   });

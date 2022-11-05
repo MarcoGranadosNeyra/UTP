@@ -233,7 +233,7 @@ CREATE OR REPLACE FUNCTION agregarPersona(
 	BEGIN
 	INSERT INTO Persona (id_departamento,id_provincia,id_distrito,id_documento,nro_documento,nombre,apaterno,amaterno,telefono,direccion,fecha_naci,id_sexo,correo,firma,huella,foto,estado) 
 	VALUES ('15', '1501', '150101',_id_documento, _nro_documento, _nombre, _apaterno,_amaterno, _telefono, _direccion,
-			'1980-05-09',1,_correo, '','','', true) returning id INTO v_id_persona;
+			'1980-05-09',1,_correo, 'https://toppng.com/uploads/preview/firma-en-png-firmas-en-formato-11562869799c09le16rgz.png','https://i.pinimg.com/736x/47/86/d3/4786d3b6b130a28adc451800e9ad2c2c--yo.jpg','https://icons.iconarchive.com/icons/papirus-team/papirus-status/512/avatar-default-icon.png', true) returning id INTO v_id_persona;
 	END;
   $BODY$
   LANGUAGE 'plpgsql';
@@ -2030,6 +2030,7 @@ $$ language sql;
 
 	BEGIN
 	INSERT INTO venta_detalle (id_venta, id_producto,cantidad,precio,estado) VALUES (_id_venta, _id_producto,_cantidad,_precio,true);
+	update producto set cantidad = cantidad-_cantidad where id=_id_producto;
 	END;
   $BODY$
   LANGUAGE 'plpgsql';
@@ -2763,7 +2764,7 @@ $$ language sql;
   DECLARE
 
 	BEGIN
-	INSERT INTO cotizacion (id_usuario, id_cliente,id_empresa,fecha,hora,aprobado,estado) VALUES (_id_usuario, _id_cliente,1,current_date,to_char(current_timestamp, 'HH12:MI:SS'),false, true) returning id INTO v_id_cotizacion;
+	INSERT INTO cotizacion (id_usuario, id_cliente,id_empresa,fecha,hora,aprobado,finalizado,estado) VALUES (_id_usuario, _id_cliente,1,current_date,to_char(current_timestamp, 'HH12:MI:SS'),false,false, true) returning id INTO v_id_cotizacion;
 	END;
   $BODY$
   LANGUAGE 'plpgsql';
@@ -2858,7 +2859,30 @@ as $$
 	INNER JOIN persona pu on pu.id=u.id_persona
 	INNER JOIN cliente cli on cli.id=c.id_cliente
 	INNER JOIN persona pc on pc.id=cli.id_persona
-	WHERE c.aprobado=true;
+	WHERE c.aprobado=true and c.finalizado=false;
+$$ language sql;
+
+   create or replace function listarCotizacionesFinalizadas()
+returns table (
+  id            int, 
+  tecnico		varchar,
+  cliente		varchar,
+  fecha			varchar,
+  hora			varchar,
+  estado		varchar
+  )
+as $$
+	SELECT c.id,
+	pu.nombre || ' ' || pu.apaterno || ' ' ||pu.amaterno as tecnico,
+	pc.nombre || ' ' || pc.apaterno || ' ' ||pc.amaterno as cliente,
+	to_char(c.fecha,'DD/MM/YYYY'),
+	c.hora,'Finalizado' as estado
+  FROM cotizacion c 
+	INNER JOIN usuario u on u.id=c.id_usuario
+	INNER JOIN persona pu on pu.id=u.id_persona
+	INNER JOIN cliente cli on cli.id=c.id_cliente
+	INNER JOIN persona pc on pc.id=cli.id_persona
+	WHERE c.aprobado=true and c.finalizado=true;
 $$ language sql;
 
 
@@ -2869,6 +2893,26 @@ $$ language sql;
     AFFECTEDROWS integer;
   BEGIN
     WITH a AS (UPDATE cotizacion SET aprobado=true  WHERE id = _id RETURNING 1)
+    SELECT count(*) INTO AFFECTEDROWS FROM a;
+    IF AFFECTEDROWS = 1 THEN
+      RETURN 1;
+    ELSE
+      RETURN 0;
+    END IF;
+  EXCEPTION WHEN OTHERS THEN
+    RETURN 0;
+  END;
+  $BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+    create or replace function finalizarCotizacion(_id integer)
+  RETURNS integer AS
+  $BODY$
+  DECLARE
+    AFFECTEDROWS integer;
+  BEGIN
+    WITH a AS (UPDATE cotizacion SET finalizado=true  WHERE id = _id RETURNING 1)
     SELECT count(*) INTO AFFECTEDROWS FROM a;
     IF AFFECTEDROWS = 1 THEN
       RETURN 1;
@@ -2925,3 +2969,254 @@ $$ language sql;
 	END;
   $BODY$
   LANGUAGE 'plpgsql';
+
+
+  create or replace function listarReporteVentas(_fecha1 date,_fecha2 date)
+returns table (
+  id            integer,
+  vendedor      varchar,
+  cliente       varchar,
+  monto			decimal(8,2))
+as $$
+SELECT 
+	v.id,
+	pu.nombre || ' ' || pu.apaterno || ' ' ||pu.amaterno as vendedor,
+	pc.nombre || ' ' || pc.apaterno || ' ' ||pc.amaterno as cliente,
+	sum(precio*cantidad) as monto
+FROM venta v
+inner join venta_detalle vd on vd.id_venta=v.id
+inner join cliente c on c.id=v.id_cliente
+inner join persona pc on pc.id=c.id_persona
+inner join usuario u on u.id=v.id_usuario
+inner join persona pu on pu.id=u.id_persona
+
+WHERE v.FECHA BETWEEN _fecha1 AND _fecha2
+group by v.id,pu.nombre,pu.apaterno,pu.amaterno,pc.nombre,pc.apaterno,pc.amaterno;
+$$ language sql;
+
+  create or replace function listarReporteProductosVendidos(_fecha1 date,_fecha2 date)
+returns table (
+  producto      varchar,
+  cantidad      int,
+  monto			decimal(8,2))
+as $$
+SELECT 
+
+	p.producto,sum(vd.cantidad),sum(vd.precio*vd.cantidad)
+FROM venta v
+inner join venta_detalle vd on vd.id_venta=v.id
+inner join producto p on p.id=vd.id_producto
+WHERE v.FECHA BETWEEN _fecha1 AND _fecha2 AND id_tipo_producto=1
+group by p.producto
+$$ language sql;
+
+  create or replace function listarReporteServiciosVendidos(_fecha1 date,_fecha2 date)
+returns table (
+  producto      varchar,
+  cantidad      int,
+  monto			decimal(8,2))
+as $$
+SELECT 
+
+	p.producto,sum(vd.cantidad),sum(vd.precio*vd.cantidad)
+FROM venta v
+inner join venta_detalle vd on vd.id_venta=v.id
+inner join producto p on p.id=vd.id_producto
+WHERE v.FECHA BETWEEN _fecha1 AND _fecha2 AND id_tipo_producto=2
+group by p.producto
+$$ language sql;
+
+  create or replace function listarReporteRepuestosVendidos(_fecha1 date,_fecha2 date)
+returns table (
+  producto      varchar,
+  cantidad      int,
+  monto			decimal(8,2))
+as $$
+SELECT 
+
+	p.producto,sum(vd.cantidad),sum(vd.precio*vd.cantidad)
+FROM venta v
+inner join venta_detalle vd on vd.id_venta=v.id
+inner join producto p on p.id=vd.id_producto
+WHERE v.FECHA BETWEEN _fecha1 AND _fecha2 AND id_tipo_producto=3
+group by p.producto
+$$ language sql;
+
+  create or replace function listarAtencionesTecnico(_fecha1 date,_fecha2 date)
+returns table (
+  cantidad      int,
+  tecnico	      varchar,
+	monto		decimal(8,2))
+as $$
+select 
+
+	count(a.id) as cantidad,
+	pt.nombre || ' ' || pt.apaterno || ' ' ||pt.amaterno,
+	sum(vd.precio*vd.cantidad)
+from hoja_servicio a
+inner join calendario c on c.id=a.id_calendario
+inner join tecnico t on t.id=c.id_tecnico
+inner join persona pt on pt.id=t.id_persona
+inner join venta v on v.id=a.id_venta
+inner join venta_detalle vd on vd.id_venta=v.id
+
+WHERE a.FECHA BETWEEN _fecha1 AND _fecha2
+group by pt.nombre,pt.apaterno,pt.amaterno
+$$ language sql;
+
+  create or replace function listarReporteVentas(_fecha1 date,_fecha2 date)
+returns table (
+  id            integer,
+  vendedor      varchar,
+  cliente       varchar,
+  monto			decimal(8,2),
+  fecha			varchar,
+  hora			varchar)
+as $$
+SELECT 
+	v.id,
+	pu.nombre || ' ' || pu.apaterno || ' ' ||pu.amaterno as vendedor,
+	pc.nombre || ' ' || pc.apaterno || ' ' ||pc.amaterno as cliente,
+	sum(precio*cantidad) as monto,
+	to_char(fecha,'DD/MM/YYYY'),
+	hora
+FROM venta v
+inner join venta_detalle vd on vd.id_venta=v.id
+inner join cliente c on c.id=v.id_cliente
+inner join persona pc on pc.id=c.id_persona
+inner join usuario u on u.id=v.id_usuario
+inner join persona pu on pu.id=u.id_persona
+
+WHERE v.FECHA BETWEEN _fecha1 AND _fecha2
+group by v.id,pu.nombre,pu.apaterno,pu.amaterno,pc.nombre,pc.apaterno,pc.amaterno,fecha,hora;
+$$ language sql;
+
+
+create or replace function listarVenta()
+returns table (
+  id              	integer,
+  usuario       	varchar,
+  cliente       	varchar,
+  fecha       		varchar,
+  hora       		varchar,
+  monto				decimal(8,2))
+as $$
+	select 
+		v.id, 
+		pu.nombre || ' ' || pu.apaterno || ' ' ||pu.amaterno as usuario,
+		pc.nombre || ' ' || pc.apaterno || ' ' ||pc.amaterno as cliente,
+		to_char(v.fecha,'DD/MM/YYYY'),
+		v.hora,
+		sum(dv.cantidad*dv.precio) as monto
+	from venta v
+	inner join usuario u on u.id=v.id_usuario
+	inner join persona pu on pu.id=u.id_persona
+	inner join cliente c on c.id=v.id_cliente
+	inner join persona pc on pc.id=c.id_persona
+	inner join venta_detalle dv on dv.id_venta=v.id
+	inner join producto p on p.id=dv.id_producto
+	where p.id_tipo_producto<>2
+	group by v.id,pu.nombre,pu.apaterno,pu.amaterno,pc.nombre,pc.apaterno,pc.amaterno,fecha,hora
+	order by v.id desc;
+$$ language sql;
+
+
+create or replace function listarVentaServicio()
+returns table (
+  id              	integer,
+  usuario       	varchar,
+  cliente       	varchar,
+  fecha       		varchar,
+  hora       		varchar,
+  monto				decimal(8,2))
+as $$
+	select 
+		v.id, 
+		pu.nombre || ' ' || pu.apaterno || ' ' ||pu.amaterno as usuario,
+		pc.nombre || ' ' || pc.apaterno || ' ' ||pc.amaterno as cliente,
+		to_char(v.fecha,'DD/MM/YYYY'),
+		v.hora,
+		sum(dv.cantidad*dv.precio) as monto
+	from venta v
+	inner join usuario u on u.id=v.id_usuario
+	inner join persona pu on pu.id=u.id_persona
+	inner join cliente c on c.id=v.id_cliente
+	inner join persona pc on pc.id=c.id_persona
+	inner join venta_detalle dv on dv.id_venta=v.id
+	inner join producto p on p.id=dv.id_producto
+	where p.id_tipo_producto=2
+	group by v.id,pu.nombre,pu.apaterno,pu.amaterno,pc.nombre,pc.apaterno,pc.amaterno,fecha,hora
+	order by v.id desc;
+$$ language sql;
+
+
+
+    create or replace function imprimirHojaServicioVenta(_id int)
+returns table (
+  id        		int,
+  empresa			varchar,
+  ruc				varchar,
+  telefonos			varchar,
+  direccion			varchar,
+  mensaje			varchar,
+  piepaguina		varchar,
+  cliente			varchar,
+  documento_cliente	varchar,
+  nro_documento_cliente	varchar,
+  telefono_cliente	varchar,
+  direccion_cliente	varchar,
+  tecnico			varchar,
+  documento_tecnico	varchar,
+  nro_documento_tecnico	varchar,
+  telefono_tecnico	varchar,
+  direccion_tecnico	varchar,
+  servicio			varchar,
+  precio			decimal(8,2),
+  fecha			 	varchar, 
+  hora				varchar)
+as $$
+	select 
+		v.id,
+		e.empresa,
+		e.ruc,
+		e.telefonos,
+		e.direccion,
+		e.mensaje,
+		e.piepaguina,
+		pc.nombre || ' ' || pc.apaterno || ' ' || pc.amaterno as cliente,
+		dpc.documento,pc.nro_documento,pc.telefono,pc.direccion,
+		pu.nombre || ' ' || pu.apaterno || ' ' || pu.amaterno as tecnico,
+		dpu.documento,pu.nro_documento,pu.telefono,pu.direccion,
+		p.producto,
+		dv.precio,
+		to_char(v.fecha,'DD/MM/YYYY'),
+		v.hora
+	from venta v
+inner join cliente cl on cl.id=v.id_cliente
+inner join persona pc on pc.id=cl.id_persona
+inner join documento dpc on dpc.id=pc.id_documento
+inner join empresa e on e.id=v.id_empresa
+inner join usuario u on u.id=v.id_usuario
+inner join persona pu on pu.id=u.id_persona
+inner join documento dpu on dpu.id=pu.id_documento
+inner join venta_detalle dv on dv.id_venta=v.id
+inner join producto p on p.id=dv.id_producto
+where p.id_tipo_producto=2 and v.id=_id;
+$$ language sql;
+
+create or replace function listarDetalleRepuestos(_id int)
+returns table (
+  row_number		integer,
+  repuesto	       	varchar,
+  cantidad       	integer,
+  precio       		decimal(8,2))
+as $$
+	select 
+		ROW_NUMBER () OVER (ORDER BY dv.id_venta),
+		p.producto,
+		dv.cantidad,
+		dv.precio 
+	from venta_detalle dv
+	inner join producto p on p.id=dv.id_producto
+	where p.id_tipo_producto = 3  and dv.id_venta=_id
+$$ language sql;

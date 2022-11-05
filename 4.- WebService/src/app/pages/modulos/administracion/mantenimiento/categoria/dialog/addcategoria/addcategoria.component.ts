@@ -69,7 +69,13 @@ export class AddcategoriaComponent {
           this.formCategoria.reset();
           this.dialogRef.close(1);
         }else{
-          this.openSnackBar('Mensaje : ',this.response.mensaje)  
+          var uq_categoria:string="uq_categoria";
+
+          if(this.response.mensaje.includes(uq_categoria)){
+            this.openSnackBar('Error : El nombre de la categoria ya existe','');
+          }else{
+              this.openSnackBar('Error : ',this.response.mensaje);
+          }
         }
       });
     }

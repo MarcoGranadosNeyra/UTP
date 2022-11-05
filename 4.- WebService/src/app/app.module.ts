@@ -28,23 +28,7 @@ import { FechaComponent } from './pages/paciente/cita/fecha/fecha.component';
 import { MedicoComponent } from './pages/paciente/cita/medico/medico.component';
 import { ConfirmarComponent } from './pages/paciente/cita/confirmar/confirmar.component';
 import { ReservadoComponent } from './pages/paciente/cita/reservado/reservado.component';
-/*
-import { AddpermisoAsistenciaComponent } from './pages/modulos/administracion/asistencia/dialog/addpermiso-asistencia/addpermiso-asistencia.component';
-import { ReporteasistenciaComponent } from './pages/modulos/administracion/asistencia/reporte/reporteasistencia/reporteasistencia.component';
-import { EditpermisoAsistenciaComponent } from './pages/modulos/administracion/asistencia/dialog/editpermiso-asistencia/editpermiso-asistencia.component';
-*/
-/*
-import { ListproductoalmacenComponent } from './pages/modulos/mantenimiento/productoalmacen/listproductoalmacen/listproductoalmacen.component';
-import { EditproductoalmacenComponent } from './pages/modulos/mantenimiento/productoalmacen/dialog/editproductoalmacen/editproductoalmacen.component';
-import { AddproductoalmacenComponent } from './pages/modulos/mantenimiento/productoalmacen/dialog/addproductoalmacen/addproductoalmacen.component';
-import { DelproductoalmacenComponent } from './pages/modulos/mantenimiento/productoalmacen/dialog/delproductoalmacen/delproductoalmacen.component';
-import { ListaralmacenprincipalComponent } from './pages/modulos/almacen/principal/listaralmacenprincipal/listaralmacenprincipal.component';
-import { IngresoalmacenprincipalComponent } from './pages/modulos/almacen/principal/dialog/ingresoalmacenprincipal/ingresoalmacenprincipal.component';
-import { SalidaalmacenprincipalComponent } from './pages/modulos/almacen/principal/dialog/salidaalmacenprincipal/salidaalmacenprincipal.component';
-import { AddproductoalmacenprincipalComponent } from './pages/modulos/almacen/principal/dialog/addproductoalmacenprincipal/addproductoalmacenprincipal.component';
-import { ListaringresosalmacenprincipalComponent } from './pages/modulos/almacen/principal/listaringresosalmacenprincipal/listaringresosalmacenprincipal.component';
-import { ListarsalidasalmacenprincipalComponent } from './pages/modulos/almacen/principal/listarsalidasalmacenprincipal/listarsalidasalmacenprincipal.component';
-*/
+
 import { ListtecnicoComponent } from './pages/modulos/administracion/mantenimiento/tecnico/listtecnico/listtecnico.component';
 import { AddtecnicoComponent } from './pages/modulos/administracion/mantenimiento/tecnico/dialog/addtecnico/addtecnico/addtecnico.component';
 import { EdittecnicoComponent } from './pages/modulos/administracion/mantenimiento/tecnico/dialog/edittecnico/edittecnico/edittecnico.component';
@@ -108,11 +92,15 @@ import { ListrecibidosComponent } from './pages/modulos/tecnico/recepcion/equipo
 import { ListentregadosComponent } from './pages/modulos/tecnico/recepcion/equipos/listentregados/listentregados.component';
 import { AddequipoComponent } from './pages/modulos/tecnico/recepcion/equipos/dialog/addequipo/addequipo.component';
 import { EditequipoComponent } from './pages/modulos/tecnico/recepcion/equipos/dialog/editequipo/editequipo.component';
-
-
-
-
-
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ListreporteventasComponent } from './pages/modulos/administracion/reportes/ventas/listreporteventas/listreporteventas.component';
+import { ListreporteproductosvendidosComponent } from './pages/modulos/administracion/reportes/ventas/listreporteproductosvendidos/listreporteproductosvendidos.component';
+import { ListreporteserviciosvendidosComponent } from './pages/modulos/administracion/reportes/ventas/listreporteserviciosvendidos/listreporteserviciosvendidos.component';
+import { ListreporterepuestosvendidosComponent } from './pages/modulos/administracion/reportes/ventas/listreporterepuestosvendidos/listreporterepuestosvendidos.component';
+import { ListreporteatencionestecnicoComponent } from './pages/modulos/administracion/reportes/tecnico/listreporteatencionestecnico/listreporteatencionestecnico.component';
+import { ListventasComponent } from './pages/modulos/vendedor/ventas/listventas/listventas.component';
+import { ListventasserviciosComponent } from './pages/modulos/vendedor/ventas/listventasservicios/listventasservicios.component';
+import { CotizacionesfinalizadasComponent } from './pages/modulos/tecnico/cotizacion/cotizacionesfinalizadas/cotizacionesfinalizadas/cotizacionesfinalizadas.component';
 
 
 registerLocaleData(localeES,'es');
@@ -135,22 +123,6 @@ registerLocaleData(localeES,'es');
     ConfirmarComponent,
     ReservadoComponent,
 
-    /*
-    ReporteasistenciaComponent,
-    AddpermisoAsistenciaComponent,
-    EditpermisoAsistenciaComponent,
- 
-    ListproductoalmacenComponent,
-    EditproductoalmacenComponent,
-    AddproductoalmacenComponent,
-    DelproductoalmacenComponent,
-    ListaralmacenprincipalComponent,
-    IngresoalmacenprincipalComponent,
-    SalidaalmacenprincipalComponent,
-    AddproductoalmacenprincipalComponent,
-    ListaringresosalmacenprincipalComponent,
-    ListarsalidasalmacenprincipalComponent,
-   */
     ListtecnicoComponent,
      AddtecnicoComponent,
 
@@ -215,16 +187,14 @@ registerLocaleData(localeES,'es');
       ListentregadosComponent,
       AddequipoComponent,
       EditequipoComponent,
-
-      
-  
-      
-  
-
-
-
-
-
+      ListreporteventasComponent,
+      ListreporteproductosvendidosComponent,
+      ListreporteserviciosvendidosComponent,
+      ListreporterepuestosvendidosComponent,
+      ListreporteatencionestecnicoComponent,
+      ListventasComponent,
+      ListventasserviciosComponent,
+      CotizacionesfinalizadasComponent,
 
 
   ],
@@ -237,6 +207,9 @@ registerLocaleData(localeES,'es');
     HttpClientModule,
     /*material */
     AngularMaterialModule,
+    NgxChartsModule
+      
+
   ],
   providers: [    
     SecurityGuard,

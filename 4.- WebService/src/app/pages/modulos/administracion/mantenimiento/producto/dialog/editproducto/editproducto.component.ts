@@ -2,14 +2,11 @@ import {Component, Inject} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormGroup } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
-
 import {FormControl, Validators} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/service/data/data.service';
-import { EspecialidadService } from 'src/app/service/especialidad/especialidad.service';
 import { PersonaService } from 'src/app/service/persona/persona.service';
-import { TecnicoService } from 'src/app/service/tecnico/tecnico.service';
 import { CategoriaService } from 'src/app/service/categoria/categoria.service';
 import { ProductoService } from 'src/app/service/producto/producto.service';
 
@@ -19,8 +16,6 @@ import { ProductoService } from 'src/app/service/producto/producto.service';
   styleUrls: ['./editproducto.component.css']
 })
 export class EditproductoComponent {
-
-
 
   public formProducto: FormGroup;
   formControl = new FormControl('', [Validators.required]);
@@ -107,7 +102,13 @@ export class EditproductoComponent {
           this.formProducto.reset();
           this.dialogRef.close(1);
         }else{
-          this.openSnackBar('Mensaje : ',this.response.mensaje)  
+          var uq_producto:string="uq_producto";
+
+          if(this.response.mensaje.includes(uq_producto)){
+            this.openSnackBar('Error : El nombre del Producto ya esta registrado','');
+          }else{
+              this.openSnackBar('Error : ',this.response.mensaje);
+          }
         }
 
       });

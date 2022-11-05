@@ -50,6 +50,14 @@ import { CotizacionespendietesComponent } from './pages/modulos/tecnico/cotizaci
 import { CotizacionesaprobadasComponent } from './pages/modulos/tecnico/cotizacion/cotizacionesaprobadas/cotizacionesaprobadas.component';
 import { ListrecibidosComponent } from './pages/modulos/tecnico/recepcion/equipos/listrecibidos/listrecibidos.component';
 import { ListentregadosComponent } from './pages/modulos/tecnico/recepcion/equipos/listentregados/listentregados.component';
+import { ListreporteventasComponent } from './pages/modulos/administracion/reportes/ventas/listreporteventas/listreporteventas.component';
+import { ListreporteproductosvendidosComponent } from './pages/modulos/administracion/reportes/ventas/listreporteproductosvendidos/listreporteproductosvendidos.component';
+import { ListreporterepuestosvendidosComponent } from './pages/modulos/administracion/reportes/ventas/listreporterepuestosvendidos/listreporterepuestosvendidos.component';
+import { ListreporteserviciosvendidosComponent } from './pages/modulos/administracion/reportes/ventas/listreporteserviciosvendidos/listreporteserviciosvendidos.component';
+import { ListreporteatencionestecnicoComponent } from './pages/modulos/administracion/reportes/tecnico/listreporteatencionestecnico/listreporteatencionestecnico.component';
+import { ListventasComponent } from './pages/modulos/vendedor/ventas/listventas/listventas.component';
+import { ListventasserviciosComponent } from './pages/modulos/vendedor/ventas/listventasservicios/listventasservicios.component';
+import { CotizacionesfinalizadasComponent } from './pages/modulos/tecnico/cotizacion/cotizacionesfinalizadas/cotizacionesfinalizadas/cotizacionesfinalizadas.component';
 
 const routes: Routes = [
   {
@@ -82,6 +90,13 @@ const routes: Routes = [
         {path:'administracion/mantenimiento/listarModulo',component:ListmoduloComponent,canActivate : [SecurityGuard]},
         {path:'administracion/mantenimiento/listarPermiso',component:ListpermisoComponent,canActivate : [SecurityGuard]},
         {path:'administracion/mantenimiento/listarCalendario',component:ListcalendarioComponent,canActivate : [SecurityGuard]},
+        {path:'reportes/ventas',component:ListreporteventasComponent,canActivate : [SecurityGuard]},
+        {path:'reportes/ventas/productos',component:ListreporteproductosvendidosComponent,canActivate : [SecurityGuard]},
+        {path:'reportes/ventas/repuestos',component:ListreporterepuestosvendidosComponent,canActivate : [SecurityGuard]},
+        {path:'reportes/ventas/servicios',component:ListreporteserviciosvendidosComponent,canActivate : [SecurityGuard]},
+        {path:'reportes/ventas/atenciones',component:ListreporteatencionestecnicoComponent,canActivate : [SecurityGuard]},
+        
+        
 
         {path:'cliente/soporte/servicio',component:ServicioComponent,canActivate : [SecurityGuard]},
         {path:'cliente/soporte/horario',component:HorarioComponent,canActivate : [SecurityGuard]},
@@ -93,7 +108,8 @@ const routes: Routes = [
         {path:'vendedor/carrito',component:CarritoComponent,canActivate : [SecurityGuard]},
         {path:'vendedor/carrito/formapago',component:FormapagolistComponent,canActivate : [SecurityGuard]},
         {path:'vendedor/carrito/imprimirventa',component:ImprimirventaComponent,canActivate : [SecurityGuard]},
-        
+        {path:'vendedor/ventas/listarVentas',component:ListventasComponent,canActivate : [SecurityGuard]},
+        {path:'vendedor/ventas/listarVentasServicios',component:ListventasserviciosComponent,canActivate : [SecurityGuard]},
 
         {path:'tecnico/atenciones/pendientes',component:AtencionespendientesComponent,canActivate : [SecurityGuard]},
         {path:'tecnico/atenciones/finalizadas',component:AtencionesfinalizadasComponent,canActivate : [SecurityGuard]},
@@ -104,6 +120,7 @@ const routes: Routes = [
         {path:'tecnico/cotizacion/imprimircotizacion',component:ImprimircotizacionComponent,canActivate : [SecurityGuard]},
         {path:'tecnico/cotizacion/pendientes',component:CotizacionespendietesComponent,canActivate : [SecurityGuard]},
         {path:'tecnico/cotizacion/aprobadas',component:CotizacionesaprobadasComponent,canActivate : [SecurityGuard]},
+        {path:'tecnico/cotizacion/finalizadas',component:CotizacionesfinalizadasComponent,canActivate : [SecurityGuard]},
       ]},
 
 

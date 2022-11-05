@@ -1,8 +1,5 @@
-import { Component, OnInit,ViewChild,EventEmitter ,Output} from '@angular/core';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {MatDialog} from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
-import {MatAccordion} from '@angular/material/expansion';
+import { Component, OnInit,ViewChild,EventEmitter ,Output, ChangeDetectorRef} from '@angular/core';
+import { Router } from '@angular/router';
 
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
@@ -23,12 +20,16 @@ export class MainComponent implements OnInit {
   persona :any={};
   rol :any={};
 
-  
-
   @Output()
   emisor : EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private dataService:DataService,private usuarioService:UsuarioService,private observer: BreakpointObserver,private router: Router) { }
+  constructor(
+            private dataService:DataService,
+            private usuarioService:UsuarioService,
+            private observer: BreakpointObserver,
+            private router: Router,
+            private changeDetectorRef:ChangeDetectorRef
+          ) { }
 
   ngOnInit(): void {
     var id: number = Number(localStorage.getItem('id_usuario'));
@@ -38,15 +39,6 @@ export class MainComponent implements OnInit {
     this.persona=this.dataService.persona;
     this.rol=this.dataService.rol;
   }
-
-
-    validarLogeo(){
-      const logeado= this.usuarioService.logeado();
-      if(!logeado){
-        this.usuarioService.cerrarSession()
-      }
-    }
-
 
   ngAfterViewInit() {
     this.observer.observe(['(max-width: 1024px)']).subscribe((res) => {
@@ -58,7 +50,15 @@ export class MainComponent implements OnInit {
         this.sidenav.open();
       }
     });
+    this.changeDetectorRef.detectChanges();
   }
+
+    validarLogeo(){
+      const logeado= this.usuarioService.logeado();
+      if(!logeado){
+        this.usuarioService.cerrarSession()
+      }
+    }
 
   cerrarSession(){
     this.usuarioService.logout()
@@ -76,16 +76,8 @@ export class MainComponent implements OnInit {
     );
   }
 
-
-
   miperfil(idPersona:number){
     this.router.navigate(['perfil/',idPersona]);
-
   }
-
-
-  
-
-
 
 }

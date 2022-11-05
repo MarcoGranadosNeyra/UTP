@@ -31,6 +31,8 @@ public class PersonaDAOImpl implements PersonaDAO{
                         persona.setDocumento(rs.getString("documento"));
                         persona.setNro_documento(rs.getString("nro_documento"));
                         persona.setNombres(rs.getString("nombres"));
+                        persona.setTelefono(rs.getString("telefono"));
+                        persona.setCorreo(rs.getString("correo"));
                         lista.add(persona);
                     }
                 }

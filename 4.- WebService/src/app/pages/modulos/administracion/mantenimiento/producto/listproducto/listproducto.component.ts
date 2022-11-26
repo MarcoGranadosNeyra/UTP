@@ -70,7 +70,7 @@ export class ListproductoComponent implements OnInit {
   }
 */
 
-  listarProducto() {
+  async listarProducto() {
       this.productoService.listarProducto()
       .subscribe(res => {
         this.dataArray = res;

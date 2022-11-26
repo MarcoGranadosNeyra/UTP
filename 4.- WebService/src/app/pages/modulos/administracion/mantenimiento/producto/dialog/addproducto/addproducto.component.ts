@@ -53,7 +53,7 @@ export class AddproductoComponent {
 
       this.formularioProducto();
       this.listarCategoria();
-      this.listarProducto();
+      //this.listarProducto();
 
     }
 

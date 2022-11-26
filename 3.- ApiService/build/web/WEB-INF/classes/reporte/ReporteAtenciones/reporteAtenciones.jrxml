@@ -32,7 +32,7 @@
 			</staticText>
 			<image>
 				<reportElement x="172" y="0" width="275" height="35" uuid="90c501b7-b5a3-4838-9bae-b4940056623a"/>
-				<imageExpression><![CDATA["C:\\Marco\\DesarrolloGit\\UTP\\3.- ApiService\\src\\java\\reporte\\ReporteVenta\\img\\logo.png"]]></imageExpression>
+				<imageExpression><![CDATA["C:\\report\\ReporteAtenciones\\img\\logo.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>

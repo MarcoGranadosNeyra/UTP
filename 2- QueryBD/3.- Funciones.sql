@@ -91,7 +91,7 @@ returns table (
 as $$
 	select id,documento from documento order by id asc
 $$ language sql;
-
+/*
   create or replace function buscarDocumento(_id int)
 returns table (
   id            	varchar, 
@@ -99,7 +99,7 @@ returns table (
 as $$
 	select id,documento from documento where id=_id
 $$ language sql;
-
+*/
   create or replace function buscarDocumento(_documento varchar)
 returns table (
   id            varchar, 
@@ -448,11 +448,13 @@ returns table (
   id_persona      integer,
   id_rol          integer,
   usuario         varchar,
-  usuario         password,
+  password        varchar,
   estado          boolean)
 as $$
   select id,id_persona,id_rol,usuario,password,estado from usuario where usuario=_usuario and password = _password and estado=true;
 $$ language sql;
+
+CREATE EXTENSION pgcrypto;
 
 create or replace function validarPassword(_password varchar)
 returns table (
@@ -615,7 +617,7 @@ CREATE OR REPLACE FUNCTION agregarRolModulo(
   /*
 funciones para la tabla permiso
 */
-
+/*
 create or replace function listarPermiso()
 returns table (
 	id 					integer,
@@ -628,7 +630,7 @@ as $$
 	inner join modulo m on m.id=p.id_modulo
 	order by r.rol ASC
 $$ language sql;
-
+*/
 
 
 
@@ -898,6 +900,8 @@ CREATE OR REPLACE FUNCTION agregarCita(
       END;
   $BODY$
   LANGUAGE 'plpgsql';
+  
+  
 
 
 create or replace function listarpersonabyid(_id int)
@@ -974,7 +978,7 @@ as $$
 	select t.id,id_especialidad,id_persona,especialidad,t.estado from tecnico t
 	where t.id_persona=_id_persona;
 $$ language sql;
-
+/*
   create or replace function listarCitaById(_id int)
 returns table (
 	id 					integer,
@@ -1093,7 +1097,9 @@ as $$
 
 $$ language sql;
 
+*/
 
+/*
 create or replace function listarUsuario()
 returns table (
   id                integer,
@@ -1117,7 +1123,7 @@ as $$
   where u.id_tipo_usuario=2
   order by u.id asc
 $$ language sql;
-
+*/
 
 create or replace function listarTecnico()
 returns table (
@@ -1318,7 +1324,7 @@ CREATE OR REPLACE FUNCTION actualizarUsuarioTecnico(
       END;
   $BODY$
   LANGUAGE 'plpgsql';
-
+/*
     create or replace function listarCitasPendientesTecnico(_id_tecnico int)
 returns table (
 	id 					integer,
@@ -1414,7 +1420,8 @@ as $$
 	where id_cita=_id_cita
 	group by dc.id,r.repuesto,dc.precio_repuesto,dc.precio_servicio
 $$ language sql;
-
+*/
+/*
 create or replace function listarRepuesto()
 returns table (
 	id 					    integer,
@@ -1424,7 +1431,7 @@ returns table (
 as $$
 	SELECT id,repuesto,precio,estado from repuesto
 $$ language sql;
-
+*/
 CREATE OR REPLACE FUNCTION agregarDetalleCita(
 	_id_cita				integer,
 	_id_repuesto			integer,
@@ -1456,7 +1463,7 @@ CREATE OR REPLACE FUNCTION agregarDetalleCita(
   $BODY$
   LANGUAGE 'plpgsql';
 
-
+/*
   create or replace function listarDetalleCita(_id_cita int)
 returns table (
   id                integer,
@@ -1521,6 +1528,7 @@ as $$
 			where atendido=true and c.estado=true and detalle.estado=true and c.fecha between _fecha1 and _fecha2
 			group by c.id,pc.nombre,pc.apaterno,pc.amaterno, dc.documento,pc.nro_documento,pc.telefono,c.fecha,c.hora;
 $$ language sql;
+*/
 
   create or replace function listarPermisos()
 returns table (
@@ -1558,40 +1566,50 @@ CREATE OR REPLACE FUNCTION agregarRecepcion(
   $BODY$
   LANGUAGE 'plpgsql';
 
-
+/*
    create or replace function listarRecepcion()
 returns table (
 	id 					integer,
 	cliente				varchar,
 	nro_documento		varchar,
 	telefono			varchar,
-	artefacto			varchar,
+	equipo				varchar,
 	marca				varchar,
 	modelo				varchar,
 	serie				varchar,
-	descripcion			varchar
+	descripcion			varchar,
+	fecha				varchar,
+	entregado			boolean
 	)
 as $$
-		select id,cliente,nro_documento,telefono,artefacto,marca,modelo,serie,descripcion from recepcion
-		where estado=true
+		select r.id,pc.nombre|| ' ' || pc.apaterno || ' ' || pc.amaterno,pc.nro_documento,pc.telefono,equipo,marca,modelo,serie,descripcion,to_char(fecha,'DD/MM/YYYY'),entregado from recepcion r
+		inner join cliente c on c.id=r.id_cliente
+		inner join persona pc on pc.id=c.id_persona
+		where r.estado=true
 $$ language sql;
-
+*/
+/*
     create or replace function imprimirGuiaRecepcion(_id int)
 returns table (
 	id 					integer,
 	cliente				varchar,
 	nro_documento		varchar,
 	telefono			varchar,
-	artefacto			varchar,
+	equipo				varchar,
 	marca				varchar,
 	modelo				varchar,
 	serie				varchar,
-	descripcion			varchar
+	descripcion			varchar,
+	fecha				varchar,
+	entregado			boolean
 	)
 as $$
-		select id,cliente,nro_documento,telefono,artefacto,marca,modelo,serie,descripcion from recepcion where id=_id;
+		select r.id,pc.nombre|| ' ' || pc.apaterno || ' ' || pc.amaterno,pc.nro_documento,pc.telefono,equipo,marca,modelo,serie,descripcion,to_char(fecha,'DD/MM/YYYY'),entregado from recepcion r
+		inner join cliente c on c.id=r.id_cliente
+		inner join persona pc on pc.id=c.id_persona
+		where r.estado=true and r.id=_id;
 $$ language sql;
-
+*/
 
       CREATE OR REPLACE FUNCTION finalizarRecepcion(
 	_id	 	integer
@@ -2161,9 +2179,6 @@ returns table (
 	group by fp.forma_pago;
 $$ language sql;
 
-
-
-
   CREATE OR REPLACE FUNCTION agregarModulo(
 	_modulo		 	varchar,
 	_url 			varchar,
@@ -2238,6 +2253,8 @@ as $$
 	inner join rol r on r.id=p.id_rol
 	inner join modulo m on m.id=p.id_modulo;
 $$ language sql;
+
+
 
 
   CREATE OR REPLACE FUNCTION agregarPermiso(
@@ -2970,7 +2987,7 @@ $$ language sql;
   $BODY$
   LANGUAGE 'plpgsql';
 
-
+/*
   create or replace function listarReporteVentas(_fecha1 date,_fecha2 date)
 returns table (
   id            integer,
@@ -2993,7 +3010,7 @@ inner join persona pu on pu.id=u.id_persona
 WHERE v.FECHA BETWEEN _fecha1 AND _fecha2
 group by v.id,pu.nombre,pu.apaterno,pu.amaterno,pc.nombre,pc.apaterno,pc.amaterno;
 $$ language sql;
-
+*/
   create or replace function listarReporteProductosVendidos(_fecha1 date,_fecha2 date)
 returns table (
   producto      varchar,

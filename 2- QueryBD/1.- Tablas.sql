@@ -121,6 +121,14 @@ ALTER TABLE usuario
     ADD CONSTRAINT uq_id_persona_id_rol UNIQUE (id_persona, id_rol);
 	
 	
+CREATE TABLE grupo(
+id 			SERIAL,
+grupo 		VARCHAR(100) NOT NULL,
+estado		boolean NOT NULL,
+CONSTRAINT uq_grupo UNIQUE(grupo),
+CONSTRAINT pk_id_grupo PRIMARY KEY (id)
+);
+
 CREATE TABLE modulo(
 id			SERIAL,
 modulo		varchar(40) NOT NULL,
@@ -166,8 +174,8 @@ CONSTRAINT fk_id_especialidad_tecnico FOREIGN KEY(id_especialidad) REFERENCES es
 CONSTRAINT fk_id_persona_tecnico FOREIGN KEY(id_persona) REFERENCES persona(id)
 );
 
-ALTER TABLE tecnico
-DROP CONSTRAINT uq_id_persona_tecnico;
+--ALTER TABLE tecnico
+--DROP CONSTRAINT uq_id_persona_tecnico;
 
 CREATE TABLE hora(
 id				SERIAL,
@@ -184,20 +192,11 @@ CONSTRAINT uq_dia UNIQUE(dia),
 CONSTRAINT pk_id_dia PRIMARY KEY(id)
 );
 
-CREATE TABLE calendario(
-id				SERIAL,
-id_producto		INT NOT NULL,
-id_tecnico		INT NOT NULL,
-id_dia			INT NOT NULL,
-id_hora			INT NOT NULL,
-libre			boolean NOT NULL,
-estado			boolean NOT NULL,
-CONSTRAINT pk_calendario PRIMARY KEY(id),
-CONSTRAINT uq_tecnico_id_dia_id_hora_calendario UNIQUE(id_tecnico,id_dia,id_hora),
-CONSTRAINT fk_id_producto_calendario FOREIGN KEY(id_producto) REFERENCES producto(id),
-CONSTRAINT fk_id_tecnico_calendario FOREIGN KEY(id_tecnico) REFERENCES tecnico(id),
-CONSTRAINT fk_id_dia_calendario FOREIGN KEY(id_dia) REFERENCES dia(id),
-CONSTRAINT fk_id_hora_calendario FOREIGN KEY(id_hora) REFERENCES hora(id)
+CREATE TABLE seguro(
+id			SERIAL,
+seguro		varchar(50) NOT NULL,
+anulado		boolean NOT NULL,
+CONSTRAINT pk_id_seguro PRIMARY KEY(id)
 );
 
 
@@ -240,7 +239,7 @@ CONSTRAINT fk_id_especialidad_atencion FOREIGN KEY(id_especialidad) REFERENCES e
 ALTER TABLE especialidad 
 ADD COLUMN precio decimal(8,2);
 
-update especialidad set precio=80
+update especialidad set precio=80;
 
 
 CREATE TABLE categoria(
@@ -273,6 +272,25 @@ CONSTRAINT uq_producto UNIQUE(producto),
 CONSTRAINT pk_id_producto PRIMARY KEY (id),
 CONSTRAINT fk_id_cateogira_producto FOREIGN KEY(id_categoria)  REFERENCES categoria(id),
 CONSTRAINT fk_id_tipo_producto FOREIGN KEY(id_tipo_producto)  REFERENCES tipo_producto(id)
+);
+
+
+
+
+CREATE TABLE calendario(
+id				SERIAL,
+id_producto		INT NOT NULL,
+id_tecnico		INT NOT NULL,
+id_dia			INT NOT NULL,
+id_hora			INT NOT NULL,
+libre			boolean NOT NULL,
+estado			boolean NOT NULL,
+CONSTRAINT pk_calendario PRIMARY KEY(id),
+CONSTRAINT uq_tecnico_id_dia_id_hora_calendario UNIQUE(id_tecnico,id_dia,id_hora),
+CONSTRAINT fk_id_producto_calendario FOREIGN KEY(id_producto) REFERENCES producto(id),
+CONSTRAINT fk_id_tecnico_calendario FOREIGN KEY(id_tecnico) REFERENCES tecnico(id),
+CONSTRAINT fk_id_dia_calendario FOREIGN KEY(id_dia) REFERENCES dia(id),
+CONSTRAINT fk_id_hora_calendario FOREIGN KEY(id_hora) REFERENCES hora(id)
 );
 
 
@@ -388,3 +406,12 @@ CONSTRAINT pk_id_cotizacion_id_producto_cotizacion_detalle PRIMARY KEY (id_cotiz
 CONSTRAINT fk_id_cotizacion_cotizacion_detalle  FOREIGN KEY (id_cotizacion) REFERENCES cotizacion(id),
 CONSTRAINT fk_id_producto_cotizacion_detalle FOREIGN KEY (id_producto) REFERENCES producto(id)
 );
+
+CREATE TABLE repuesto(
+id			SERIAL,
+repuesto	varchar(50) NOT NULL,
+precio		DECIMAL(8,2),
+estado		boolean NOT NULL,
+CONSTRAINT pk_id_repuesto PRIMARY KEY(id)
+);
+

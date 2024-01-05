@@ -48,6 +48,9 @@ ejecutar `npm install @angular/flex-layout`.
   ##  "strictPropertyInitialization": false    <---------
   ## }
 
+  ## 4.- Instalar bootstrap
+      npm install bootstrap
+
 
 ## 5.- config angular.json
 

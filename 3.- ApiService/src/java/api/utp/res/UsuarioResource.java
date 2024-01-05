@@ -173,6 +173,7 @@ public class UsuarioResource {
     @Produces("application/json")
     @Consumes("application/json")
     public Response login(Usuario usuario) {
+     
         int result = 0;
         int id_usuario = 0;
         String mensaje = "";
@@ -218,7 +219,7 @@ public class UsuarioResource {
                         .setExpiration(new Date(tiempo + 900000))
                         .claim("id", persona.getId())
                         .compact();
-
+                
                 result = 1;
                 id_usuario = user.getId();
                 mensaje = "Bienvenido Usuario : " + user.getUsuario();
@@ -236,7 +237,6 @@ public class UsuarioResource {
         json.put("token", jwt);
         json.put("persona", jsonPersona);
         json.put("permisos", jsonArrayPermisos);
-
         return Response
                 .status(200)
                 .header("Access-Control-Allow-Origin", "*")
@@ -247,6 +247,7 @@ public class UsuarioResource {
                 .entity(json.toString())
                 .build();
 
+        //return Response.status(Response.Status.CREATED).entity(json.toString()).build();
     }
 
     @GET

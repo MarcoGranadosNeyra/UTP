@@ -2134,7 +2134,7 @@ INSERT INTO seguro VALUES(5,'SANITAS',true);
 INSERT INTO seguro VALUES(6,'PACIFICO',true);
 
 insert into tipo_usuario values(1,'CLIENTE');
-insert into tipo_usuario values(2,'TALLER');
+insert into tipo_usuario values(2,'COLABORADOR');
 
 insert into hora values(1,'8:00 AM',8);
 insert into hora values(2,'9:00 AM',9);
@@ -2161,9 +2161,9 @@ INSERT INTO persona VALUES(DEFAULT,'15','1501','150101',1,'40623676','Marcelo','
 INSERT INTO persona VALUES(DEFAULT,'15','1501','150101',1,'40623677','Ruben','Diaz','Cuba','923667760','av. 24 de octubre lt2 mz 27-3 de octubre de villa','1980-05-09',1,'ruben.diaz@gmail.com','https://res.cloudinary.com/sistemas-granados/image/upload/v1618018473/klgdfbwkqrkdyn1o9fui.jpg','https://res.cloudinary.com/sistemas-granados/image/upload/v1618018480/gn71gydqah5p6hlg8igf.jpg','https://image.freepik.com/foto-gratis/doctor-sonriendo-estetoscopio_1154-36.jpg',true);
 
 INSERT INTO persona VALUES(DEFAULT,'15','1501','150101',1,'40623678','Juan','Guerra','lopez','923667760','av. 24 de octubre lt2 mz 27-3 de octubre de villa','1980-05-09',1,'juan.guerra@gmail.com','','','https://res.cloudinary.com/sistemas-granados/image/upload/v1618271851/gcbfupedwhurf4ctgxw9.png',true);
-INSERT INTO persona VALUES(DEFAULT,'15','1501','150101',1,'40623679','Miguel','Rodriguez','SALAZAR','923667760','LURIN','1992-05-09',1,'miguel.rodriguez@gmail.com','https://res.cloudinary.com/sistemas-granados/image/upload/v1618018473/klgdfbwkqrkdyn1o9fui.jpg','https://res.cloudinary.com/sistemas-granados/image/upload/v1618018480/gn71gydqah5p6hlg8igf.jpg','https://image.freepik.com/foto-gratis/doctor-sonriendo-estetoscopio_1154-36.jpg',true);
-INSERT INTO persona VALUES(DEFAULT,'15','1501','150101',1,'40623680','Mario','gARCIA','CASTILLO','923667760','av. 24 de octubre lt2 mz 27-3 de octubre de villa','1980-05-09',2,'mario.garcia@gmail.com','https://res.cloudinary.com/sistemas-granados/image/upload/v1618091564/e1mh9cz3wmpfgj8xyzry.jpg','https://res.cloudinary.com/sistemas-granados/image/upload/v1618018375/x3sv8qvpfd1ayan6uuz2.jpg','https://abjingenieros.com/wp-content/uploads/2020/02/doctora-sm.png',true);
-INSERT INTO persona VALUES(DEFAULT,'15','1501','150101',1,'40623681','Jose','ROMEL','BOLIVAR','923667760','av. 24 de octubre lt2 mz 27-3 de octubre de villa','1980-05-09',1,'jose.romel@gmail.com','https://res.cloudinary.com/sistemas-granados/image/upload/v1618018473/klgdfbwkqrkdyn1o9fui.jpg','https://res.cloudinary.com/sistemas-granados/image/upload/v1618018480/gn71gydqah5p6hlg8igf.jpg','https://image.freepik.com/foto-gratis/doctor-sonriendo-estetoscopio_1154-36.jpg',true);
+INSERT INTO persona VALUES(DEFAULT,'15','1501','150101',1,'40623679','Miguel','Rodriguez','Salazar','923667760','LURIN','1992-05-09',1,'miguel.rodriguez@gmail.com','https://res.cloudinary.com/sistemas-granados/image/upload/v1618018473/klgdfbwkqrkdyn1o9fui.jpg','https://res.cloudinary.com/sistemas-granados/image/upload/v1618018480/gn71gydqah5p6hlg8igf.jpg','https://image.freepik.com/foto-gratis/doctor-sonriendo-estetoscopio_1154-36.jpg',true);
+INSERT INTO persona VALUES(DEFAULT,'15','1501','150101',1,'40623680','Mario','Garcia','Castilla','923667760','av. 24 de octubre lt2 mz 27-3 de octubre de villa','1980-05-09',2,'mario.garcia@gmail.com','https://res.cloudinary.com/sistemas-granados/image/upload/v1618091564/e1mh9cz3wmpfgj8xyzry.jpg','https://res.cloudinary.com/sistemas-granados/image/upload/v1618018375/x3sv8qvpfd1ayan6uuz2.jpg','https://abjingenieros.com/wp-content/uploads/2020/02/doctora-sm.png',true);
+INSERT INTO persona VALUES(DEFAULT,'15','1501','150101',1,'40623681','Jose','Romel','Bolivar','923667760','av. 24 de octubre lt2 mz 27-3 de octubre de villa','1980-05-09',1,'jose.romel@gmail.com','https://res.cloudinary.com/sistemas-granados/image/upload/v1618018473/klgdfbwkqrkdyn1o9fui.jpg','https://res.cloudinary.com/sistemas-granados/image/upload/v1618018480/gn71gydqah5p6hlg8igf.jpg','https://image.freepik.com/foto-gratis/doctor-sonriendo-estetoscopio_1154-36.jpg',true);
 
 INSERT INTO persona VALUES(DEFAULT,'15','1501','150101',1,'40623682','Dario','Salvatierra','lopez','923667760','av. 24 de octubre lt2 mz 27-3 de octubre de villa','1980-05-09',1,'dario.salvatierra@gmail.com','','','https://res.cloudinary.com/sistemas-granados/image/upload/v1618271851/gcbfupedwhurf4ctgxw9.png',true);
 INSERT INTO persona VALUES(DEFAULT,'15','1501','150101',1,'40623683','Francisco','Novoa','Diaz','923667760','LURIN','1992-05-09',1,'francisco.novoa@gmail.com','https://res.cloudinary.com/sistemas-granados/image/upload/v1618018473/klgdfbwkqrkdyn1o9fui.jpg','https://res.cloudinary.com/sistemas-granados/image/upload/v1618018480/gn71gydqah5p6hlg8igf.jpg','https://image.freepik.com/foto-gratis/doctor-sonriendo-estetoscopio_1154-36.jpg',true);
@@ -2172,139 +2172,185 @@ INSERT INTO persona VALUES(DEFAULT,'15','1501','150101',1,'40623685','Jhon','Rom
 /*CLIENTE*/
 INSERT INTO persona VALUES(DEFAULT,'15','1501','150101',1,'40623686','Astrid','Jayo','Palomino','923667760','av. 24 de octubre lt2 mz 27-3 de octubre de villa','1980-05-09',1,'astrid.jayo@gmail.com','https://res.cloudinary.com/sistemas-granados/image/upload/v1650424000/yqn47coxvxkynloguqiz.png','https://res.cloudinary.com/sistemas-granados/image/upload/v1618018480/gn71gydqah5p6hlg8igf.jpg','https://res.cloudinary.com/sistemas-granados/image/upload/v1650424000/yqn47coxvxkynloguqiz.png',true);
 
-INSERT INTO especialidad VALUES(1,'ELECTRONICA','','',true,true);
-INSERT INTO especialidad VALUES(2,'LINEA BLANCA','','',true,true);
-INSERT INTO especialidad VALUES(3,'ELECTRICISTA','','',true,true);
 
-insert into tecnico (id_especialidad,id_persona,especialidad,estado)values(1,2,'Electronica',true);
-insert into tecnico (id_especialidad,id_persona,especialidad,estado)values(2,3,'Linea Blanca',true);
-insert into tecnico (id_especialidad,id_persona,especialidad,estado)values(3,4,'Electisista',true);
+INSERT INTO especialidad VALUES(1,'Electronica','','',true,true);
+INSERT INTO especialidad VALUES(2,'Reballing','','',true,true);
+INSERT INTO especialidad VALUES(3,'Mantenimiento','','',true,true);
+INSERT INTO especialidad VALUES(4,'Software y Sistemas','','',true,true);
 
+insert into tecnico (id_especialidad,id_persona,especialidad,estado)values(1,5,'Electronica',true);
+insert into tecnico (id_especialidad,id_persona,especialidad,estado)values(2,6,'Reballing',true);
+insert into tecnico (id_especialidad,id_persona,especialidad,estado)values(3,7,'Mantenimiento',true);
+insert into tecnico (id_especialidad,id_persona,especialidad,estado)values(4,8,'Software y Sistemas',true);
+
+insert into categoria(categoria,imagen,estado)values('computadoras','https://res.cloudinary.com/sistemas-granados/image/upload/v1699062686/pngwing.com_lmmo5s.png',true);
+insert into categoria(categoria,imagen,estado)values('laptos','https://res.cloudinary.com/sistemas-granados/image/upload/v1699063133/laptps_uxodbg.jpg',true);
+insert into categoria(categoria,imagen,estado)values('servicios','https://res.cloudinary.com/sistemas-granados/image/upload/v1699141379/servicios_bfzce1.jpg',true);
+
+insert into producto (id_categoria,id_tipo_producto,producto,imagen,precio,cantidad,estado)values(1,1,'Computadora HP CORE I5 16 RAM','https://res.cloudinary.com/sistemas-granados/image/upload/v1699063731/HP2_x44mar.jpg',1500,100,true);
+insert into producto (id_categoria,id_tipo_producto,producto,imagen,precio,cantidad,estado)values(1,1,'Computadora HP CORE I3 8 RAM','https://res.cloudinary.com/sistemas-granados/image/upload/v1699063738/HP_zmb2ib.webp',1200,100,true);
+insert into producto (id_categoria,id_tipo_producto,producto,imagen,precio,cantidad,estado)values(2,1,'Laptop ThinkPad L14 2da Gen','https://res.cloudinary.com/sistemas-granados/image/upload/v1699064066/lenovo2_jzc5vo.webp',3000,100,true);
+insert into producto (id_categoria,id_tipo_producto,producto,imagen,precio,cantidad,estado)values(2,1,'Lenovo ThinkBook L14 2da Gen','https://res.cloudinary.com/sistemas-granados/image/upload/v1699063731/HP2_x44mar.jpg',2500,100,true);
+
+insert into producto (id_categoria,id_tipo_producto,producto,imagen,precio,cantidad,estado)values(3,2,'Mantenimiento','https://res.cloudinary.com/sistemas-granados/image/upload/v1699063731/HP2_x44mar.jpg',100,0,true);
+insert into producto (id_categoria,id_tipo_producto,producto,imagen,precio,cantidad,estado)values(3,2,'Cambio de Disco Duro','https://res.cloudinary.com/sistemas-granados/image/upload/v1699063731/HP2_x44mar.jpg',100,0,true);
+insert into producto (id_categoria,id_tipo_producto,producto,imagen,precio,cantidad,estado)values(3,2,'Reparacion','https://res.cloudinary.com/sistemas-granados/image/upload/v1699063731/HP2_x44mar.jpg',100,0,true);
+insert into producto (id_categoria,id_tipo_producto,producto,imagen,precio,cantidad,estado)values(3,2,'Software POS','https://res.cloudinary.com/sistemas-granados/image/upload/v1699142544/Blog-Importance-of-Restaurant-POS_sphaaw.jpg',1200,0,true);
+/*EN CALENDARIO AGREGAR PRODUCTOS DE TIPO SERVICIO PORQUE SON LOS SERVICIOS QUE SE VA MOSTRAR*/
 /*LUNES*/
 
-insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,1,1,1,true,true);
-insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,1,1,2,true,true);
-insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,1,1,3,true,true);
-insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,1,1,4,true,true);
-insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,1,1,5,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,1,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,1,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,1,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,1,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,1,5,true,true);
 
-insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,2,1,1,true,true);
-insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,2,1,2,true,true);
-insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,2,1,3,true,true);
-insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,2,1,4,true,true);
-insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,2,1,5,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,1,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,1,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,1,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,1,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,1,5,true,true);
 
-insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,3,1,1,true,true);
-insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,3,1,2,true,true);
-insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,3,1,3,true,true);
-insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,3,1,4,true,true);
-insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,3,1,5,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,1,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,1,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,1,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,1,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,1,5,true,true);
 
-insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(9,4,1,1,true,true);
-insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(9,4,1,2,true,true);
-insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(9,4,1,3,true,true);
-insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(9,4,1,4,true,true);
-insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(9,4,1,5,true,true);
-
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,1,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,1,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,1,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,1,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,1,5,true,true);
 
 /*MARTES*/
 
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,3,1,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,3,2,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,3,3,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,3,4,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,3,5,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,2,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,2,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,2,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,2,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,2,5,true,true);
 
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,3,1,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,3,2,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,3,3,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,3,4,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,3,5,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,2,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,2,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,2,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,2,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,2,5,true,true);
 
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,3,1,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,3,2,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,3,3,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,3,4,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,3,5,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,2,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,2,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,2,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,2,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,2,5,true,true);
+
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,2,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,2,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,2,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,2,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,2,5,true,true);
 
 /*MIERCOLES*/
 
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,4,1,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,4,2,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,4,3,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,4,4,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,4,5,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,3,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,3,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,3,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,3,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,3,5,true,true);
 
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,4,1,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,4,2,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,4,3,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,4,4,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,4,5,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,3,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,3,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,3,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,3,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,3,5,true,true);
 
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,4,1,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,4,2,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,4,3,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,4,4,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,4,5,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,3,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,3,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,3,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,3,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,3,5,true,true);
+
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,3,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,3,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,3,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,3,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,3,5,true,true);
 
 /*JUEVES*/
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,5,1,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,5,2,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,5,3,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,5,4,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,5,5,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,4,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,4,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,4,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,4,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,4,5,true,true);
 
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,5,1,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,5,2,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,5,3,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,5,4,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,5,5,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,4,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,4,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,4,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,4,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,4,5,true,true);
 
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,5,1,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,5,2,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,5,3,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,5,4,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,5,5,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,4,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,4,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,4,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,4,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,4,5,true,true);
+
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,4,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,4,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,4,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,4,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,4,5,true,true);
 
 /*VIERNES*/
 
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,6,1,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,6,2,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,6,3,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,6,4,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,6,5,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,5,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,5,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,5,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,5,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,5,5,true,true);
 
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,6,1,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,6,2,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,6,3,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,6,4,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,6,5,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,5,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,5,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,5,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,5,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,5,5,true,true);
 
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,6,1,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,6,2,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,6,3,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,6,4,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,6,5,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,5,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,5,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,5,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,5,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,5,5,true,true);
+
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,5,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,5,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,5,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,5,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,5,5,true,true);
 
 /*SABADO*/
 
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,7,1,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,7,2,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,7,3,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,7,4,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(1,7,5,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,6,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,6,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,6,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,6,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(5,1,6,5,true,true);
 
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,7,1,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,7,2,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,7,3,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,7,4,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(2,7,5,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,6,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,6,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,6,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,6,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(6,2,6,5,true,true);
 
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,7,1,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,7,2,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,7,3,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,7,4,true,true);
-insert into calendario(id_tecnico,id_dia,id_hora,libre,estado)values(3,7,5,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,6,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,6,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,6,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,6,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(7,3,6,5,true,true);
+
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,6,1,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,6,2,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,6,3,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,6,4,true,true);
+insert into calendario(id_producto,id_tecnico,id_dia,id_hora,libre,estado)values(8,4,6,5,true,true);
 
 
 insert into usuario (id_persona,id_rol,id_tipo_usuario,usuario,password,estado) values(1,1,2,'mgranados','1421',true);
@@ -2338,16 +2384,12 @@ insert into permiso (id_grupo,id_rol,id_modulo,orden,estado)values(1,1,7,7,true)
 insert into permiso (id_grupo,id_rol,id_modulo,orden,estado)values(1,1,8,8,true);
 /**/
 
-  insert into categoria (categoria,imagen,estado)values('celulares','',true);
-  insert into categoria (categoria,imagen,estado)values('audifonos','',true);
-  insert into categoria (categoria,imagen,estado)values('carcasas','',true);
-  insert into categoria (categoria,imagen,estado)values('repuestos','',true);
 
-INSERT INTO repuesto (repuesto,precio,estado)values('MOTOR PARA LIQUADORA OSTER',100,true);
-INSERT INTO repuesto (repuesto,precio,estado)values('TRANSISTOR PARA SMART TV LG',100,true);
-INSERT INTO repuesto (repuesto,precio,estado)values('MOTOR PARA LAVADORA LG',150,true);
-INSERT INTO repuesto (repuesto,precio,estado)values('DISCO DURO PARA LAPTOP',250,true);
-INSERT INTO repuesto (repuesto,precio,estado)values('PLACA MADRE PARA COMPUTADORA CORE I 5 ',400,true);
+INSERT INTO repuesto (repuesto,precio,estado)values('DISCO DURO KINGSTON 500 GB',400,true);
+INSERT INTO repuesto (repuesto,precio,estado)values('MEMORIA RAM 16 GB',200,true);
+INSERT INTO repuesto (repuesto,precio,estado)values('PANTALLA LED 14.1',150,true);
+INSERT INTO repuesto (repuesto,precio,estado)values('DISCO DURO HP 1 TB',250,true);
+INSERT INTO repuesto (repuesto,precio,estado)values('CAMARA WEB PARA LAPTOP',100,true);
 
 INSERT INTO forma_pago (forma_pago,orden,estado)VALUES('EFECTIVO',1,true);
 INSERT INTO forma_pago (forma_pago,orden,estado)VALUES('VISA',2,true);
@@ -2362,4 +2404,6 @@ INSERT INTO tipo_atencion (tipo_atencion,estado)values('ATENTIDO',true);
 INSERT INTO tipo_atencion (tipo_atencion,estado)values('REPROGRAMADO',true);
 
 
-insert into recepcion (id_usuario,id_cliente,equipo,marca,modelo,serie,descripcion,fecha,hora,entregado,estado)values(4,2,'CELULAR','SANSUNG','S7','S0125478','NO PRENDE',current_date,to_char(current_timestamp, 'HH12:MI:SS'),false,true);
+--insert into recepcion (id_usuario,id_cliente,equipo,marca,modelo,serie,descripcion,fecha,hora,entregado,estado)values(4,2,'CELULAR','SANSUNG','S7','S0125478','NO PRENDE',current_date,to_char(current_timestamp, 'HH12:MI:SS'),false,true);
+
+
